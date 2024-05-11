@@ -1,60 +1,39 @@
 package com.zelda.zelda.modele;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Terrain {
     private int[][] terrain = {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,3,3,3},
-            {3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,3,3,3},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+            {5,5,3,3,3,3,17,6,1,17,3,3,3,3,3,3,3,5},
+            {3,3,3,3,3,16,17,6,1,16,3,3,3,3,3,3,3,5},
+            {3,3,3,3,3,17,17,6,1,17,16,3,3,3,3,3,3,5},
+            {3,3,17,16,16,17,1,6,1,16,16,17,17,17,16,3,3,17},
+            {16,16,16,16,16,1,1,6,1,1,1,1,1,1,1,1,17,17},
+            {1,1,1,1,9,8,8,13,8,8,8,8,7,8,13,8,8,8},
+            {16,16,16,1,6,17,17,17,1,17,17,16,6,1,1,1,1,1},
+            {5,16,16,1,6,16,17,1,14,1,17,17,6,1,17,16,17,16},
+            {5,1,1,8,12,17,17,17,1,16,17,17,6,1,1,16,17,17},
+            {5,5,16,16,10,8,8,8,8,8,8,8,11,1,1,5,5,5}
     };
 
     public Terrain() {
         //terrain =
     }
 
-    public int longeurTerrain(){
-        int cpt = 0;
-        for (int i = 0;i<this.terrain.length;i++){
-            cpt++;
-        }
-        return cpt;
-    }
 
-    public int largeurTerrain(){
-        int cpt = 0;
-        for (int j = 0;j<this.terrain[0].length;j++){
-            cpt++;
-        }
-        return cpt;
-    }
 
     public int[][] getTerrain() {
-        return terrain;
+        return this.terrain;
     }
 
-    /*
-    public void remplirTerrain(){
-        for(int i = 0;i<longeur;i++){
-            for (int j = 0;j<largeur;j++){
-                this.terrain[i][j] = 0;
-            }
-        }
+
+
+
+    public boolean dansTerrain(int x, int y){
+        return (0 <= x && x< 576-32 && 0<=y && y<320-32);
     }
 
-    public void afficheTerrain(){
-        for(int i = 0;i<longeur;i++){
-            for (int j = 0;j<largeur;j++){
-                System.out.print(this.terrain[i][j]);
-            }
-            System.out.println();
-        }
-    }
 
-     */
+
 }
