@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Personnage {
+public class Personnage { //Crée un personnage
     private Image image;
     private IntegerProperty x = new SimpleIntegerProperty();
     private IntegerProperty y = new SimpleIntegerProperty();
@@ -24,6 +24,7 @@ public class Personnage {
         this.image = new Image(String.valueOf(HelloApplication.class.getResource(nomImage)));
         this.imageView=new ImageView(this.image);
     }
+
 
     public ImageView getImageView() {
         return this.imageView;
@@ -47,17 +48,13 @@ public class Personnage {
         return x.getValue();
     }
 
-    public IntegerProperty xProperty() {
-        return x;
-    }
+
 
     public int getY() {
         return y.getValue();
     }
 
-    public IntegerProperty yProperty() {
-        return y;
-    }
+
 
     public void setX(int x) {
         this.x.set(x);

@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zelda.zelda.Controleur">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zelda.zelda.controleur.Controleur">
    <top>
-      <Label alignment="CENTER" prefHeight="54.0" prefWidth="114.0" text="Jeu Zelda" BorderPane.alignment="CENTER">
+      <Label alignment="CENTER" text="Jeu Zelda" BorderPane.alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
@@ -27,4 +27,13 @@
          </children>
       </Pane>
    </center>
+   <left>
+      <Pane prefHeight="320.0" prefWidth="277.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="284.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

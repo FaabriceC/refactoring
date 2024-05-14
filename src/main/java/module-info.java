@@ -6,4 +6,6 @@ module com.zelda.zelda {
 
     opens com.zelda.zelda to javafx.fxml;
     exports com.zelda.zelda;
+    exports com.zelda.zelda.controleur;
+    opens com.zelda.zelda.controleur to javafx.fxml;
 }
