@@ -2,47 +2,80 @@ package com.zelda.zelda.modele;
 
 
 
-import com.zelda.zelda.HelloApplication;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+
+
 
 public class Personnage { //Crée un personnage
-    private Image image;
     private IntegerProperty x = new SimpleIntegerProperty();
     private IntegerProperty y = new SimpleIntegerProperty();
     protected Terrain terrain;
-    private String nom;
-    private ImageView imageView;
+    private final String nom;
+    protected IntegerProperty direction;
+    protected IntegerProperty indicePas;
 
-    public Personnage(int x, int y, String nom, Terrain terrain,String nomImage) {
+    private boolean statutPas;
+
+
+    public Personnage(int x, int y, String nom, Terrain terrain) {
         this.x.set(x);
         this.y.set(y);
         this.nom = nom;
         this.terrain = terrain;
-        this.image = new Image(String.valueOf(HelloApplication.class.getResource(nomImage)));
-        this.imageView=new ImageView(this.image);
-    }
+        this.direction = new SimpleIntegerProperty(0);
+        this.indicePas= new SimpleIntegerProperty(0);
 
 
-    public ImageView getImageView() {
-        return this.imageView;
-    }
 
-    public void setImageView (ImageView imageView) {
-        this.imageView = imageView;
     }
 
 
 
-    public Image setImage(Image image) {
-        return image;
+    public IntegerProperty xProperty() {
+        return x;
     }
 
-    public Image getImage() {
-        return image;
+    public IntegerProperty yProperty() {
+        return y;
     }
+
+    public IntegerProperty directionProperty() {
+        return direction;
+    }
+
+    public IntegerProperty indicePasProperty() {
+        return indicePas;
+    }
+
+    public int[] margeErreur (int margeX,int margeY){
+        int[]marge=new int[2];
+        switch (direction.getValue()) {
+            case 4:
+                margeX = 10;
+                margeY= 26;
+                break;
+            case 2:
+                margeX = 26;
+                margeY=26;
+                break;
+            case 1:
+                margeX = 16;
+                margeY = 26;
+                break;
+            case 3:
+                margeX = 16;
+                margeY = 26;
+                break;
+        }
+        marge[0]=margeX;
+        marge[1]=margeY;
+        return marge;
+    }
+
+
 
     public int getX() {
         return x.getValue();
@@ -68,14 +101,13 @@ public class Personnage { //Crée un personnage
         return nom;
     }
 
+    public boolean isStatutPas() {
+        return statutPas;
+    }
 
-
-
-
-
-
-
+    public void setStatutPas(boolean statutPas) {
+        this.statutPas = statutPas;
+    }
 }
-
 
 

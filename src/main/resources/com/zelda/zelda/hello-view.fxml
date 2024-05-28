@@ -23,6 +23,7 @@
       <Pane BorderPane.alignment="CENTER">
          <children>
             <TilePane fx:id="tile" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefTileHeight="32.0" prefTileWidth="32.0" prefWidth="576.0" />
+            <Pane fx:id="panneauDeco" prefHeight="320.0" prefWidth="576.0" />
             <Pane fx:id="panneauJeu" prefHeight="320.0" prefWidth="576.0" />
          </children>
       </Pane>

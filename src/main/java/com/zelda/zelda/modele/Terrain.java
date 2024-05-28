@@ -19,13 +19,14 @@ public class Terrain {
             {5,1,1,8,12,17,17,17,1,16,17,17,6,1,1,16,17,17},
             {5,5,16,16,10,8,8,8,8,8,8,8,11,1,1,5,5,5}
     };
-
-
-
-
-    //Fonction qui permet d'obtenir le terrain
-    public int[][] getTerrain() {
-        return this.terrain;
+    public int getHauteurLength(){
+        return terrain[0].length;
+    }
+    public int getLongueur(){
+        return terrain.length;
+    }
+    public int getCase(int x,int y){
+        return terrain[x][y];
     }
 
 
@@ -33,36 +34,20 @@ public class Terrain {
 
     //Fonction permettant de verifier que les du point (x,y) se trouve dans les limites du terrain
     public boolean dansTerrain(int x, int y){
-        return (0 <= x && x< 576-32 && 0<=y && y<320-32);
+        return (0 <= x && x< terrain[0].length*32-32 && 0<=y && y<terrain.length*32-32);
     }
 
 
     //Fonction qui permet de detecter les tuiles avec lesquelle les personnages entre en collision
-    public boolean collisionAvecTuile(int x, int y,String direction) {
+    public boolean collisionAvecTuile(int x, int y,Personnage personnage) {
         // margeX défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des x
         int margeX=0;
         // margeY défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des y
         int margeY=0;
 
 
-        switch (direction) {
-            case "LEFT":
-                margeX = 10;
-                margeY= 26;
-                break;
-            case "RIGHT":
-                margeX = 26;
-                margeY=26;
-                break;
-            case "UP":
-                margeX = 16;
-                margeY = 26;
-                break;
-            case "DOWN":
-                margeX = 16;
-                margeY = 26;
-                break;
-        }
+        margeX=personnage.margeErreur(margeX,margeY)[0];
+        margeY=personnage.margeErreur(margeX,margeY)[1];
 
 
         int tuileX = (x+margeX) / 32;

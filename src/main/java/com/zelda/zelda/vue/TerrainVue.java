@@ -38,9 +38,9 @@ public class TerrainVue {
 
 
 
-        for (int i = 0; i < this.t.getTerrain().length; i++) {
-            for (int j = 0; j < this.t.getTerrain()[i].length; j++) {
-                int nbTile = this.t.getTerrain()[i][j];
+        for (int i = 0; i < this.t.getLongueur(); i++) {
+            for (int j = 0; j < this.t.getHauteurLength(); j++) {
+                int nbTile = this.t.getCase(i,j);
 
                 switch (nbTile) {
                     case 1:

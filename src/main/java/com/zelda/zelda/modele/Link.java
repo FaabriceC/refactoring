@@ -1,35 +1,52 @@
 package com.zelda.zelda.modele;
 
 
-import com.zelda.zelda.HelloApplication;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 
 public class Link extends Personnage {
-    private String nomImageActuelle;
+
 
     public Link(String nom, int x, int y, Terrain t) {
-        super(x, y, nom, t,"Link1.png");
-        this.nomImageActuelle = "Link1.png";
+        super(x, y, nom, t);
 
     }
 
-    public void setNomImageActuelle(String nomImageActuelle) {
-        this.nomImageActuelle = nomImageActuelle;
+
+    public void  seDeplace(Link link) {
+        int deplacementX = 0;
+        int deplacementY = 0;
+
+
+        if (this.direction.getValue() == 2) {
+            deplacementX += 2;
+        } else if (this.direction.getValue() == 4) {
+            deplacementX -= 2;
+        } else if (this.direction.getValue() == 3) {
+            deplacementY += 2;
+        } else if (this.direction.getValue() == 1) {
+            deplacementY -= 2;
+        }
+
+        int newX = this.getX() + deplacementX;
+        int newY = this.getY() + deplacementY;
+
+        if (terrain.dansTerrain(newX, newY) && !terrain.collisionAvecTuile(newX, newY,link)) {
+
+
+            this.setX(newX);
+            this.setY(newY);
+        }
     }
 
-    public String getNomImageActuelle() {
-        return this.nomImageActuelle;
-    }
+
+
 
     @Override
     public String toString() {
         return "Link" + super.toString();
     }
 
-    public ImageView getImageView() {
-        return super.getImageView();
-    }
+
 
 
 

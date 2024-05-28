@@ -3,25 +3,32 @@ package com.zelda.zelda.modele;
 import com.zelda.zelda.HelloApplication;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-/*
+
+
 public class Decoration {
-    private Image image;
+
     private IntegerProperty x = new SimpleIntegerProperty();
     private IntegerProperty y = new SimpleIntegerProperty();
     protected Terrain terrain;
     private String nom;
-    private ImageView imageView;
 
-    public Decoration(int x, int y, String nom, Terrain terrain,String nomImage) {
+
+    public Decoration(int x, int y, String nom, Terrain terrain) {
         this.x.set(x);
         this.y.set(y);
         this.nom = nom;
         this.terrain = terrain;
-        this.image = new Image(String.valueOf(HelloApplication.class.getResource(nomImage)));
-        this.imageView=new ImageView(this.image);
+
     }
+
+    public IntegerProperty xProperty() {
+        return x;
+    }
+
+    public IntegerProperty yProperty() {
+        return y;
+    }
+
 
 
     public int getX() {
@@ -42,8 +49,4 @@ public class Decoration {
         this.y.set(y);
     }
 
-    public ImageView getImageView() {
-        return this.imageView;
-    }
 }
-*/
