@@ -65,7 +65,7 @@
             initTerrain();
             initDeco();
             initLink();
-           // initMonstre();
+            initMonstre();
 
             controleurKey = new ControleurKey();
             controleurKey.initKeyHandler(panneauJeu, link);
@@ -92,13 +92,18 @@
 
         public void initLink(){   // Start la gameLoop et ajoute link à une certaine position
             this.link=new Link("link",256,224,this.t);
-            this.linkVue=new LinkVue(link,"Link3.png");
+            this.linkVue=new LinkVue(link,"Link3.gif");
             this.panneauJeu.getChildren().add(this.linkVue.getImageView());
+            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur1());
+            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur2());
+            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur3());
+            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur4());
+            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur5());
 
         }
 
         public void initMonstre(){
-            this.monstre = new Monstre(10,250,250,"SlimeTropBien",this.t);
+            this.monstre = new Monstre(10,300,250,"SlimeTropBien",this.t);
             this.monstreVue = new MonstreVue(monstre, "slime3.png");
             this.panneauJeu.getChildren().add(this.monstreVue.getImageView());
         }
