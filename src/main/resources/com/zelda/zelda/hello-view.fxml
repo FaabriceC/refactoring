@@ -24,7 +24,16 @@
          <children>
             <TilePane fx:id="tile" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefTileHeight="32.0" prefTileWidth="32.0" prefWidth="576.0" />
             <Pane fx:id="panneauDeco" prefHeight="320.0" prefWidth="576.0" />
-            <Pane fx:id="panneauJeu" prefHeight="320.0" prefWidth="576.0" />
+            <Pane fx:id="panneauJeu" prefHeight="320.0" prefWidth="576.0">
+               <children>
+                  <Pane fx:id="backgroundPaneConso" layoutX="520.0" opacity="0.2" prefHeight="154.0" prefWidth="56.0" style="-fx-background-color: black;" visible="false"   />
+                  <ToolBar fx:id="consommable" layoutX="520.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="56.0"  style="-fx-background-color: transparent;" visible="false" />
+                  <Pane fx:id="backgroundPane" layoutX="174.0" layoutY="280.0" opacity="0.2" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: black;" />
+                  <ToolBar fx:id="itemToolBar" layoutX="174.0" layoutY="280.0" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: transparent;" />
+
+
+
+               </children></Pane>
          </children>
       </Pane>
    </center>

@@ -1,133 +1,196 @@
-    package com.zelda.zelda.controleur;
+package com.zelda.zelda.controleur;
 
-    import com.zelda.zelda.HelloApplication;
-    //import com.zelda.zelda.modele.Decoration;
-    import com.zelda.zelda.modele.Decoration;
-    import com.zelda.zelda.modele.Link;
-    //import com.zelda.zelda.vue.DecorationVue;
-    import com.zelda.zelda.modele.Monstre;
-    import com.zelda.zelda.vue.DecorationVue;
-    import com.zelda.zelda.vue.LinkVue;
-    import com.zelda.zelda.vue.MonstreVue;
-    import com.zelda.zelda.vue.TerrainVue;
-    import javafx.animation.Timeline;
-    import javafx.application.Platform;
-    import javafx.fxml.FXML;
-    import javafx.fxml.Initializable;
-    import javafx.scene.image.Image;
-    import javafx.scene.image.ImageView;
-    import javafx.scene.input.KeyCode;
-    import javafx.scene.layout.Pane;
-    import javafx.scene.layout.TilePane;
-    import com.zelda.zelda.modele.Terrain;
-    import javafx.scene.input.KeyEvent;
+import com.zelda.zelda.Lanceur;
+import com.zelda.zelda.modele.*;
+import com.zelda.zelda.modele.Consommable.Bracelet;
+import com.zelda.zelda.modele.Consommable.Consommable;
+import com.zelda.zelda.modele.Consommable.PotionForce;
+import com.zelda.zelda.modele.Consommable.PotionSoin;
+import com.zelda.zelda.modele.acteur.*;
+import com.zelda.zelda.modele.armes.Arc;
+import com.zelda.zelda.modele.armes.Arme;
+import com.zelda.zelda.modele.armes.Boomerang;
+import com.zelda.zelda.modele.armes.Epee;
+import com.zelda.zelda.modele.dynamique.BlockDynamique;
+import com.zelda.zelda.vue.ConsommableVue;
+import com.zelda.zelda.vue.InventaireVue;
+import com.zelda.zelda.vue.ProjectileVue;
+import com.zelda.zelda.vue.acteur.LinkVue;
+import com.zelda.zelda.vue.acteur.MonstreVue;
+import com.zelda.zelda.vue.TerrainVue;
+import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
+import javafx.collections.ListChangeListener;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 
-    import java.net.URL;
-    import java.util.ArrayList;
-    import java.util.HashMap;
-    import java.util.Map;
-    import java.util.ResourceBundle;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class Controleur implements Initializable {
+    private Terrain terrain;
+    private TerrainVue terrainVue;
 
-    public class
-    Controleur implements Initializable {
-        private Terrain t;
-
-      /*  private Timeline gameLoop;*/
-        private TerrainVue terrainVue;
-
-
-       // private DecorationVue decorationVue;
-
-        @FXML
-        private TilePane tile;
-        @FXML
-        private Pane panneauJeu;
-
-        @FXML
-        private Pane panneauDeco;
-        private Link link;
-        private LinkVue linkVue;
-        private Monstre monstre;
-        private MonstreVue monstreVue;
-
-        private Decoration decoration;
-        private DecorationVue decoVue;
+    @FXML
+    private Pane backgroundPane;
+    @FXML
+    private ToolBar itemToolBar;
+    private Epee epee;
+    private PotionSoin potionSoin;
+    private PotionForce potionForce;
 
 
-        private GameLoop gameLoop;
-
-        private ControleurKey controleurKey;
-
+    @FXML
+    private Pane panneauJeu;
 
 
-        public void initialize(URL location, ResourceBundle resources) { //l'initialisation principale
-            initTerrain();
-            initDeco();
-            initLink();
-            initMonstre();
-
-            controleurKey = new ControleurKey();
-            controleurKey.initKeyHandler(panneauJeu, link);
+    private Link link;
+    private LinkVue linkVue;
 
 
-            this.gameLoop = new GameLoop(link,monstre);
-            this.gameLoop.start();
+    @FXML
+    private Pane backgroundPaneConso;
 
+    private GameLoop gameLoop;
 
+    private ControleurKey controleurKey;
+    private Environnement env;
+    private Inventaire inv;
+    private InventaireVue inventaireVue;
 
-        }
+    @FXML
+    private ToolBar consommable;
 
-        public void initDeco(){
-         DecorationVue.initDecorations(panneauJeu,t);
+    private ProjectileVue proVue;
+    private ProjectileVue proVue2;
 
-        }
+    public void initialize(URL location, ResourceBundle resources) {
+        this.env = new Environnement();
+        initTerrain();
 
+        initDecorations();
+        initLink();
+        initInventaire();
+        initListObs();
+        initArmes();
+        initConsommable();
+        initMonstre();
 
-        public void initTerrain(){
-            this.t = new Terrain();
-            this.terrainVue = new TerrainVue(t);
-            this.terrainVue.initTerrain(tile);
-        }
+        controleurKey = new ControleurKey(inventaireVue);
+        controleurKey.initKeyHandler(panneauJeu, link);
 
-        public void initLink(){   // Start la gameLoop et ajoute link à une certaine position
-            this.link=new Link("link",256,224,this.t);
-            this.linkVue=new LinkVue(link,"Link3.gif");
-            this.panneauJeu.getChildren().add(this.linkVue.getImageView());
-            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur1());
-            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur2());
-            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur3());
-            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur4());
-            this.panneauJeu.getChildren().add(linkVue.getImageViewCoeur5());
+        this.gameLoop = new GameLoop(link, env);
+        this.gameLoop.start();
 
-        }
-
-        public void initMonstre(){
-            this.monstre = new Monstre(10,300,250,"SlimeTropBien",this.t);
-            this.monstreVue = new MonstreVue(monstre, "slime3.png");
-            this.panneauJeu.getChildren().add(this.monstreVue.getImageView());
-        }
-
-       /* public void initPersos(){  // Pour ajouter les PNJ dans le futur
-
-            ImageView imageView = new ImageView(this.link.getImage());
-            imageView.setFitWidth(32);
-            imageView.setFitHeight(32);
-
-
-            this.panneauJeu.getChildren().add(imageView);
-        }*/
-
-     public Link getLink() {
-            return this.link;
-        }
-
-
-
-
-
-
-
-
+        initPane();
 
     }
+
+    public void initTerrain() {
+        terrain = new Terrain("/com/zelda/zelda/MapZelda.json");
+        try {
+            terrainVue = new TerrainVue(panneauJeu, terrain);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        terrainVue.affichageVue();
+    }
+
+    public void initPane() {
+        backgroundPaneConso.toFront();
+        consommable.toFront();
+        backgroundPane.toFront();
+        itemToolBar.toFront();
+    }
+
+    public void initDecorations() {
+        BlockDynamique blocktest = new BlockDynamique(600, 300, "arbre1.png", terrain);
+        terrain.ajouterBlocDynamique(blocktest);
+        BlockDynamiqueVue blocktestVue = new BlockDynamiqueVue(blocktest, "arbre1.png");
+        panneauJeu.getChildren().add(blocktestVue.getImageView());
+    }
+
+    public void initLink() {
+        this.link = new Link("link", 800, 400, this.terrain);
+        this.linkVue = new LinkVue(link, panneauJeu, "Link3.gif", backgroundPaneConso, consommable, backgroundPane, itemToolBar);
+        this.panneauJeu.getChildren().add(this.linkVue.getImageView());
+
+
+        for (ImageView coeur : linkVue.getListImageViewsCoeur()) {
+            this.panneauJeu.getChildren().add(coeur);
+        }
+
+        this.proVue = new ProjectileVue(link.getFleche());
+        this.panneauJeu.getChildren().add(this.proVue.getImageView());
+
+//        this.proVue2 = new ProjectileVue(link.getBoomerang());
+//        this.panneauJeu.getChildren().add(proVue2.getImageView());
+    }
+
+
+    public void initArmes(){
+
+        Epee epee = new Epee();
+        this.env.ajouterListeArme(epee);
+        Boomerang boomerang = new Boomerang();
+        this.env.ajouterListeArme(boomerang);
+
+        Arc arc = new Arc();
+        this.env.ajouterListeArme(arc);
+    }
+    public void initListObs(){
+        ListChangeListener<Personnage> test2 = new ListObs(panneauJeu);
+        this.env.getPersonnageListe().addListener(test2);
+
+        ListChangeListener<Arme> test3 = new ListObsArmes(panneauJeu, itemToolBar);
+        this.env.getArmes().addListener(test3);
+
+        ListChangeListener<Consommable> test4 = new ListObsConsommables(panneauJeu, consommable, link);
+        this.env.getConsommables().addListener(test4);
+
+    }
+    public void initConsommable(){
+        Bracelet bracelet = new Bracelet();
+        this.env.ajouterListeConsommable(bracelet);
+
+        Consommable popoDeSoin = new PotionSoin();
+        PotionForce popoDeForce = new PotionForce();
+
+        this.env.ajouterListeConsommable(popoDeSoin);
+        this.env.ajouterListeConsommable(popoDeForce);
+
+    }
+
+    public void initMonstre() {
+        Monstre monstre1 = new Slime(708, 472, this.terrain);
+        Monstre monstre2 = new Slime(750, 472, this.terrain);
+        Monstre monstre3 = new ArbreMonstre(760, 440, this.terrain);
+
+        this.env.ajouter(monstre1);
+        this.env.ajouter(monstre2);
+        this.env.ajouter(monstre3);
+    }
+
+    public void initInventaire() {
+        inv = this.link.getInventaire();
+        this.epee = new Epee();
+        inv.ajouterArme(epee);
+        this.potionSoin = new PotionSoin();
+        this.potionForce = new PotionForce();
+
+        inv.ajouterConsommable(potionSoin);
+        inv.ajouterConsommable(potionForce);
+
+
+
+        this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, link);
+    }
+
+
+}

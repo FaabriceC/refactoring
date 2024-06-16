@@ -1,23 +1,29 @@
 package com.zelda.zelda.controleur;
 
-import com.zelda.zelda.modele.Link;
+import com.zelda.zelda.modele.acteur.Link;
+import com.zelda.zelda.vue.InventaireVue;
+import com.zelda.zelda.vue.acteur.LinkVue;
+import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
+import java.net.URL;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ControleurKey {
+public class ControleurKey  {
 
-    private boolean upPressed = false;
-    private boolean rightPressed = false;
-    private boolean downPressed = false;
-    private boolean leftPressed = false;
-
-    private boolean xPressed = false;
     private final List<KeyCode> keyOrder = new ArrayList<>();
 
-    public ControleurKey() {
+
+
+    private InventaireVue inventaireVue;
+
+    public ControleurKey(InventaireVue inventaireVue) {
+
+        this.inventaireVue=inventaireVue;
     }
 
     public void initKeyHandler(Pane panneauJeu, Link link) {
@@ -28,52 +34,12 @@ public class ControleurKey {
                     if (!keyOrder.contains(key)) {
                         keyOrder.add(key);
                     }
-
-                    switch (key) {
-                        case UP:
-                            upPressed = true;
-                            break;
-                        case RIGHT:
-                            rightPressed = true;
-                            break;
-                        case DOWN:
-                            downPressed = true;
-                            break;
-                        case LEFT:
-                            leftPressed = true;
-                            break;
-                        case X:
-                            xPressed = true;
-                            break;
-                    }
-
-                    link.setStatutPas(true);
-                    link.indicePasProperty().setValue(1);
                     updateLink(link);
                 });
 
                 newScene.setOnKeyReleased(event -> {
                     KeyCode key = event.getCode();
                     keyOrder.remove(key);
-
-                    switch (key) {
-                        case UP:
-                            upPressed = false;
-                            break;
-                        case RIGHT:
-                            rightPressed = false;
-                            break;
-                        case DOWN:
-                            downPressed = false;
-                            break;
-                        case LEFT:
-                            leftPressed = false;
-                            break;
-                        case X:
-                            xPressed = false;
-                            break;
-                    }
-
                     updateLink(link);
                 });
             }
@@ -81,6 +47,20 @@ public class ControleurKey {
     }
 
     private void updateLink(Link link) {
+        boolean upPressed = keyOrder.contains(KeyCode.UP);
+        boolean rightPressed = keyOrder.contains(KeyCode.RIGHT);
+        boolean downPressed = keyOrder.contains(KeyCode.DOWN);
+        boolean leftPressed = keyOrder.contains(KeyCode.LEFT);
+        boolean xPressed = keyOrder.contains(KeyCode.X);
+        boolean fPressed = keyOrder.contains(KeyCode.F);
+        boolean iPressed = keyOrder.contains(KeyCode.I);
+        boolean ePressed = keyOrder.contains(KeyCode.E);
+        boolean uPressed = keyOrder.contains(KeyCode.U);
+        boolean pPressed = keyOrder.contains(KeyCode.P);
+        boolean kPressed = keyOrder.contains(KeyCode.K);
+        boolean lPressed = keyOrder.contains(KeyCode.L);
+        boolean mPressed = keyOrder.contains(KeyCode.M);
+
         int direction = 0;
         boolean moving = false;
 
@@ -91,25 +71,52 @@ public class ControleurKey {
                     if (!downPressed) {
                         direction = 1;
                         moving = true;
+                        link.setDerniereDirection(1);
                     }
                     break;
                 case RIGHT:
                     if (!leftPressed) {
                         direction = 2;
                         moving = true;
+                        link.setDerniereDirection(2);
                     }
                     break;
                 case DOWN:
                     if (!upPressed) {
                         direction = 3;
                         moving = true;
+                        link.setDerniereDirection(3);
                     }
                     break;
                 case LEFT:
                     if (!rightPressed) {
                         direction = 4;
                         moving = true;
+                        link.setDerniereDirection(4);
                     }
+                    break;
+                case X:
+                    xPressed = true;
+                    break;
+
+                case F:
+                    fPressed = true;
+                    break;
+                case U:
+                    uPressed = true;
+                    break;
+                case P:
+                    pPressed = true;
+                    break;
+                case K:
+                    kPressed = true;
+                    break;
+                case L:
+                     lPressed =true ;
+                case M:
+                    mPressed = true;
+                    break;
+                default:
                     break;
             }
             if (moving) {
@@ -117,19 +124,49 @@ public class ControleurKey {
             }
         }
 
-        if (!moving) {
-            link.setStatutPas(false);
-            link.indicePasProperty().setValue(0);
-        } else {
-            link.setStatutPas(true);
-        }
-
+        link.setStatutPas(moving);
+        link.indicePasProperty().setValue(moving ? 1 : 0);
         link.directionProperty().setValue(direction);
 
         if (xPressed) {
             link.setLinkAttaqueTrue();
+
         } else {
             link.setLinkAttaqueFalse();
         }
+        if (fPressed){
+            link.setRamasserArmeTrue();
+
+        }
+        else {
+            link.setRamasserArmeFalse();
+        }
+        if (iPressed){
+            inventaireVue.setVisible();
+
+        }
+        if (ePressed){
+            link.setLinkRamassePotion(true);
+
+        }else{
+            link.setLinkRamassePotion(false);
+        }
+
+        if (uPressed){
+            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(0).getNomPng());
+        } else if(pPressed && link.getInventaire().getInventaireArme().size()>1){
+            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(1).getNomPng());
+        }else if(kPressed && link.getInventaire().getInventaireArme().size()>2){
+            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(2).getNomPng());
+        }else if(lPressed && link.getInventaire().getInventaireArme().size()>3){
+            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(3).getNomPng());
+        }else if(mPressed && link.getInventaire().getInventaireArme().size()>4){
+            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(4).getNomPng());
+        }
+        
+        
+
+
+
     }
 }
