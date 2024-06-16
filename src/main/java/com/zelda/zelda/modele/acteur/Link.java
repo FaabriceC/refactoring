@@ -92,7 +92,7 @@ public class Link extends Personnage {
 
         this.tempAvantDisparitionDeLaFleche = 0;
 
-        this.boomerang = new Projectile(".png");
+        this.boomerang = new Projectile("boomerang.png");
 
         this.tempAvantRetourBoomerang = 0;
 
