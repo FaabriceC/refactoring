@@ -68,7 +68,6 @@ public class Controleur implements Initializable {
     private ToolBar consommable;
 
     private ProjectileVue proVue;
-    private ProjectileVue proVue2;
 
     public void initialize(URL location, ResourceBundle resources) {
         this.env = new Environnement();
@@ -129,8 +128,8 @@ public class Controleur implements Initializable {
         this.proVue = new ProjectileVue(link.getFleche());
         this.panneauJeu.getChildren().add(this.proVue.getImageView());
 
-//        this.proVue2 = new ProjectileVue(link.getBoomerang());
-//        this.panneauJeu.getChildren().add(proVue2.getImageView());
+//        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
+//        this.panneauJeu.getChildren().add(proVueBoomerang.getImageView());
     }
 
 

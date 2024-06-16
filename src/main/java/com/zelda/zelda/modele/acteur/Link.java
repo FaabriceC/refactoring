@@ -415,7 +415,6 @@ public class Link extends Personnage {
                 boomerang.setyProjectile(boomerang.getyProjectile() + 1);
             }
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-            diparitionBoomerang();
         } else if(boomerang.getDire() == 2) {
             if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getY() - monstre.getY()) < 32) {
                 monstreSubitDegat(monstre);
@@ -426,7 +425,6 @@ public class Link extends Personnage {
                 boomerang.setxProjectile(boomerang.getxProjectile() - 1);
             }
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-            diparitionBoomerang();
         } else if(boomerang.getDire() == 3) {
             if (Math.abs(boomerang.getyProjectile() - monstre.getY()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
                 monstreSubitDegat(monstre);
@@ -437,7 +435,6 @@ public class Link extends Personnage {
                 boomerang.setyProjectile(boomerang.getyProjectile() - 1);
             }
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-            diparitionBoomerang();
         } else if(boomerang.getDire() == 4) {
             if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
                 monstreSubitDegat(monstre);
@@ -448,7 +445,6 @@ public class Link extends Personnage {
                 boomerang.setxProjectile(boomerang.getxProjectile() + 1);
             }
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-            diparitionBoomerang();
         }
     }
     public boolean linkMeurt(){

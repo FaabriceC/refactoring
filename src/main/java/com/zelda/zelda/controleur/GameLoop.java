@@ -82,8 +82,6 @@ public class GameLoop extends AnimationTimer {
         if (this.env.getNbMonstre() == 0 ){
             link.getFleche().setxProjectileNull();
             link.getFleche().setyProjectileNull();
-            link.getBoomerang().setxProjectileNull();
-            link.getBoomerang().setyProjectileNull();
         }
         for (int i=0;i<this.env.getArmes().size();i++){
             if (this.env.getArmes().get(i) instanceof Epee){
