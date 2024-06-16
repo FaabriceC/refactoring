@@ -10,8 +10,8 @@ public class PotionForce extends Consommable {
         this.nom = "potionForce.png";
         this.force   = 2;
 
-        this.x = new SimpleIntegerProperty(300);
-        this.y = new SimpleIntegerProperty(150);
+        this.x = new SimpleIntegerProperty(500);
+        this.y = new SimpleIntegerProperty(450);
     }
 
 

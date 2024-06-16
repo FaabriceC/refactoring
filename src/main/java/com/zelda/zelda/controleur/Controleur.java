@@ -170,10 +170,12 @@ public class Controleur implements Initializable {
         Monstre monstre1 = new Slime(708, 472, this.terrain);
         Monstre monstre2 = new Slime(750, 472, this.terrain);
         Monstre monstre3 = new ArbreMonstre(760, 440, this.terrain);
+        Monstre boss = new Boss(4844,868,terrain);
 
         this.env.ajouter(monstre1);
         this.env.ajouter(monstre2);
         this.env.ajouter(monstre3);
+        this.env.ajouter(boss);
     }
 
     public void initInventaire() {
