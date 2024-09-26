@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.zelda.zelda.controleur.Controleur"
+            prefHeight="2240.0" prefWidth="5760.0" style="-fx-background-color: black;">
+
+    <center>
+        <Pane fx:id="paneCoeur" prefWidth="200.0" prefHeight="50.0"/>
+        <Pane fx:id="paneTerrain" prefWidth="5760.0" prefHeight="2240.0"/>
+        <Pane fx:id="panneauJeu" prefWidth="640.0" prefHeight="480.0">
+            <children>
+                <Pane fx:id="backgroundPaneConso" layoutX="1864.0" opacity="0.6" prefHeight="154.0" prefWidth="56.0" style="-fx-background-color: black;" visible="false"   />
+                <ToolBar fx:id="consommable" layoutX="1864.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="56.0"  style="-fx-background-color: transparent;" visible="false" />
+                <Pane fx:id="backgroundPane" layoutX="877.0" layoutY="970.0" opacity="0.6" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: black;" />
+                <ToolBar fx:id="itemToolBar" layoutX="877.0" layoutY="970.0" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: transparent;" />
+            </children>
+        </Pane>
+    </center>
+
+
+</BorderPane>
