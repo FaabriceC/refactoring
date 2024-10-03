@@ -70,11 +70,12 @@ public class Controleur implements Initializable {
     private ProjectileVue proVue;
 
     public void initialize(URL location, ResourceBundle resources) {
-        this.env = new Environnement();
+
         initTerrain();
 
         initDecorations();
         initLink();
+        this.env = new Environnement(link);
         initInventaire();
         initListObs();
         initArmes();

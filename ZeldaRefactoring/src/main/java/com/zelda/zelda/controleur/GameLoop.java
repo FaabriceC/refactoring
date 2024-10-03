@@ -1,8 +1,6 @@
 package com.zelda.zelda.controleur;
 
 
-
-
 import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
@@ -17,7 +15,6 @@ import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer {
     // essayer de eviter ce systeme de delai et le faire via duration second
-
 
     private Link link;
 
@@ -62,90 +59,39 @@ public class GameLoop extends AnimationTimer {
     // Méthode pour rafraîchir la position du personnage
     private void rafraichirLink() {
 
-        link.seDeplace();
-        link.equiperArme();
-        for (int i =0;i<this.env.getPersonnageListe().size();i++){ // TODO dans le modèle
-            if (this.env.getPersonnageListe().get(i) instanceof Monstre){
+        link.agit();
+
+        for (int i = 0; i < this.env.getPersonnageListe().size(); i++) { // TODO dans le modèle
+            if (this.env.getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) this.env.getPersonnageListe().get(i);
-
                 link.attaque(m);
-                if (link.getArmeEquipe() instanceof Arc){
-                    link.flecheSeDeplace(this.link.getFleche(),m);
-                } else if(link.getArmeEquipe() instanceof Boomerang){
-                    link.boomerangSeDeplace(this.link.getBoomerang(),m);
-                }
-
-
+//                if (link.getArmeEquipe() instanceof Arc){
+//                    link.flecheSeDeplace(this.link.getFleche(),m);
+//                } else if(link.getArmeEquipe() instanceof Boomerang){
+//                    link.boomerangSeDeplace(this.link.getBoomerang(),m);
+//                }
+//
+//
             }
 
-        }
-        if(link.linkMeurt()){
-            this.stop();
-        }
+            if (this.env.getNbMonstre() == 0) {
+                link.getFleche().setxProjectileNull();
+                link.getFleche().setyProjectileNull();
+            }
 
 
-        this.env.compteMonstre();
-        if (this.env.getNbMonstre() == 0 ){
-            link.getFleche().setxProjectileNull();
-            link.getFleche().setyProjectileNull();
-        }
-        for (int i=0;i<this.env.getArmes().size();i++){
-            if (this.env.getArmes().get(i) instanceof Epee){
-                Epee epee = (Epee) this.env.getArmes().get(i);
-                link.ramasserEpee(epee);
-                if(link.isLinkARamasseEpee()){
-                    this.env.getArmes().remove(epee);
-                }
-            }
-        }
-        for (int i=0;i<this.env.getArmes().size();i++){
-            if (this.env.getArmes().get(i) instanceof Arc){
-                Arc arc = (Arc) this.env.getArmes().get(i);
-                link.ramasserArc(arc);
-                if(link.isLinkARamasseArc()){
-                    this.env.getArmes().remove(arc);
-                }
-            }
-        }
-        for (int i=0;i<this.env.getArmes().size();i++){
-            if (this.env.getArmes().get(i) instanceof Boomerang){
-                Boomerang boomerang = (Boomerang) this.env.getArmes().get(i);
-                link.ramasserBoomerang(boomerang);
-                if(link.isLinkARamasseBommerang()){
-                    this.env.getArmes().remove(boomerang);
-                }
-            }
-        }
-        for (int i=0;i<this.env.getConsommables().size();i++){
-            if (this.env.getConsommables().get(i) instanceof PotionSoin){
-                PotionSoin potionSoin = (PotionSoin) this.env.getConsommables().get(i);
-                link.ramasserPotionSoin(potionSoin);
-                if(link.isLinkARamassePotionSoin()){
-                    this.env.getConsommables().remove(potionSoin);
-                }
-            }
-        }
-        for (int i=0;i<this.env.getConsommables().size();i++){
-            if (this.env.getConsommables().get(i) instanceof PotionForce){
-                PotionForce potionForce = (PotionForce) this.env.getConsommables().get(i);
-                link.ramasserPotionForce(potionForce);
-                if(link.isLinkARamassePotionForce()){
-                    this.env.getConsommables().remove(potionForce);
-                }
-            }
-        }
-
-        for (int i=0;i<this.env.getConsommables().size();i++){
-            if (this.env.getConsommables().get(i) instanceof Bracelet){
-                Bracelet bracelet = (Bracelet) this.env.getConsommables().get(i);
-                link.ramasserBracelet(bracelet);
-                if(link.isLinkARamasseBracelet()){
-                    this.env.getConsommables().remove(bracelet);
-                }
-            }
+//            env.ramasserArme();
+            env.ramasserEpee();
+            env.ramasserArc();
+            env.ramasserBoomerang();
+            env.ramasserPotionSoin();
+            env.ramasserPotionForce();
+            env.ramasserBracelet();
         }
     }
-    private  void rafraichirMonstre (){
+
+
+    private void rafraichirMonstre(){
         for (int i =0;i<this.env.getPersonnageListe().size();i++){
             if (this.env.getPersonnageListe().get(i) instanceof Monstre){
                 Monstre m = (Monstre) this.env.getPersonnageListe().get(i);
@@ -156,8 +102,6 @@ public class GameLoop extends AnimationTimer {
                 }
             }
         }
-
-
 
     }
 
@@ -172,8 +116,6 @@ public class GameLoop extends AnimationTimer {
                 }
             }
         }
-
-
 
     }
 

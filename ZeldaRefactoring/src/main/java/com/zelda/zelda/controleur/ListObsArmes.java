@@ -18,12 +18,12 @@ public class ListObsArmes implements ListChangeListener<Arme> {
         this.panneauJeu = panneauJeu;
         this.toolBar=itemToolBar;
     }
+
     public void onChanged(Change<? extends Arme> a) {
         while (a.next()) {
             for (int i = 0; i < a.getAddedSize(); i++) {
                 ArmeVue av = new ArmeVue(a.getAddedSubList().get(i),(a.getAddedSubList().get(i)).getNomPng());
                 this.panneauJeu.getChildren().add(av.getImageView());
-
 
 
             }

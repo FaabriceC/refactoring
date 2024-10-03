@@ -27,7 +27,10 @@ public class Inventaire {
 
     }
 
-
+    @Override
+    public String toString() {
+        return this.inventaireArme.toString();
+    }
 
     public ArrayList<Arme> getInventaireArme() {
         return inventaireArme;

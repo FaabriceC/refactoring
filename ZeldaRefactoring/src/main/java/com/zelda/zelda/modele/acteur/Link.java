@@ -42,6 +42,7 @@ public class Link extends Personnage {
     private boolean linkARamasseArc;
     private boolean linkARamasseBommerang;
     private boolean linkARamasseBouclier;
+    private boolean linkARamasseArme;
 
     private boolean linkARamassePotionSoin;
     private boolean linkARamassePotionForce;
@@ -701,6 +702,10 @@ public class Link extends Personnage {
         return linkARamasseArc;
     }
 
+    public boolean isLinkARamasseArme() {
+        return linkARamasseArme;
+    }
+
     public boolean isLinkARamasseBommerang() {
         return linkARamasseBommerang;
     }
@@ -807,6 +812,11 @@ public class Link extends Personnage {
 
     public Projectile getBoomerang() {
         return boomerang;
+    }
+
+    public void agit() {
+        this.seDeplace();
+        this.equiperArme();
     }
 
 }
