@@ -69,11 +69,14 @@ public class GameLoop extends AnimationTimer {
                 Monstre m = (Monstre) this.env.getPersonnageListe().get(i);
 
                 link.attaque(m);
+                /*
                 if (link.getArmeEquipe() instanceof Arc){
                     link.flecheSeDeplace(this.link.getFleche(),m);
                 } else if(link.getArmeEquipe() instanceof Boomerang){
                     link.boomerangSeDeplace(this.link.getBoomerang(),m);
                 }
+
+                 */
 
 
             }

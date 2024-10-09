@@ -88,11 +88,11 @@ public class Link extends Personnage {
 
         this.pointAttaque = 1;
 
-        this.fleche = new Projectile("arrows.png");
+        //this.fleche = new Projectile("arrows.png");
 
         this.tempAvantDisparitionDeLaFleche = 0;
 
-        this.boomerang = new Projectile("boomerang.png");
+        //this.boomerang = new Projectile("boomerang.png");
 
         this.tempAvantRetourBoomerang = 0;
 
@@ -208,18 +208,13 @@ public class Link extends Personnage {
 
 
 
-    public void attaque(Monstre monstre){
-        if(this.armeEquipe != null) {
-            if (this.armeEquipe.getNomPng().equals("epee.png")){
-                this.attaqueAvecEpee(monstre);
-            } else if (this.armeEquipe.getNomPng().equals("arc.png")) {
-                this.attaqueAvecArc();
-            } else if (this.armeEquipe.getNomPng().equals("boomerang.png")){
-                this.attaqueAvecBoomerang();
+    public void attaque(Monstre monstre) {
+            if (this.armeEquipe != null) {
+                this.armeEquipe.attaqueAvecArme(monstre);
+            } else {
+                this.attaqueSansArme(monstre);
             }
-        } else {
-            this.attaqueSansArme(monstre);
-        }
+
 
     }
 
@@ -264,7 +259,7 @@ public class Link extends Personnage {
 
 
     }
-
+/*
 
     public void attaqueAvecEpee(Monstre monstre){
         long currentTime = System.currentTimeMillis();
@@ -447,6 +442,8 @@ public class Link extends Personnage {
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
         }
     }
+
+ */
     public boolean linkMeurt(){
         if(this.getPv()==0){
             return true;
@@ -725,7 +722,7 @@ public class Link extends Personnage {
         for(int i = 0;i< inventaire.getInventaireArme().size();i++){
             if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
                 this.armeEquipe = inventaire.getInventaireArme().get(i);
-
+                System.out.println(this.armeEquipe.getNomPng());
             }
         }
     }
@@ -809,4 +806,15 @@ public class Link extends Personnage {
         return boomerang;
     }
 
+    public boolean isLinkAttaque() {
+        return linkAttaque;
+    }
+
+    public int getPointAttaque() {
+        return pointAttaque;
+    }
+
+    public int getDerniereDirection() {
+        return derniereDirection;
+    }
 }

@@ -7,10 +7,7 @@ import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
-import com.zelda.zelda.modele.armes.Arc;
-import com.zelda.zelda.modele.armes.Arme;
-import com.zelda.zelda.modele.armes.Boomerang;
-import com.zelda.zelda.modele.armes.Epee;
+import com.zelda.zelda.modele.armes.*;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.vue.ConsommableVue;
 import com.zelda.zelda.vue.InventaireVue;
@@ -68,6 +65,7 @@ public class Controleur implements Initializable {
     private ToolBar consommable;
 
     private ProjectileVue proVue;
+    private ProjectileVue proVue2;
 
     public void initialize(URL location, ResourceBundle resources) {
         this.env = new Environnement();
@@ -125,8 +123,9 @@ public class Controleur implements Initializable {
             this.panneauJeu.getChildren().add(coeur);
         }
 
-        this.proVue = new ProjectileVue(link.getFleche());
-        this.panneauJeu.getChildren().add(this.proVue.getImageView());
+
+        //this.proVue = new ProjectileVue(link.getFleche());
+        //this.panneauJeu.getChildren().add(this.proVue.getImageView());
 
 //        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
 //        this.panneauJeu.getChildren().add(proVueBoomerang.getImageView());
@@ -135,13 +134,22 @@ public class Controleur implements Initializable {
 
     public void initArmes(){
 
-        Epee epee = new Epee();
+        Epee epee = new Epee(link);
         this.env.ajouterListeArme(epee);
-        Boomerang boomerang = new Boomerang();
+        Boomerang boomerang = new Boomerang(link);
         this.env.ajouterListeArme(boomerang);
 
-        Arc arc = new Arc();
+        Arc arc = new Arc(link);
         this.env.ajouterListeArme(arc);
+
+
+        this.proVue = new ProjectileVue(arc.getFleche());
+        this.panneauJeu.getChildren().add(this.proVue.getImageView());
+
+
+        this.proVue2 = new ProjectileVue(boomerang.getBoomerang());
+        this.panneauJeu.getChildren().add(this.proVue2.getImageView());
+
     }
     public void initListObs(){
         ListChangeListener<Personnage> test2 = new ListObs(panneauJeu);
@@ -180,7 +188,7 @@ public class Controleur implements Initializable {
 
     public void initInventaire() {
         inv = this.link.getInventaire();
-        this.epee = new Epee();
+        this.epee = new Epee(link);
         inv.ajouterArme(epee);
         this.potionSoin = new PotionSoin();
         this.potionForce = new PotionForce();
