@@ -19,8 +19,6 @@ public class Arme {
         this.id = "W" + compteur;
         compteur++;
 
-
-
     }
 
     public void attaquer(){

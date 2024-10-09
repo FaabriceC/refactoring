@@ -33,19 +33,12 @@ public class Link extends Personnage {
     private boolean linkRamasse;
 
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
-    private boolean linkRamassePotionSoin;
 
-    private boolean linkRamassePotionForce;
-    private boolean linkRamasseBracelet;
     private boolean linkRamasseConsommable;
 
     private boolean linkARamasseArme;
     private boolean linkARamasseConsommable;
 
-    private boolean linkARamassePotionSoin;
-    private boolean linkARamassePotionForce;
-
-    private boolean linkARamasseBracelet;
     private Arme armeEquipe;
 
     private String armeChoisi;
@@ -73,12 +66,8 @@ public class Link extends Personnage {
         this.linkRamasse = false;
         this.linkRamasseConsommable = false;
 
-
         this.linkARamasseArme = false;
         this.linkARamasseConsommable = false;
-
-        this.linkARamassePotionSoin = false;
-        this.linkARamassePotionForce = false;
 
         this.armeEquipe = null;
 
@@ -102,9 +91,7 @@ public class Link extends Personnage {
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(margeX,0)[1];
 
-
         return !terrain.collision(tuileX+margeX,tuileY+margeY);
-
 
     }
 
@@ -500,7 +487,7 @@ public class Link extends Personnage {
 
     private boolean ramasserConsommable(Consommable consommable, boolean linkRamasseConsommable, boolean linkARamasseConsommable) {
         boolean updatedLinkARamasse = linkARamasseConsommable;
-        if (linkRamasse && Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
+        if (linkRamasseConsommable && Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
             inventaire.ajouterConsommable(consommable);
             updatedLinkARamasse = true;
         }
@@ -679,11 +666,6 @@ public class Link extends Personnage {
 
 
 
-    public void setLinkRamassePotion(boolean linkRamassePotion) {
-        this.linkRamassePotionSoin = linkRamassePotion;
-        this.linkRamassePotionForce = linkRamassePotion;
-        this.linkRamasseBracelet = linkRamassePotion;
-    }
 
     public boolean getRamasseArme(){
         return this.linkRamasse;
@@ -702,18 +684,8 @@ public class Link extends Personnage {
     public boolean isLinkARamasseArme() {
         return linkARamasseArme;
     }
-
-
-
-    public boolean isLinkARamassePotionSoin() {
-        return linkARamassePotionSoin;
-    }
-    public boolean isLinkARamassePotionForce() {
-        return linkARamassePotionForce;
-    }
-
-    public boolean isLinkARamasseBracelet() {
-        return linkARamasseBracelet;
+    public boolean isLinkARamasseConsommable(){
+        return linkARamasseConsommable;
     }
 
 

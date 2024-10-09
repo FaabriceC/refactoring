@@ -27,13 +27,9 @@ public class GameLoop extends AnimationTimer {
     private Environnement env;
 
     public GameLoop(Link link, Environnement environnement) {
-
         this.link = link;
         this.env = environnement;
-
     }
-
-
 
     @Override
     public void handle(long now) {
@@ -79,12 +75,9 @@ public class GameLoop extends AnimationTimer {
                 link.getFleche().setyProjectileNull();
             }
 
-
             env.ramasserArmes();
             env.ramasserConsommable();
-//            env.ramasserPotionSoin();
-//            env.ramasserPotionForce();
-//            env.ramasserBracelet();
+
         }
     }
 
