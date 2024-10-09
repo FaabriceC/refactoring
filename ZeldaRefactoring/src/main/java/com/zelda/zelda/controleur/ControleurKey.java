@@ -136,6 +136,7 @@ public class ControleurKey  {
         }
         if (fPressed){
             link.setRamasserArmeTrue();
+//            env.ramasserArmes();    (Lorsque Environnement sera en Singleton)
 
         }
         else {
@@ -146,10 +147,10 @@ public class ControleurKey  {
 
         }
         if (ePressed){
-            link.setLinkRamassePotion(true);
+            link.setRamasserConsommableTrue();
 
         }else{
-            link.setLinkRamassePotion(false);
+            link.setLinkRamasseConsommableFalse();
         }
 
         if (uPressed){

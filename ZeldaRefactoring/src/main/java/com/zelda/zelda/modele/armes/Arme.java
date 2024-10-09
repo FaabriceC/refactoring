@@ -8,10 +8,8 @@ public class Arme {
     protected IntegerProperty x;
     protected IntegerProperty y;
 
-    public static int compteur =1;
+    public static int compteur = 1;
     private String id;
-
-
 
 
     protected String nomPng;
@@ -61,5 +59,16 @@ public class Arme {
 
     public int getDegats() {
         return degats;
+    }
+
+    @Override
+    public String toString() {
+        return "Arme{" +
+                "degats=" + degats +
+                ", x=" + x +
+                ", y=" + y +
+                ", id='" + id + '\'' +
+                ", nomPng='" + nomPng + '\'' +
+                '}';
     }
 }

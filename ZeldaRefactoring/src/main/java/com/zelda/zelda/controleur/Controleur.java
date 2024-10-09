@@ -189,8 +189,6 @@ public class Controleur implements Initializable {
         inv.ajouterConsommable(potionSoin);
         inv.ajouterConsommable(potionForce);
 
-
-
         this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, link);
     }
 

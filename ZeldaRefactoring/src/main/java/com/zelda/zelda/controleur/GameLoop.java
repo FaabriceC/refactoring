@@ -80,13 +80,11 @@ public class GameLoop extends AnimationTimer {
             }
 
 
-//            env.ramasserArme();
-            env.ramasserEpee();
-            env.ramasserArc();
-            env.ramasserBoomerang();
-            env.ramasserPotionSoin();
-            env.ramasserPotionForce();
-            env.ramasserBracelet();
+            env.ramasserArmes();
+            env.ramasserConsommable();
+//            env.ramasserPotionSoin();
+//            env.ramasserPotionForce();
+//            env.ramasserBracelet();
         }
     }
 

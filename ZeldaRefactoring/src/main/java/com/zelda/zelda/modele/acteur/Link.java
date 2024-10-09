@@ -37,12 +37,10 @@ public class Link extends Personnage {
 
     private boolean linkRamassePotionForce;
     private boolean linkRamasseBracelet;
+    private boolean linkRamasseConsommable;
 
-    private boolean linkARamasseEpee;
-    private boolean linkARamasseArc;
-    private boolean linkARamasseBommerang;
-    private boolean linkARamasseBouclier;
     private boolean linkARamasseArme;
+    private boolean linkARamasseConsommable;
 
     private boolean linkARamassePotionSoin;
     private boolean linkARamassePotionForce;
@@ -73,12 +71,11 @@ public class Link extends Personnage {
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.linkRamasse = false;
+        this.linkRamasseConsommable = false;
 
 
-        this.linkARamasseEpee = false;
-        this.linkARamasseArc = false;
-        this.linkARamasseBommerang = false;
-        this.linkARamasseBouclier=false;
+        this.linkARamasseArme = false;
+        this.linkARamasseConsommable = false;
 
         this.linkARamassePotionSoin = false;
         this.linkARamassePotionForce = false;
@@ -501,15 +498,16 @@ public class Link extends Personnage {
 //    }
 
 
-    private boolean ramasserConsommable(Consommable consommable, boolean linkRamasse, boolean linkARamasse) {
-        boolean updatedLinkARamasse = linkARamasse;
+    private boolean ramasserConsommable(Consommable consommable, boolean linkRamasseConsommable, boolean linkARamasseConsommable) {
+        boolean updatedLinkARamasse = linkARamasseConsommable;
         if (linkRamasse && Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
             inventaire.ajouterConsommable(consommable);
             updatedLinkARamasse = true;
         }
         return updatedLinkARamasse;
     }
-    private boolean ramasserArme(Arme arme, boolean linkRamasse, boolean linkARamasse) {
+
+    public boolean ramasserArme(Arme arme, boolean linkRamasse, boolean linkARamasse) {
         boolean updatedLinkARamasse = linkARamasse;
         if (linkRamasse && Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
             inventaire.ajouterArme(arme);
@@ -518,23 +516,19 @@ public class Link extends Personnage {
         return updatedLinkARamasse;
     }
 
-    public void ramasserBracelet(Bracelet bracelet) {
-        linkARamasseBracelet = ramasserConsommable(bracelet, linkRamasseBracelet, linkARamasseBracelet);
-    }
+
     public void ramasserPotionForce(PotionForce potionForce) {
         linkARamassePotionForce = ramasserConsommable(potionForce, linkRamassePotionForce, linkARamassePotionForce);
     }
     public void ramasserPotionSoin(PotionSoin potionSoin) {
         linkARamassePotionSoin = ramasserConsommable(potionSoin, linkRamassePotionSoin, linkARamassePotionSoin);
     }
-    public void ramasserBoomerang(Boomerang boomerang){
-        linkARamasseBommerang =  ramasserArme(boomerang, linkRamasse, linkARamasseBommerang);
+
+    public void ramasserArme(Arme arme) {
+        linkARamasseArme = ramasserArme(arme, linkRamasse, linkARamasseArme);
     }
-    public void ramasserArc(Arc arc){
-        linkARamasseArc =  ramasserArme(arc, linkRamasse, linkARamasseArc);
-    }
-    public void ramasserEpee(Epee epee){
-        linkARamasseEpee =  ramasserArme(epee, linkRamasse, linkARamasseEpee);
+    public void ramasserConsommable(Consommable consommable){
+        linkARamasseConsommable = ramasserConsommable(consommable,linkRamasse,linkARamasseConsommable);
     }
 
     public boolean isLinkRamasseBracelet() {
@@ -675,6 +669,16 @@ public class Link extends Personnage {
 
     }
 
+    public void setRamasserConsommableTrue() {
+        this.linkRamasseConsommable = true;
+    }
+
+    public void setLinkRamasseConsommableFalse() {
+        this.linkRamasseConsommable = false;
+    }
+
+
+
     public void setLinkRamassePotion(boolean linkRamassePotion) {
         this.linkRamassePotionSoin = linkRamassePotion;
         this.linkRamassePotionForce = linkRamassePotion;
@@ -694,25 +698,12 @@ public class Link extends Personnage {
     }
 
 
-    public boolean isLinkARamasseEpee() {
-        return linkARamasseEpee;
-    }
-
-    public boolean isLinkARamasseArc() {
-        return linkARamasseArc;
-    }
 
     public boolean isLinkARamasseArme() {
         return linkARamasseArme;
     }
 
-    public boolean isLinkARamasseBommerang() {
-        return linkARamasseBommerang;
-    }
 
-    public boolean isLinkARamasseBouclier() {
-        return linkARamasseBouclier;
-    }
 
     public boolean isLinkARamassePotionSoin() {
         return linkARamassePotionSoin;
