@@ -1,26 +1,21 @@
 package com.zelda.zelda.modele.acteur;
 
 
-import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
-import com.zelda.zelda.modele.Consommable.PotionForce;
-import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
 
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import com.zelda.zelda.vue.ProjectileVue;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.util.Duration;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 public class Link extends Personnage {
 
@@ -29,15 +24,7 @@ public class Link extends Personnage {
     private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
-
-    private boolean linkRamasse;
-
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
-
-    private boolean linkRamasseConsommable;
-
-    private boolean linkARamasseArme;
-    private boolean linkARamasseConsommable;
 
     private Arme armeEquipe;
 
@@ -58,31 +45,17 @@ public class Link extends Personnage {
 
     public Link(String nom, int x, int y, Terrain t) {
         super(x, y, nom, t);
-        this.pv= new SimpleIntegerProperty(5) {
-        };
+        this.pv= new SimpleIntegerProperty(5);
         this.pv.setValue(5);
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
-        this.linkRamasse = false;
-        this.linkRamasseConsommable = false;
-
-        this.linkARamasseArme = false;
-        this.linkARamasseConsommable = false;
-
         this.armeEquipe = null;
-
         this.armeChoisi = null;
-
         this.pointAttaque = 1;
-
         this.fleche = new Projectile("arrows.png");
-
         this.tempAvantDisparitionDeLaFleche = 0;
-
         this.boomerang = new Projectile("boomerang.png");
-
         this.tempAvantRetourBoomerang = 0;
-
 
     }
 
@@ -95,21 +68,15 @@ public class Link extends Personnage {
 
     }
 
-
-
-
-
-    public void  seDeplace() {
+    public void seDeplace() {
         tp =false;
         int deplacementX = 0;
         int deplacementY = 0;
 
-
-        int vitesse =2;
+        int vitesse = 5;
 
         if (pousseLeBloc())
             vitesse = 1;
-
 
         if (this.direction.getValue() == 2) {
             deplacementX += vitesse;
@@ -141,24 +108,12 @@ public class Link extends Personnage {
         }
 
         if ( peutSeDeplacer(newX, newY)&& terrain.dansTerrain(newX,newY)&&!tp) {
-
-
             this.setX(newX);
             this.setY(newY);
         }
 
 
     }
-   /* public void consommerPotion(){
-        for(int i=0; i<inventaire.getInventaireConsommable().size();i++){
-            if (inventaire.getInventaireConsommable().get(i) instanceof PotionSoin && this.equipe)
-
-        }
-
-    }
-
-    */
-
 
 
     @Override
@@ -188,11 +143,6 @@ public class Link extends Personnage {
     }
 
 
-
-
-
-
-
     public void attaque(Monstre monstre){
         if(this.armeEquipe != null) {
             if (this.armeEquipe.getNomPng().equals("epee.png")){
@@ -207,8 +157,6 @@ public class Link extends Personnage {
         }
 
     }
-
-
 
 
     public void attaqueSansArme(Monstre monstre){
@@ -432,101 +380,32 @@ public class Link extends Personnage {
             tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
         }
     }
+
     public boolean linkMeurt(){
-        if(this.getPv()==0){
-            return true;
+        return this.getPv() == 0;
+    }
+
+    public void ramasserConsommable(ObservableList<Consommable> getConsommables) {
+        Iterator<Consommable> iterator = getConsommables.iterator();
+        while (iterator.hasNext()) {
+            Consommable consommable = iterator.next();
+            if (Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
+                inventaire.ajouterConsommable(consommable);
+                iterator.remove();
+            }
         }
-        return false;
     }
 
-
-
-//    public void ramasserEpee(Epee epee){
-//        if (this.linkRamasse && Math.abs(this.getX() - epee.getX()) < 8  && Math.abs(this.getY() - epee.getY())  < 8 ){
-//            inventaire.ajouterArme(epee);
-//            linkARamasseEpee = true;
-//
-//        }
-//    }
-//    public void ramasserArc(Arc arc){
-//        if (this.linkRamasse && Math.abs(this.getX() - arc.getX()) < 8  && Math.abs(this.getY() - arc.getY())  < 8){
-//            inventaire.ajouterArme(arc);
-//            linkARamasseArc = true;
-//
-//        }
-//    }
-//    public void ramasserBoomerang(Boomerang boomerang){
-//        if (this.linkRamasse && Math.abs(this.getX() - boomerang.getX()) < 8  && Math.abs(this.getY() - boomerang.getY())  < 8){
-//            inventaire.ajouterArme(boomerang);
-//            linkARamasseBommerang = true;
-//
-//        }
-//    }
-//    public void ramasserBouclier(Bouclier bouclier){
-//        if (this.linkRamasse && Math.abs(this.getX() - bouclier.getX()) < 8  && Math.abs(this.getY() - bouclier.getY())  < 8){
-//            inventaire.ajouterArme(bouclier);
-//            linkARamasseBouclier = true;
-//
-//        }
-//    }
-//
-//
-//    public void ramasserPotionSoin(PotionSoin potionDeSoin){
-//        if (this.linkRamassePotionSoin && Math.abs(this.getX() - potionDeSoin.getX()) < 8  && Math.abs(this.getY() - potionDeSoin.getY()) < 8){
-//            inventaire.ajouterConsommable(potionDeSoin);
-//            this.linkARamassePotionSoin = true;
-//        }
-//    }
-//    public void ramasserPotionForce(PotionForce potionForce){
-//        if (this.linkRamassePotionForce && Math.abs(this.getX() - potionForce.getX()) < 8  && Math.abs(this.getY() - potionForce.getY()) < 8){
-//            inventaire.ajouterConsommable(potionForce);
-//            this.linkARamassePotionForce = true;
-//        }
-//    }
-
-
-    private boolean ramasserConsommable(Consommable consommable, boolean linkRamasseConsommable, boolean linkARamasseConsommable) {
-        boolean updatedLinkARamasse = linkARamasseConsommable;
-        if (linkRamasseConsommable && Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
-            inventaire.ajouterConsommable(consommable);
-            updatedLinkARamasse = true;
+    public void ramasserArme(ObservableList<Arme> getArmes) {
+        Iterator<Arme> iterator = getArmes.iterator();
+        while (iterator.hasNext()) {
+            Arme arme = iterator.next();
+            if (Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
+                inventaire.ajouterArme(arme);
+                iterator.remove();
+            }
         }
-        return updatedLinkARamasse;
     }
-
-    public boolean ramasserArme(Arme arme, boolean linkRamasse, boolean linkARamasse) {
-        boolean updatedLinkARamasse = linkARamasse;
-        if (linkRamasse && Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
-            inventaire.ajouterArme(arme);
-            updatedLinkARamasse = true;
-        }
-        return updatedLinkARamasse;
-    }
-
-
-    public void ramasserPotionForce(PotionForce potionForce) {
-        linkARamassePotionForce = ramasserConsommable(potionForce, linkRamassePotionForce, linkARamassePotionForce);
-    }
-    public void ramasserPotionSoin(PotionSoin potionSoin) {
-        linkARamassePotionSoin = ramasserConsommable(potionSoin, linkRamassePotionSoin, linkARamassePotionSoin);
-    }
-
-    public void ramasserArme(Arme arme) {
-        linkARamasseArme = ramasserArme(arme, linkRamasse, linkARamasseArme);
-    }
-    public void ramasserConsommable(Consommable consommable){
-        linkARamasseConsommable = ramasserConsommable(consommable,linkRamasse,linkARamasseConsommable);
-    }
-
-    public boolean isLinkRamasseBracelet() {
-        return linkRamasseBracelet;
-    }
-
-
-
-
-
-
 
 
     public void setPv(int pv) {
@@ -646,47 +525,10 @@ public class Link extends Personnage {
     }
 
 
-    public void setRamasserArmeTrue(){
-        this.linkRamasse=true;
-
-    }
-
-    public void setRamasserArmeFalse(){
-        this.linkRamasse=false;
-
-    }
-
-    public void setRamasserConsommableTrue() {
-        this.linkRamasseConsommable = true;
-    }
-
-    public void setLinkRamasseConsommableFalse() {
-        this.linkRamasseConsommable = false;
-    }
-
-
-
-
-    public boolean getRamasseArme(){
-        return this.linkRamasse;
-    }
-
-    public boolean getRamassePotion(){
-        return this.linkRamassePotionSoin;
-    }
-
     public Inventaire getInventaire() {
         return inventaire;
     }
 
-
-
-    public boolean isLinkARamasseArme() {
-        return linkARamasseArme;
-    }
-    public boolean isLinkARamasseConsommable(){
-        return linkARamasseConsommable;
-    }
 
 
     public void equiperArme() {

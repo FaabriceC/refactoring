@@ -4,50 +4,43 @@ import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
-import com.zelda.zelda.modele.acteur.Link;
-import com.zelda.zelda.modele.acteur.Monstre;
-import com.zelda.zelda.modele.acteur.Personnage;
+import com.zelda.zelda.modele.acteur.*;
 import com.zelda.zelda.modele.armes.Arc;
 import com.zelda.zelda.modele.armes.Arme;
 import com.zelda.zelda.modele.armes.Boomerang;
 import com.zelda.zelda.modele.armes.Epee;
+import com.zelda.zelda.modele.dynamique.BlockDynamique;
+import com.zelda.zelda.vue.TerrainVue;
+import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Environnement {
 
     private ObservableList<Personnage> personnages;
-    private IntegerProperty nbTours;
 
     private ObservableList<Arme> armes;
 
     private ObservableList<Consommable> consommables;
-
-    private int nbMonstre;
+    private ArrayList<Monstre> monstres;
 
     private Link link;
+    private Terrain terrain;
 
-    public Environnement(Link link) {
+    public Environnement(Link link, Terrain terrain) {
         this.link = link;
-        this.nbTours = new SimpleIntegerProperty(0);
         this.personnages = FXCollections.observableArrayList();
         this.armes = FXCollections.observableArrayList();
         this.consommables = FXCollections.observableArrayList();
+        this.terrain = terrain;
+        this.monstres = new ArrayList<>();
     }
 
-    public final int getNbTours() {
-        return this.nbTours.getValue();
-    }
-
-    public final void setNbTours(int n) {
-        this.nbTours.setValue(n);
-    }
-
-    public final IntegerProperty nbTours() {
-        return nbTours;
-    }
 
     public ObservableList<Personnage> getPersonnageListe() {
         return personnages;
@@ -57,19 +50,10 @@ public class Environnement {
         return consommables;
     }
 
-
     public void ajouter(Personnage personnage) {
         this.personnages.add(personnage);
     }
 
-    public Personnage getPersonnage(String id) {
-        for (Personnage p : this.personnages) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
-        }
-        return null;
-    }
 
     public ObservableList<Arme> getArmes() {
         return armes;
@@ -83,63 +67,54 @@ public class Environnement {
         this.consommables.add(consommable);
     }
 
-    public int getNbMonstre() {
-        return nbMonstre;
+    public Link getLink() {
+        return link;
     }
 
+    public void initMonstre() {
+        Monstre monstre1 = new Slime(708, 472, this.terrain);
+        Monstre monstre2 = new Slime(750, 472, this.terrain);
+        Monstre monstre3 = new ArbreMonstre(760, 440, this.terrain);
+        Monstre boss = new Boss(4844,868,terrain);
 
-    public void ramasserArmes() {
+        this.ajouter(monstre1);
+        this.ajouter(monstre2);
+        this.ajouter(monstre3);
+        this.ajouter(boss);
 
-        for (Arme arme : this.getArmes()) {
-            link.ramasserArme(arme);
-        }
+        this.monstres.add(monstre1);
+        this.monstres.add(monstre2);
+        this.monstres.add(monstre3);
+        this.monstres.add(boss);
+    }
 
-        if (link.isLinkARamasseArme()) {
-            this.getArmes().remove(link.getInventaire().getInventaireArme().get(link.getInventaire().getInventaireArme().size() - 1));
-        }
+    public void initArmes(){
+
+        Epee epee = new Epee();
+        this.ajouterListeArme(epee);
+        Boomerang boomerang = new Boomerang();
+        this.ajouterListeArme(boomerang);
+
+        Arc arc = new Arc();
+        this.ajouterListeArme(arc);
+    }
+
+    public void initConsommable(){
+        Bracelet bracelet = new Bracelet();
+        this.ajouterListeConsommable(bracelet);
+
+        Consommable popoDeSoin = new PotionSoin();
+        PotionForce popoDeForce = new PotionForce();
+
+        this.ajouterListeConsommable(popoDeSoin);
+        this.ajouterListeConsommable(popoDeForce);
 
     }
 
-    public void ramasserConsommable() {
-        for (Consommable consommable : this.getConsommables()) {
-            link.ramasserConsommable(consommable);
+    public void deplacementMonstre() {
+        for (Monstre monstre : this.monstres) {
+            monstre.seDeplace(link);
         }
     }
 
-
-//    public void ramasserPotionSoin() {
-//        for (int i = 0; i < this.getConsommables().size(); i++) {
-//            if (this.getConsommables().get(i) instanceof PotionSoin) {
-//                PotionSoin potionSoin = (PotionSoin) this.getConsommables().get(i);
-//                link.ramasserPotionSoin(potionSoin);
-//                if (link.isLinkARamassePotionSoin()) {
-//                    this.getConsommables().remove(potionSoin);
-//                }
-//            }
-//        }
-//    }
-//
-//    public void ramasserPotionForce() {
-//        for (int i = 0; i < this.getConsommables().size(); i++) {
-//            if (this.getConsommables().get(i) instanceof PotionForce) {
-//                PotionForce potionForce = (PotionForce) this.getConsommables().get(i);
-//                link.ramasserPotionForce(potionForce);
-//                if (link.isLinkARamassePotionForce()) {
-//                    this.getConsommables().remove(potionForce);
-//                }
-//            }
-//        }
-//    }
-//
-//    public void ramasserBracelet() {
-//        for (int i = 0; i < this.getConsommables().size(); i++) {
-//            if (this.getConsommables().get(i) instanceof Bracelet) {
-//                Bracelet bracelet = (Bracelet) this.getConsommables().get(i);
-//                link.ramasserBracelet(bracelet);
-//                if (link.isLinkARamasseBracelet()) {
-//                    this.getConsommables().remove(bracelet);
-//                }
-//            }
-//        }
-//    }
 }

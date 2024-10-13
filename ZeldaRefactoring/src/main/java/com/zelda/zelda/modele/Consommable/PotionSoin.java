@@ -15,7 +15,6 @@ public class PotionSoin extends Consommable {
     }
 
 
-
     public int getPvSoin() {
         return pvSoin;
     }

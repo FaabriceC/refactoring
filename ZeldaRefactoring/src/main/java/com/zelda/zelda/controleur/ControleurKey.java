@@ -1,5 +1,6 @@
 package com.zelda.zelda.controleur;
 
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
@@ -16,14 +17,13 @@ import java.util.ResourceBundle;
 public class ControleurKey  {
 
     private final List<KeyCode> keyOrder = new ArrayList<>();
-
-
-
     private InventaireVue inventaireVue;
+    private Environnement env;
 
-    public ControleurKey(InventaireVue inventaireVue) {
+    public ControleurKey(InventaireVue inventaireVue, Environnement env) {
 
         this.inventaireVue=inventaireVue;
+        this.env=env;
     }
 
     public void initKeyHandler(Pane panneauJeu, Link link) {
@@ -135,24 +135,17 @@ public class ControleurKey  {
             link.setLinkAttaqueFalse();
         }
         if (fPressed){
-            link.setRamasserArmeTrue();
-//            env.ramasserArmes();    (Lorsque Environnement sera en Singleton)
+            env.getLink().ramasserArme(env.getArmes());   // (Lorsque Environnement sera en Singleton)
+        }
 
-        }
-        else {
-            link.setRamasserArmeFalse();
-        }
         if (iPressed){
             inventaireVue.setVisible();
 
         }
         if (ePressed){
-            link.setRamasserConsommableTrue();
+            this.env.getLink().ramasserConsommable(env.getConsommables());
 
-        }else{
-            link.setLinkRamasseConsommableFalse();
         }
-
         if (uPressed){
             link.setArmeChoisi(link.getInventaire().getInventaireArme().get(0).getNomPng());
         } else if(pPressed && link.getInventaire().getInventaireArme().size()>1){
@@ -164,10 +157,6 @@ public class ControleurKey  {
         }else if(mPressed && link.getInventaire().getInventaireArme().size()>4){
             link.setArmeChoisi(link.getInventaire().getInventaireArme().get(4).getNomPng());
         }
-        
-        
-
-
 
     }
 }

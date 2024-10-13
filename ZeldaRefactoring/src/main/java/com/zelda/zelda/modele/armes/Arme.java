@@ -2,7 +2,7 @@ package com.zelda.zelda.modele.armes;
 
 import javafx.beans.property.IntegerProperty;
 
-public class Arme {
+public abstract class Arme {
 
     protected int degats;
     protected IntegerProperty x;
@@ -11,21 +11,16 @@ public class Arme {
     public static int compteur = 1;
     private String id;
 
-
     protected String nomPng;
 
     public Arme(){
-
         this.id = "W" + compteur;
         compteur++;
-
     }
 
     public void attaquer(){
 
     }
-
-
 
 
     public String getId() {

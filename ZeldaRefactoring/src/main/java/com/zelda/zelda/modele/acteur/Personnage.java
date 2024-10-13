@@ -1,16 +1,11 @@
 package com.zelda.zelda.modele.acteur;
 
-
-
-import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Terrain;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
-
-
-public abstract class Personnage { //Crée un personnage
+public abstract class Personnage { // Crée un personnage
     private IntegerProperty x = new SimpleIntegerProperty();
     private IntegerProperty y = new SimpleIntegerProperty();
     protected Terrain terrain;
@@ -20,8 +15,6 @@ public abstract class Personnage { //Crée un personnage
     private boolean statutPas;
     public static int compteur =0;
     private String id;
-
-    protected Environnement env;//jsp
 
 
     public Personnage(int x, int y, String nom, Terrain terrain) {

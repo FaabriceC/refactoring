@@ -14,8 +14,6 @@ public class PotionForce extends Consommable {
         this.y = new SimpleIntegerProperty(450);
     }
 
-
-
     public int getPvSoin() {
         return force;
     }

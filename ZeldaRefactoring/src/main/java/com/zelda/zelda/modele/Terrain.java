@@ -61,8 +61,6 @@ public class Terrain {
 
     }
 
-
-
     private boolean collisionPourBlockDynamique(int x, int y,BlockDynamique blockDynamique) {
         for (BlockDynamique block : blocsDynamiques) {
             if (blockDynamique!= block)

@@ -1,36 +1,28 @@
 package com.zelda.zelda.controleur;
 
-import com.zelda.zelda.Lanceur;
 import com.zelda.zelda.modele.*;
-import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
-import com.zelda.zelda.modele.armes.Arc;
 import com.zelda.zelda.modele.armes.Arme;
-import com.zelda.zelda.modele.armes.Boomerang;
 import com.zelda.zelda.modele.armes.Epee;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import com.zelda.zelda.vue.ConsommableVue;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.ProjectileVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
-import com.zelda.zelda.vue.acteur.MonstreVue;
 import com.zelda.zelda.vue.TerrainVue;
 import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -44,21 +36,14 @@ public class Controleur implements Initializable {
     private Epee epee;
     private PotionSoin potionSoin;
     private PotionForce potionForce;
-
-
     @FXML
     private Pane panneauJeu;
-
-
     private Link link;
     private LinkVue linkVue;
 
-
     @FXML
     private Pane backgroundPaneConso;
-
     private GameLoop gameLoop;
-
     private ControleurKey controleurKey;
     private Environnement env;
     private Inventaire inv;
@@ -74,15 +59,17 @@ public class Controleur implements Initializable {
         initTerrain();
 
         initDecorations();
+
         initLink();
-        this.env = new Environnement(link);
+        this.env = new Environnement(link, terrain);
+
         initInventaire();
         initListObs();
-        initArmes();
-        initConsommable();
-        initMonstre();
+        this.env.initArmes();
+        this.env.initConsommable();
+        this.env.initMonstre();
 
-        controleurKey = new ControleurKey(inventaireVue);
+        controleurKey = new ControleurKey(inventaireVue, this.env);
         controleurKey.initKeyHandler(panneauJeu, link);
 
         this.gameLoop = new GameLoop(link, env);
@@ -134,50 +121,19 @@ public class Controleur implements Initializable {
     }
 
 
-    public void initArmes(){
-
-        Epee epee = new Epee();
-        this.env.ajouterListeArme(epee);
-        Boomerang boomerang = new Boomerang();
-        this.env.ajouterListeArme(boomerang);
-
-        Arc arc = new Arc();
-        this.env.ajouterListeArme(arc);
-    }
     public void initListObs(){
-        ListChangeListener<Personnage> test2 = new ListObs(panneauJeu);
-        this.env.getPersonnageListe().addListener(test2);
+        ListChangeListener<Personnage> personnageListChangeListener = new ListObs(panneauJeu);
+        this.env.getPersonnageListe().addListener(personnageListChangeListener);
 
-        ListChangeListener<Arme> test3 = new ListObsArmes(panneauJeu, itemToolBar);
-        this.env.getArmes().addListener(test3);
+        ListChangeListener<Arme> armeListChangeListener = new ListObsArmes(panneauJeu, itemToolBar);
+        this.env.getArmes().addListener(armeListChangeListener);
 
-        ListChangeListener<Consommable> test4 = new ListObsConsommables(panneauJeu, consommable, link);
-        this.env.getConsommables().addListener(test4);
+        ListChangeListener<Consommable> consommableListChangeListener = new ListObsConsommables(panneauJeu, consommable, link);
+        this.env.getConsommables().addListener(consommableListChangeListener);
 
-    }
-    public void initConsommable(){
-        Bracelet bracelet = new Bracelet();
-        this.env.ajouterListeConsommable(bracelet);
-
-        Consommable popoDeSoin = new PotionSoin();
-        PotionForce popoDeForce = new PotionForce();
-
-        this.env.ajouterListeConsommable(popoDeSoin);
-        this.env.ajouterListeConsommable(popoDeForce);
 
     }
 
-    public void initMonstre() {
-        Monstre monstre1 = new Slime(708, 472, this.terrain);
-        Monstre monstre2 = new Slime(750, 472, this.terrain);
-        Monstre monstre3 = new ArbreMonstre(760, 440, this.terrain);
-        Monstre boss = new Boss(4844,868,terrain);
-
-        this.env.ajouter(monstre1);
-        this.env.ajouter(monstre2);
-        this.env.ajouter(monstre3);
-        this.env.ajouter(boss);
-    }
 
     public void initInventaire() {
         inv = this.link.getInventaire();

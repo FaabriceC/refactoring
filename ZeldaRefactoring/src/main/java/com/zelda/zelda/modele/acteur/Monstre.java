@@ -47,6 +47,7 @@ public abstract class Monstre extends Personnage {
 
     public abstract void attaque(Link link);
 
+
     public void setPv(int pv) {
         this.pv.set(pv);
     }
@@ -71,7 +72,6 @@ public abstract class Monstre extends Personnage {
         this.direction.setValue(directionValue);
     }
 
-    public abstract int[] margeErreur(int margeX, int margeY);
 
     public boolean isMonsSubitDegat() {
         return monsSubitDegat;
@@ -80,4 +80,7 @@ public abstract class Monstre extends Personnage {
     public void setMonsSubitDegat(boolean monsSubitDegat) {
         this.monsSubitDegat = monsSubitDegat;
     }
+
+
+
 }

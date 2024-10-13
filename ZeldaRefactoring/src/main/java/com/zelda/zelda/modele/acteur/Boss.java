@@ -56,20 +56,16 @@ public class Boss extends Monstre {
 
     @Override
     public int[] margeErreur(int margeX, int margeY) {
-        int[]marge=new int[2];
+        int[] marge = new int[2];
         switch (direction.getValue()) {
-
-
             case 4:
                 margeX = 24;
-                margeY= 24;
+                margeY = 24;
                 break;
             case 2:
                 margeX = 24;
-                margeY=24;
+                margeY = 24;
                 break;
-
-
             case 1:
                 margeX = 24;
                 margeY = 24;
@@ -79,11 +75,8 @@ public class Boss extends Monstre {
                 margeY = 24;
                 break;
         }
-        marge[0]=margeX;
-        marge[1]=margeY;
-
-
-
-        return marge;
+        marge[0] = margeX;
+        marge[1] = margeY;
+        return new int[]{margeX, margeY};
     }
 }

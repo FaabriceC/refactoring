@@ -16,14 +16,12 @@ public class Inventaire {
     }
 
     public void ajouterArme(Arme arme) {
-
         this.inventaireArme.add(arme);
 
     }
 
     public void ajouterConsommable(Consommable consommable) {
-
-            this.inventaireConsommable.add(consommable);
+        this.inventaireConsommable.add(consommable);
 
     }
 
@@ -35,9 +33,6 @@ public class Inventaire {
     public ArrayList<Arme> getInventaireArme() {
         return inventaireArme;
     }
-
-
-
 
     public ArrayList<Consommable> getInventaireConsommable() {
         return inventaireConsommable;
