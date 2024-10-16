@@ -37,6 +37,16 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
     public void setAZRE2(){
         this.y.setValue(220);
     }
+
+
+
+
+
+
+
+
+
+
 /*
     public void apparitionFleche(int direction){
         fleche.setxProjectile(this.getX());
