@@ -61,7 +61,7 @@ public class Controleur implements Initializable {
         initDecorations();
 
         initLink();
-        this.env = new Environnement(link, terrain);
+        this.env = Environnement.getInstance(link, terrain);
 
         initInventaire();
         initListObs();

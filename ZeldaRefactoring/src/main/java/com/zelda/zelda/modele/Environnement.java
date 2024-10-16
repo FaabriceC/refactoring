@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Environnement {
+    private static Environnement uniqueInstance=null;
 
     private ObservableList<Personnage> personnages;
 
@@ -32,13 +33,20 @@ public class Environnement {
     private Link link;
     private Terrain terrain;
 
-    public Environnement(Link link, Terrain terrain) {
+    private Environnement(Link link, Terrain terrain) {
         this.link = link;
         this.personnages = FXCollections.observableArrayList();
         this.armes = FXCollections.observableArrayList();
         this.consommables = FXCollections.observableArrayList();
         this.terrain = terrain;
         this.monstres = new ArrayList<>();
+    }
+
+    public static Environnement getInstance(Link link, Terrain terrain) {
+        if(uniqueInstance==null) {
+            uniqueInstance= new Environnement(link,terrain);
+        }
+        return uniqueInstance;
     }
 
 
@@ -109,6 +117,15 @@ public class Environnement {
         this.ajouterListeConsommable(popoDeSoin);
         this.ajouterListeConsommable(popoDeForce);
 
+    }
+    public void verifMonstre() {
+        for (int i = 0; i < this.getPersonnageListe().size(); i++) {
+            if (this.getPersonnageListe().get(i) instanceof Monstre) {
+                Monstre m = (Monstre) this.getPersonnageListe().get(i);
+
+                link.attaque(m);
+            }
+        }
     }
 
     public void deplacementMonstre() {

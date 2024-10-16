@@ -35,8 +35,7 @@ public class GameLoop {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.033), (event) -> {
-            this.link.seDeplace();
-
+            this.rafraichirLink();
             if (temps.getValue() % 2 == 0) {
                 this.env.deplacementMonstre();
             }
@@ -60,10 +59,8 @@ public class GameLoop {
 
         link.agit();
 
-        for (int i = 0; i < this.env.getPersonnageListe().size(); i++) { // TODO dans le modèle
-            if (this.env.getPersonnageListe().get(i) instanceof Monstre) {
-                Monstre m = (Monstre) this.env.getPersonnageListe().get(i);
-                link.attaque(m);
+        env.verifMonstre();
+
 //                if (link.getArmeEquipe() instanceof Arc){
 //                    link.flecheSeDeplace(this.link.getFleche(),m);
 //                } else if(link.getArmeEquipe() instanceof Boomerang){
@@ -73,8 +70,9 @@ public class GameLoop {
 //
             }
 
-        }
-    }
+
+
+
 
 
 }

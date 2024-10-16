@@ -30,8 +30,12 @@ public abstract class Monstre extends Personnage {
         this.monsSubitDegat = false;
     }
 
-    public abstract void seDeplace(Link link);
-
+    public void seDeplace(Link link) {
+        if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
+            bfs.seDeplace(link);
+        }
+        attaque(link);
+    }
     public boolean peutSeDeplacer  (int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(0,0)[1];

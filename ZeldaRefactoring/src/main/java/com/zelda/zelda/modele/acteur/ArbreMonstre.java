@@ -10,10 +10,7 @@ public class ArbreMonstre extends Monstre {
 
     @Override
     public void seDeplace(Link link) {
-        if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
-            bfs.seDeplace(link);
-        }
-        attaque(link);
+        super.seDeplace(link);
     }
 
     public void attaque(Link link) {
