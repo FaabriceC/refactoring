@@ -6,8 +6,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public  class Arc extends Arme {
 
 
-
-
     public Arc (){
 
         this.degats=2;

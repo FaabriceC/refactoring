@@ -30,12 +30,18 @@ public abstract class Monstre extends Personnage {
         this.monsSubitDegat = false;
     }
 
-    public void seDeplace(Link link) {
+    public  void seDeplace(Link link){
         if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
-            bfs.seDeplace(link);
+            if (condition(link)) {
+                bfs.seDeplace(link);
+            }
+
         }
         attaque(link);
     }
+
+    public abstract boolean condition(Link link);
+
     public boolean peutSeDeplacer  (int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(0,0)[1];
@@ -49,8 +55,19 @@ public abstract class Monstre extends Personnage {
         }
     }
 
-    public abstract void attaque(Link link);
+    public void attaque(Link link) {
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - actionTime >= 2500) && (peutAttaquer(link, 1) || peutAttaquer(link, 2) || peutAttaquer(link, 3) || peutAttaquer(link, 4))) {
+            link.setPv(link.getPv() - 1);
+            actionTime = currentTime;
+        }
+    }
 
+    public boolean peutAttaquer(Link link, int direction) {
+        return (this.direction.getValue() == direction && this.getY() - link.getY() < 16 && link.getY() - this.getY() >= 0 && Math.abs(this.getX() - link.getX()) < 8 ||
+                this.direction.getValue() == direction && link.getX() - this.getX() < 16 && link.getX() - this.getX() >= 0 && Math.abs(this.getY() - link.getY()) < 8);
+
+    }
 
     public void setPv(int pv) {
         this.pv.set(pv);
@@ -85,6 +102,31 @@ public abstract class Monstre extends Personnage {
         this.monsSubitDegat = monsSubitDegat;
     }
 
+    public int[] margeErreur(int margeX, int margeY) {
+        int[] marge = new int[2];
+        switch (direction.getValue()) {
+            case 4:
+                margeX = valeur();
+                margeY = valeur();
+                break;
+            case 2:
+                margeX = valeur();
+                margeY = valeur();
+                break;
+            case 1:
+                margeX = valeur();
+                margeY = valeur();
+                break;
+            case 3:
+                margeX = valeur();
+                margeY = valeur();
+                break;
+        }
+        marge[0] = margeX;
+        marge[1] = margeY;
+        return new int[]{margeX, margeY};
+    }
 
+    public abstract int valeur();
 
 }

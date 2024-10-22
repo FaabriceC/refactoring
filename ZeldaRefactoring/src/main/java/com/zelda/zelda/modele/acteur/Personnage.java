@@ -13,7 +13,7 @@ public abstract class Personnage { // Crée un personnage
     protected IntegerProperty direction;
     protected IntegerProperty indicePas;
     private boolean statutPas;
-    public static int compteur =0;
+    public static int compteur = 0;
     private String id;
 
 
@@ -23,13 +23,12 @@ public abstract class Personnage { // Crée un personnage
         this.nom = nom;
         this.terrain = terrain;
         this.direction = new SimpleIntegerProperty(0);
-        this.indicePas= new SimpleIntegerProperty(0);
+        this.indicePas = new SimpleIntegerProperty(0);
 
-        this.id="C"+ compteur;
+        this.id = "C" + compteur;
         compteur++;
 
     }
-
 
 
     public IntegerProperty xProperty() {
@@ -48,9 +47,6 @@ public abstract class Personnage { // Crée un personnage
         return indicePas;
     }
 
-    public abstract int[] margeErreur(int margeX, int margeY);
-
-
     public abstract boolean peutSeDeplacer  (int tuileX, int tuileY);
 
     public int getX() {
@@ -58,11 +54,9 @@ public abstract class Personnage { // Crée un personnage
     }
 
 
-
     public int getY() {
         return y.getValue();
     }
-
 
 
     public void setX(int x) {

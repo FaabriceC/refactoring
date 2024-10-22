@@ -116,7 +116,6 @@ public class Link extends Personnage {
     }
 
 
-    @Override
     public int[] margeErreur(int margeX, int margeY) {
         int[]marge=new int[2];
         switch (direction.getValue()) {
@@ -126,7 +125,7 @@ public class Link extends Personnage {
                 break;
             case 2:
                 margeX = 26;
-                margeY=26;
+                margeY= 26;
                 break;
             case 1:
                 margeX = 16;
