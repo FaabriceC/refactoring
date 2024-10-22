@@ -87,7 +87,7 @@ public class Environnement {
         this.monstres.add(monstre3);
         this.monstres.add(boss);
     }
-
+/*
     public void initArmes(){
 
         Epee epee = new Epee(link);
@@ -99,6 +99,8 @@ public class Environnement {
         this.ajouterListeArme(arc);
     }
 
+
+ */
     public void initConsommable(){
         Bracelet bracelet = new Bracelet();
         this.ajouterListeConsommable(bracelet);

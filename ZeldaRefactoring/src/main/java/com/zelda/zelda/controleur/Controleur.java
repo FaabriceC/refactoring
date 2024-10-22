@@ -62,15 +62,18 @@ public class Controleur implements Initializable {
         initTerrain();
 
         initDecorations();
-
         initLink();
+
         this.env = new Environnement(link, terrain);
+
 
         initInventaire();
         initListObs();
-        this.env.initArmes();
+        this.initArmes();
         this.env.initConsommable();
         this.env.initMonstre();
+
+        //initProjectile();
 
         controleurKey = new ControleurKey(inventaireVue, this.env);
         controleurKey.initKeyHandler(panneauJeu, link);
@@ -115,8 +118,8 @@ public class Controleur implements Initializable {
         for (ImageView coeur : linkVue.getListImageViewsCoeur()) {
             this.panneauJeu.getChildren().add(coeur);
         }
-
-        this.proVue = new ProjectileVue(((Arc)env.getArmes().get(2)).getFleche());
+/*
+        this.proVue = new ProjectileVue(((Arc)this.env.getArmes().get(2)).getFleche());
         this.panneauJeu.getChildren().add(this.proVue.getImageView());
 
 //        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
@@ -124,6 +127,8 @@ public class Controleur implements Initializable {
 
         this.proVue2 = new ProjectileVue(((Boomerang)env.getArmes().get(1)).getBoomerang());
         this.panneauJeu.getChildren().add(this.proVue2.getImageView());
+
+ */
     }
 
 
@@ -152,7 +157,43 @@ public class Controleur implements Initializable {
         inv.ajouterConsommable(potionForce);
 
         this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, link);
+
+
     }
 
+    public void initArmes(){
+
+        Epee epee = new Epee(link);
+        this.env.ajouterListeArme(epee);
+        Boomerang boomerang = new Boomerang(link);
+        this.env.ajouterListeArme(boomerang);
+
+        Arc arc = new Arc(link);
+        this.env.ajouterListeArme(arc);
+
+
+        this.proVue = new ProjectileVue(arc.getFleche());
+        this.panneauJeu.getChildren().add(this.proVue.getImageView());
+
+
+        this.proVue2 = new ProjectileVue(boomerang.getBoomerang());
+        this.panneauJeu.getChildren().add(this.proVue2.getImageView());
+
+    }
+
+/*
+    public void initProjectile(){
+        this.proVue = new ProjectileVue(((Arc)this.env.getArmes().get(2)).getFleche());
+        this.panneauJeu.getChildren().add(this.proVue.getImageView());
+
+//        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
+//        this.panneauJeu.getChildren().add(proVueBoomerang.getImageView());
+
+        this.proVue2 = new ProjectileVue(((Boomerang)env.getArmes().get(1)).getBoomerang());
+        this.panneauJeu.getChildren().add(this.proVue2.getImageView());
+    }
+
+
+ */
 
 }

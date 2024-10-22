@@ -28,6 +28,7 @@ public abstract class Monstre extends Personnage {
         this.bfs = new BFS(this, terrain);
         this.dircAlea = false;
         this.monsSubitDegat = false;
+
     }
 
     public abstract void seDeplace(Link link);

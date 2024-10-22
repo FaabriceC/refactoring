@@ -397,6 +397,7 @@ public class Link extends Personnage {
             Arme arme = iterator.next();
             if (Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
                 inventaire.ajouterArme(arme);
+                System.out.println(inventaire.getInventaireArme().get(inventaire.getInventaireArme().size() - 1));
                 iterator.remove();
             }
         }
@@ -530,7 +531,7 @@ public class Link extends Personnage {
         for(int i = 0;i< inventaire.getInventaireArme().size();i++){
             if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
                 this.armeEquipe = inventaire.getInventaireArme().get(i);
-
+                System.out.println(this.armeEquipe.getNomPng());
             }
         }
     }
