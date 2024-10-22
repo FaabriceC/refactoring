@@ -82,5 +82,17 @@ public abstract class Monstre extends Personnage {
     }
 
 
+    public boolean peutReculerSelonDirection(int direction){
+        if(direction == 1){
+            return this.peutSeDeplacer(this.getX(),this.getY()-32);
+        } else if (direction == 2){
+            return this.peutSeDeplacer(this.getX()+32,this.getY());
+        } else if (direction == 3){
+            return this.peutSeDeplacer(this.getX(),this.getY()+32);
+        } else {
+            return this.peutSeDeplacer(this.getX()-32,this.getY());
+        }
+    }
+
 
 }

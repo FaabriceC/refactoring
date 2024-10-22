@@ -32,10 +32,10 @@ public class Link extends Personnage {
 
     private int pointAttaque;
 
-    private Projectile fleche;
+    //private Projectile fleche;
     private int tempAvantDisparitionDeLaFleche;
 
-    private Projectile boomerang;
+    //private Projectile boomerang;
 
     private int tempAvantRetourBoomerang;
 
@@ -52,9 +52,9 @@ public class Link extends Personnage {
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
-        this.fleche = new Projectile("arrows.png");
+        //this.fleche = new Projectile("arrows.png");
         this.tempAvantDisparitionDeLaFleche = 0;
-        this.boomerang = new Projectile("boomerang.png");
+        //this.boomerang = new Projectile("boomerang.png");
         this.tempAvantRetourBoomerang = 0;
 
     }
@@ -143,19 +143,12 @@ public class Link extends Personnage {
     }
 
 
-    public void attaque(Monstre monstre){
-        if(this.armeEquipe != null) {
-            if (this.armeEquipe.getNomPng().equals("epee.png")){
-                this.attaqueAvecEpee(monstre);
-            } else if (this.armeEquipe.getNomPng().equals("arc.png")) {
-                this.attaqueAvecArc();
-            } else if (this.armeEquipe.getNomPng().equals("boomerang.png")){
-                this.attaqueAvecBoomerang();
-            }
+    public void attaque(Monstre monstre) {
+        if (this.armeEquipe != null) {
+            this.armeEquipe.attaqueAvecArme(monstre);
         } else {
             this.attaqueSansArme(monstre);
         }
-
     }
 
 
@@ -198,7 +191,7 @@ public class Link extends Personnage {
 
     }
 
-
+/*
     public void attaqueAvecEpee(Monstre monstre){
         long currentTime = System.currentTimeMillis();
         if( currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
@@ -381,6 +374,8 @@ public class Link extends Personnage {
         }
     }
 
+
+ */
     public boolean linkMeurt(){
         return this.getPv() == 0;
     }
@@ -543,11 +538,13 @@ public class Link extends Personnage {
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
     }
-
+/*
     public Projectile getFleche() {
         return fleche;
     }
 
+
+ */
 
     public Arme getArmeEquipe() {
         return armeEquipe;
@@ -598,7 +595,7 @@ public class Link extends Personnage {
             monstre.setMonsSubitDegat(true);
         }
     }
-
+/*
     public void diparitionFleche(){
         if (tempAvantDisparitionDeLaFleche == 128){
             this.fleche.setxProjectileNull();
@@ -619,9 +616,24 @@ public class Link extends Personnage {
         return boomerang;
     }
 
+
+ */
     public void agit() {
         this.seDeplace();
         this.equiperArme();
+    }
+
+
+    public boolean isLinkAttaque() {
+        return linkAttaque;
+    }
+
+    public int getPointAttaque() {
+        return pointAttaque;
+    }
+
+    public int getDerniereDirection() {
+        return derniereDirection;
     }
 
 }
