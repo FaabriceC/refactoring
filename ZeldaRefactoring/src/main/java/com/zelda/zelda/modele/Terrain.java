@@ -33,8 +33,6 @@ public class Terrain {
     }
 
 
-
-
     public int[][] convertTo2DArray(int[] array, int rows, int cols) {
 
         if (array == null) {
@@ -86,26 +84,6 @@ public class Terrain {
         return estObstacle(tuileX, tuileY);
     }
 
-
-    public boolean collisionAvecTuileNonOpti(int x, int y, Personnage personnage) {
-        // margeX défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des x
-        int margeX=0;
-        // margeY défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des y
-        int margeY=0;
-
-
-        margeX=personnage.margeErreur(margeX,margeY)[0];
-        margeY=personnage.margeErreur(margeX,margeY)[1];
-
-
-        int tuileX = (x+margeX) / 32;
-        int tuileY = (y+margeY) / 32;
-        if (estObstacle(tuileX,tuileY)){
-            return true;
-        }
-
-        return false;
-    }
 
 
     // Fonction qui permet de detecter les tile d'eau
