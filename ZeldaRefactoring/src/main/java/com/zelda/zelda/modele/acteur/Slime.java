@@ -11,7 +11,7 @@ public class Slime extends Monstre {
     }
 
     @Override
-    public void seDeplace(Link link) {
+    public void seDeplace(Link link) { //TODO RENOMMER LA METHODE seDeplaceEtAttaque
         if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
             if (!link.isInvisible()) {
                 bfs.seDeplace(link);

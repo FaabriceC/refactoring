@@ -2,6 +2,7 @@ package com.zelda.zelda.modele.acteur;
 
 
 import com.zelda.zelda.modele.Consommable.Consommable;
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
@@ -394,7 +395,7 @@ public class Link extends Personnage {
             }
         }
     }
-
+    //TODO FAIRE UNE SUPERCLASSE ITEM QUI POSSEDE EN ABSTRACTR UNE METHODE RAMASSE
     public void ramasserArme(ObservableList<Arme> getArmes) {
         Iterator<Arme> iterator = getArmes.iterator();
         while (iterator.hasNext()) {
@@ -438,61 +439,33 @@ public class Link extends Personnage {
         return isStatutPas();
     }
 
-    public boolean pousseLeBloc (){
+    public boolean pousseLeBloc() {
+        int[][] valeurs = {
+                {},
+                {31, 1, 1, 18, 16, 0, 10},
+                {32, -31, -32, 30, 0, -28, 6},
+                {31, -32, -32, 18, 16, -30, 0},
+                {-1, -31, 1, 0, 32, -28, 6}
+        };
+        int dir = direction.getValue();
         for (BlockDynamique blocDynamique : terrain.getBlocsDynamiques()) {
-            if (direction.getValue() == 1) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+31, blocDynamique.getY()-1, blocDynamique)&&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY()-1, blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 18
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 16
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue()
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 10) {
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
+            if (dir >= 1 && dir <= 4) {
+                if (raccourci(blocDynamique, valeurs[dir])) {
+                    return true;
+                }
             }
-            if (direction.getValue() == 2) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+32, blocDynamique.getY()+31, blocDynamique)&& !terrain.collisionPourBloc(blocDynamique.getX()+32, blocDynamique.getY(), blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 30
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue()
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 28
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 6) {
+        }
+        return false;
+    }
 
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
+    public boolean raccourci(BlockDynamique blocDynamique, int[] valeurs) {
+        int valeur1 = valeurs[0], valeur2 = valeurs[1], valeur3 = valeurs[2], valeur4 = valeurs[3];
+        int valeur5 = valeurs[4], valeur6 = valeurs[5], valeur7 = valeurs[6];
+        if (!terrain.collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {
+            if (xProperty().getValue() > blocDynamique.xProperty().getValue() - valeur4 &&xProperty().getValue() < blocDynamique.xProperty().getValue() + valeur5 &&yProperty().getValue() > blocDynamique.yProperty().getValue() + valeur6 &&yProperty().getValue() < blocDynamique.yProperty().getValue() + valeur7) {
+                blocDynamique.bouge(direction.intValue());
+                return true;
             }
-
-            if (direction.getValue() == 3) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+31, blocDynamique.getY()+32, blocDynamique)&&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY()+32, blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 18
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 16
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 30
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue()) {
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
-            }
-
-            if (direction.getValue() == 4) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()-1, blocDynamique.getY()+31, blocDynamique) && !terrain.collisionPourBloc(blocDynamique.getX()-1, blocDynamique.getY(), blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue()
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 32
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 28
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 6) {
-
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
-            }
-
-
         }
         return false;
     }
@@ -505,7 +478,7 @@ public class Link extends Personnage {
             this.setPv(this.getPv() + 1);
         }
     }
-
+ // TODO UN LINK EN SINGLETON changer le nom et déplacer dans leurs classes respectives
     public void linkUtilisePotionForce(){
         this.setPointAttaque(this.pointAttaque = this.pointAttaque+2);
         PauseTransition pause = new PauseTransition(Duration.seconds(60));
@@ -535,6 +508,15 @@ public class Link extends Personnage {
             if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
                 this.armeEquipe = inventaire.getInventaireArme().get(i);
 
+            }
+        }
+    }
+    public void attaqueMonstre() { //A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
+        for (int i = 0; i < Environnement.getInstance(this,terrain).getPersonnageListe().size(); i++) {
+            if (Environnement.getInstance(this,this.terrain).getPersonnageListe().get(i) instanceof Monstre) {
+                Monstre m = (Monstre) Environnement.getInstance(this,terrain).getPersonnageListe().get(i);
+
+                this.attaque(m);
             }
         }
     }
@@ -621,6 +603,7 @@ public class Link extends Personnage {
     public void agit() {
         this.seDeplace();
         this.equiperArme();
+        this.attaqueMonstre();
     }
 
 }

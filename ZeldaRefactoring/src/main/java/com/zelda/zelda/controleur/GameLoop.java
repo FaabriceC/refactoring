@@ -59,7 +59,7 @@ public class GameLoop {
 
         link.agit();
 
-        env.verifMonstre();
+//        env.attaqueMonstre(); //TODO mettre la fonction attaqueMonstre dans link.agit()
 
 //                if (link.getArmeEquipe() instanceof Arc){
 //                    link.flecheSeDeplace(this.link.getFleche(),m);

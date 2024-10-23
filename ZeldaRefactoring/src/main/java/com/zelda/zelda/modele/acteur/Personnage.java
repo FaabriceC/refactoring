@@ -31,6 +31,7 @@ public abstract class Personnage { // Crée un personnage
     }
 
 
+
     public IntegerProperty xProperty() {
         return x;
     }
@@ -58,6 +59,7 @@ public abstract class Personnage { // Crée un personnage
         return y.getValue();
     }
 
+    //TODO FAIRE UNE METHODE ABSTRACT ATTAQUE ICI ET LA CODER DANS LINK ET MONSTRE EN PRENANT EN PARAMETRE UN PERSONNAGE
 
     public void setX(int x) {
         this.x.set(x);

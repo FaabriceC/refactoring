@@ -118,7 +118,7 @@ public class Environnement {
         this.ajouterListeConsommable(popoDeForce);
 
     }
-    public void verifMonstre() {
+    public void attaqueMonstre() { //TODO A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
         for (int i = 0; i < this.getPersonnageListe().size(); i++) {
             if (this.getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) this.getPersonnageListe().get(i);
@@ -128,7 +128,7 @@ public class Environnement {
         }
     }
 
-    public void deplacementMonstre() {
+    public void deplacementMonstre() { // TODO Renommer en actionMonstre
         for (Monstre monstre : this.monstres) {
             monstre.seDeplace(link);
         }
