@@ -47,7 +47,7 @@ public class Link extends Personnage {
 
 
 
-    public Link(String nom, int x, int y, Terrain t) {
+    private Link(String nom, int x, int y, Terrain t) {
         super(x, y, nom, t);
         this.pv= new SimpleIntegerProperty(5);
         this.pv.setValue(5);
@@ -63,12 +63,21 @@ public class Link extends Personnage {
 
     }
 
+    public static Link getInstance() {
+
+        if (uniqueInstance == null) {
+            uniqueInstance = new Link("Link", 800, 400, Terrain.getInstance());
+        }
+
+        return uniqueInstance;
+    }
+
 
     public boolean peutSeDeplacer  (int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(margeX,0)[1];
 
-        return !terrain.collision(tuileX+margeX,tuileY+margeY);
+        return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
 
     }
 
@@ -111,7 +120,7 @@ public class Link extends Personnage {
             tp=true;
         }
 
-        if ( peutSeDeplacer(newX, newY)&& terrain.dansTerrain(newX,newY)&&!tp) {
+        if ( peutSeDeplacer(newX, newY)&& Terrain.getInstance().dansTerrain(newX,newY)&&!tp) {
             this.setX(newX);
             this.setY(newY);
         }
@@ -451,7 +460,7 @@ public class Link extends Personnage {
                 {-1, -31, 1, 0, 32, -28, 6}
         };
         int dir = direction.getValue();
-        for (BlockDynamique blocDynamique : terrain.getBlocsDynamiques()) {
+        for (BlockDynamique blocDynamique : Terrain.getInstance().getBlocsDynamiques()) {
             if (dir >= 1 && dir <= 4) {
                 if (raccourci(blocDynamique, valeurs[dir])) {
                     return true;
@@ -464,7 +473,7 @@ public class Link extends Personnage {
     public boolean raccourci(BlockDynamique blocDynamique, int[] valeurs) {
         int valeur1 = valeurs[0], valeur2 = valeurs[1], valeur3 = valeurs[2], valeur4 = valeurs[3];
         int valeur5 = valeurs[4], valeur6 = valeurs[5], valeur7 = valeurs[6];
-        if (!terrain.collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {
+        if (!Terrain.getInstance().collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!Terrain.getInstance().collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {
             if (xProperty().getValue() > blocDynamique.xProperty().getValue() - valeur4 &&xProperty().getValue() < blocDynamique.xProperty().getValue() + valeur5 &&yProperty().getValue() > blocDynamique.yProperty().getValue() + valeur6 &&yProperty().getValue() < blocDynamique.yProperty().getValue() + valeur7) {
                 blocDynamique.bouge(direction.intValue());
                 return true;
@@ -473,7 +482,7 @@ public class Link extends Personnage {
         return false;
     }
 
-
+/*
     public void linkUtilisePotionSoin() {
         if (this.pv.getValue() <= 3) {
             this.setPv(this.getPv() + 2);
@@ -481,6 +490,10 @@ public class Link extends Personnage {
             this.setPv(this.getPv() + 1);
         }
     }
+ */
+
+    /*
+
  // TODO UN LINK EN SINGLETON changer le nom et déplacer dans leurs classes respectives
     public void linkUtilisePotionForce(){
         this.setPointAttaque(this.pointAttaque = this.pointAttaque+2);

@@ -36,13 +36,13 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + consommable.getId()));
                 if (consommable instanceof PotionForce) {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtilisePotionForce();
+                        ((PotionForce) consommable).utilise();
                         consommablesToolBar.getItems().remove(cV2.getImageView());
 
                     });
                 } else if (consommable instanceof PotionSoin) {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtilisePotionSoin();
+                        ((PotionSoin) consommable).utilise();
                         consommablesToolBar.getItems().remove(cV2.getImageView());
 
                     });

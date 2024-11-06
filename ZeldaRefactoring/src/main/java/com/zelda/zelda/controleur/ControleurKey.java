@@ -133,7 +133,7 @@ public class ControleurKey  {
             link.setLinkAttaqueFalse();
         }
         if (fPressed){
-            env.getLink().ramasserArme(env.getArmes());   // (Lorsque Environnement sera en Singleton)
+            Link.getInstance().ramasserArme(Environnement.getInstance().getArmes());   // (Lorsque Environnement sera en Singleton)
         }
 
         if (iPressed){

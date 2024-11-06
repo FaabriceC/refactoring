@@ -31,19 +31,17 @@ public class Environnement {
     private ArrayList<Monstre> monstres;
 
     private Link link;
-    private Terrain terrain;
 
     private Environnement() {
         this.personnages = FXCollections.observableArrayList();
         this.armes = FXCollections.observableArrayList();
         this.consommables = FXCollections.observableArrayList();
-        this.terrain = terrain;
         this.monstres = new ArrayList<>();
     }
 
-    public static Environnement getInstance(Link link, Terrain terrain) {
+    public static Environnement getInstance() {
         if(uniqueInstance==null) {
-            uniqueInstance= new Environnement(link,terrain);
+            uniqueInstance= new Environnement();
         }
         return uniqueInstance;
     }
@@ -129,7 +127,7 @@ public class Environnement {
 
     public void actionMonstre() { // TODO Renommer en actionMonstre
         for (Monstre monstre : this.monstres) {
-            monstre.seDeplace(link);
+            monstre.seDeplace();
         }
     }
 

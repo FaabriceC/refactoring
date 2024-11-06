@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Personnage { // Crée un personnage
     private IntegerProperty x = new SimpleIntegerProperty();
     private IntegerProperty y = new SimpleIntegerProperty();
-    protected Terrain terrain;
     private final String nom;
     protected IntegerProperty direction;
     protected IntegerProperty indicePas;
@@ -21,7 +20,6 @@ public abstract class Personnage { // Crée un personnage
         this.x.set(x);
         this.y.set(y);
         this.nom = nom;
-        this.terrain = terrain;
         this.direction = new SimpleIntegerProperty(0);
         this.indicePas = new SimpleIntegerProperty(0);
 

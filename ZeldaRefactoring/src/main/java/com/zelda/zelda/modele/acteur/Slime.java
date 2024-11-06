@@ -10,7 +10,6 @@ public class Slime extends Monstre {
         super(1, x, y, "slime3.gif", t);
     }
 
-    @Override
     public void seDeplace(Link link) { //TODO RENOMMER LA METHODE seDeplaceEtAttaque
         if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
             if (!link.isInvisible()) {

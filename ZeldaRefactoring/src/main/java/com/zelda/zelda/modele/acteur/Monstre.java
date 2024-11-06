@@ -25,7 +25,7 @@ public abstract class Monstre extends Personnage {
         this.pv = new SimpleIntegerProperty(pv);
         this.pv.setValue(pv);
         this.nbTours = 0;
-        this.bfs = new BFS(this, terrain);
+        this.bfs = new BFS(this, Terrain.getInstance());
         this.dircAlea = false;
         this.monsSubitDegat = false;
     }
@@ -46,7 +46,7 @@ public abstract class Monstre extends Personnage {
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(0,0)[1];
 
-        return  !terrain.collision(tuileX+margeX,tuileY+margeY);
+        return  !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
 
     public void choisiDirectionAleatoire() {

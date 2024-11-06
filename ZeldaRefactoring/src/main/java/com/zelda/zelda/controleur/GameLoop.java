@@ -14,18 +14,10 @@ import javafx.util.Duration;
 
 public class GameLoop {
 
-    private Link link;
-
-    private final long DELAI_MOUVEMENT = 5_000_000;
-    private final long DELAI_SLIME = 20_000_000;
-    private final long DELAI_BOSS = 10_000_000;
     private Timeline gameLoop;
-    private Environnement env;
     private IntegerProperty temps;
 
-    public GameLoop(Link link, Environnement environnement) {
-        this.link = link;
-        this.env = environnement;
+    public GameLoop() {
         temps = new SimpleIntegerProperty(0);
         initAnimation();
     }
@@ -35,9 +27,9 @@ public class GameLoop {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.033), (event) -> {
-            this.rafraichirLink();
+            Link.getInstance().agit();
             if (temps.getValue() % 2 == 0) {
-                this.env.deplacementMonstre();
+                Environnement.getInstance().actionMonstre();
             }
 
             temps.setValue(temps.getValue()+1);

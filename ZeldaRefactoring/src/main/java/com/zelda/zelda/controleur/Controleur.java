@@ -60,18 +60,17 @@ public class Controleur implements Initializable {
         initDecorations();
 
         initLink();
-        this.env = Environnement.getInstance(link, terrain);
 
         initInventaire();
         initListObs();
-        this.env.initArmes();
-        this.env.initConsommable();
-        this.env.initMonstre();
+        Environnement.getInstance().initArmes();
+        Environnement.getInstance().initConsommable();
+        Environnement.getInstance().initMonstre();
 
-        controleurKey = new ControleurKey(inventaireVue, this.env);
-        controleurKey.initKeyHandler(panneauJeu, link);
+        controleurKey = new ControleurKey(inventaireVue);
+        controleurKey.initKeyHandler(panneauJeu, Link.getInstance());
 
-        this.gameLoop = new GameLoop(link, env);
+        this.gameLoop = new GameLoop();
         this.gameLoop.start();
 
         initPane();
@@ -95,8 +94,8 @@ public class Controleur implements Initializable {
     }
 
     public void initDecorations() {
-        BlockDynamique blocktest = new BlockDynamique(600, 300, "arbre1.png", terrain);
-        terrain.ajouterBlocDynamique(blocktest);
+        BlockDynamique blocktest = new BlockDynamique(600, 300, "arbre1.png", Terrain.getInstance());
+        Terrain.getInstance().ajouterBlocDynamique(blocktest);
         BlockDynamiqueVue blocktestVue = new BlockDynamiqueVue(blocktest, "arbre1.png");
         panneauJeu.getChildren().add(blocktestVue.getImageView());
     }
@@ -120,7 +119,7 @@ public class Controleur implements Initializable {
 
     public void initListObs(){
         ListChangeListener<Personnage> personnageListChangeListener = new ListObs(panneauJeu);
-        this.env.getPersonnageListe().addListener(personnageListChangeListener);
+        Environnement.getInstance().getPersonnageListe().addListener(personnageListChangeListener);
 
         ListChangeListener<Arme> armeListChangeListener = new ListObsArmes(panneauJeu, itemToolBar);
         Environnement.getInstance().getArmes().addListener(armeListChangeListener);
@@ -133,7 +132,7 @@ public class Controleur implements Initializable {
 
 
     public void initInventaire() {
-        inv = this.link.getInventaire();
+        inv = Link.getInstance().getInventaire();
         this.epee = new Epee();
         inv.ajouterArme(epee);
         this.potionSoin = new PotionSoin();
@@ -142,7 +141,7 @@ public class Controleur implements Initializable {
         inv.ajouterConsommable(potionSoin);
         inv.ajouterConsommable(potionForce);
 
-        this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, link);
+        this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, Link.getInstance());
     }
 
 
