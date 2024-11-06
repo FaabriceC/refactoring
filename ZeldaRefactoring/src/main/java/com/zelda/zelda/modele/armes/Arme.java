@@ -37,9 +37,12 @@ public abstract class Arme {
         if(attaquePossibleSelonDirection(link.getDerniereDirection(),monstre,currentTime)){
             System.out.println("LINK ATTAQUE");
             this.faitDesDegatAuMonstre(monstre);
+            /*
             if(monstre.peutReculerSelonDirection(link.getDerniereDirection())){
                 this.faitReculerMonstreSelonDirection(link.getDerniereDirection(),monstre);
             }
+
+             */
 
             //actionTime = currentTime;
 
@@ -77,6 +80,7 @@ public abstract class Arme {
 
     public void faitDesDegatAuMonstre(Monstre monstre){
         monstre.setPv(monstre.getPv() - (link.getPointAttaque() + link.getArmeEquipe().getDegats()));
+        System.out.println(monstre.getPv());
     }
 
 /*

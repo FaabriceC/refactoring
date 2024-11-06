@@ -65,8 +65,7 @@ public class GameLoop {
         //link.agit();
 
         for (int i = 0; i < this.env.getPersonnageListe().size(); i++) { // TODO dans le modèle
-            if (this.env.getPersonnageListe().get(i) instanceof Monstre) {
-                Monstre m = (Monstre) this.env.getPersonnageListe().get(i);
+            if (this.env.getPersonnageListe().get(i) instanceof Monstre m) {
                 link.attaque(m);
 //                if (link.getArmeEquipe() instanceof Arc){
 //                    link.flecheSeDeplace(this.link.getFleche(),m);
@@ -77,7 +76,10 @@ public class GameLoop {
 //
             }
 
+
         }
+
+
     }
 
 
