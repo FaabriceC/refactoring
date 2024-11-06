@@ -30,14 +30,14 @@ public abstract class Monstre extends Personnage {
         this.monsSubitDegat = false;
     }
 
-    public  void seDeplace(Link link){
-        if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
-            if (condition(link)) {
-                bfs.seDeplace(link);
+    public void seDeplace(){
+        if (Math.abs(Link.getInstance().getX() - this.getX()) < 128 && Math.abs(Link.getInstance().getY() - this.getY()) < 128) {
+            if (condition(Link.getInstance())) {
+                bfs.seDeplace(Link.getInstance());
             }
 
         }
-        attaque(link);
+        attaque();
     }
 
     public abstract boolean condition(Link link);
@@ -55,10 +55,10 @@ public abstract class Monstre extends Personnage {
         }
     }
 
-    public void attaque(Link link) {
+    public void attaque() {
         long currentTime = System.currentTimeMillis();
-        if ((currentTime - actionTime >= 2500) && (peutAttaquer(link, 1) || peutAttaquer(link, 2) || peutAttaquer(link, 3) || peutAttaquer(link, 4))) {
-            link.setPv(link.getPv() - 1);
+        if ((currentTime - actionTime >= 2500) && (peutAttaquer(Link.getInstance(), 1) || peutAttaquer(Link.getInstance(), 2) || peutAttaquer(Link.getInstance(), 3) || peutAttaquer(Link.getInstance(), 4))) {
+            Link.getInstance().setPv(Link.getInstance().getPv() - 1);
             actionTime = currentTime;
         }
     }

@@ -61,7 +61,7 @@ public class InventaireVue {
                 Image i3 = new Image(String.valueOf(Lanceur.class.getResource("potionForce.png")));
                 ImageView imageViewPotionForce = new ImageView(i3);
                 imageViewPotionForce.setOnMouseClicked(event -> {
-                            link.linkUtilisePotionForce();
+                    potionForce.utilise();
                     System.out.println(link.getPtsAttaque());
                             consommable.getItems().remove(imageViewPotionForce);
                         });

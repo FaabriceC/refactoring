@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele;
 
+import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Personnage;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.util.JsonLoader;
@@ -13,11 +14,11 @@ import java.util.Map;
  */
 public class Terrain {
     public int[][] solLayer;
-
+    private static Terrain uniqueInstance=null;
     private ArrayList<BlockDynamique> blocsDynamiques = new ArrayList<>();
     private int[] tuileCollision = {9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,30,48,49,54,78,102};
 
-    public Terrain(String jsonFilePath) {
+    private Terrain(String jsonFilePath) {
         try (JsonLoader jsonLoader = new JsonLoader(jsonFilePath)) {
             Map<String, int[]> layers = jsonLoader.getLayers();
 
@@ -26,6 +27,13 @@ public class Terrain {
         } catch (IOException e) {
             System.err.println("(Terrain) Erreur de lecture du fichier JSON  : " + e.getMessage());
         }
+    }
+
+    public static Terrain getInstance() {
+        if(uniqueInstance==null) {
+            uniqueInstance= new Terrain("/com/zelda/zelda/MapZelda.json");
+        }
+        return uniqueInstance;
     }
 
     public int[][] getSolLayer() {

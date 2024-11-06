@@ -7,7 +7,7 @@ import com.zelda.zelda.modele.acteur.Monstre;
 public class Slime extends Monstre {
 
     public Slime(int x, int y, Terrain t) {
-        super(5, x, y, "slime3.gif", t);
+        super(1, x, y, "slime3.gif", t);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class Slime extends Monstre {
             if (!link.isInvisible()) {
                 bfs.seDeplace(link);
             }
-            attaque(link);
+            attaque();
         }
 
     }

@@ -33,8 +33,7 @@ public class Environnement {
     private Link link;
     private Terrain terrain;
 
-    private Environnement(Link link, Terrain terrain) {
-        this.link = link;
+    private Environnement() {
         this.personnages = FXCollections.observableArrayList();
         this.armes = FXCollections.observableArrayList();
         this.consommables = FXCollections.observableArrayList();
@@ -75,15 +74,11 @@ public class Environnement {
         this.consommables.add(consommable);
     }
 
-    public Link getLink() {
-        return link;
-    }
-
-    public void initMonstre() {
-        Monstre monstre1 = new Slime(708, 472, this.terrain);
-        Monstre monstre2 = new Slime(750, 472, this.terrain);
-        Monstre monstre3 = new ArbreMonstre(760, 440, this.terrain);
-        Monstre boss = new Boss(4844,868,terrain);
+        public void initMonstre() {
+        Monstre monstre1 = new Slime(708, 472, Terrain.getInstance());
+        Monstre monstre2 = new Slime(750, 472, Terrain.getInstance());
+        Monstre monstre3 = new ArbreMonstre(760, 440);
+        Monstre boss = new Boss(4844,868,Terrain.getInstance());
 
         this.ajouter(monstre1);
         this.ajouter(monstre2);
@@ -118,17 +113,21 @@ public class Environnement {
         this.ajouterListeConsommable(popoDeForce);
 
     }
-    public void attaqueMonstre() { //TODO A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
+ /*   public void  attaqueMonstre() { //TODO A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
         for (int i = 0; i < this.getPersonnageListe().size(); i++) {
             if (this.getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) this.getPersonnageListe().get(i);
-
-                link.attaque(m);
+                Link.getInstance().attaque(m);
+                if (!m.vivant()) {
+                    Environnement.getInstance().getPersonnageListe().remove(m);
+                }
             }
         }
     }
 
-    public void deplacementMonstre() { // TODO Renommer en actionMonstre
+  */
+
+    public void actionMonstre() { // TODO Renommer en actionMonstre
         for (Monstre monstre : this.monstres) {
             monstre.seDeplace(link);
         }

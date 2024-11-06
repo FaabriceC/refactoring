@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
-    private Terrain terrain;
+
     private TerrainVue terrainVue;
 
     @FXML
@@ -38,14 +38,13 @@ public class Controleur implements Initializable {
     private PotionForce potionForce;
     @FXML
     private Pane panneauJeu;
-    private Link link;
     private LinkVue linkVue;
 
     @FXML
     private Pane backgroundPaneConso;
     private GameLoop gameLoop;
     private ControleurKey controleurKey;
-    private Environnement env;
+
     private Inventaire inv;
     private InventaireVue inventaireVue;
 
@@ -80,9 +79,8 @@ public class Controleur implements Initializable {
     }
 
     public void initTerrain() {
-        terrain = new Terrain("/com/zelda/zelda/MapZelda.json");
         try {
-            terrainVue = new TerrainVue(panneauJeu, terrain);
+            terrainVue = new TerrainVue(panneauJeu, Terrain.getInstance());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -104,8 +102,7 @@ public class Controleur implements Initializable {
     }
 
     public void initLink() {
-        this.link = new Link("link", 800, 400, this.terrain);
-        this.linkVue = new LinkVue(link, panneauJeu, "Link3.gif", backgroundPaneConso, consommable, backgroundPane, itemToolBar);
+        this.linkVue = new LinkVue(Link.getInstance(), panneauJeu, "Link3.gif", backgroundPaneConso, consommable, backgroundPane, itemToolBar);
         this.panneauJeu.getChildren().add(this.linkVue.getImageView());
 
 
@@ -113,7 +110,7 @@ public class Controleur implements Initializable {
             this.panneauJeu.getChildren().add(coeur);
         }
 
-        this.proVue = new ProjectileVue(link.getFleche());
+        this.proVue = new ProjectileVue(Link.getInstance().getFleche());
         this.panneauJeu.getChildren().add(this.proVue.getImageView());
 
 //        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
@@ -126,10 +123,10 @@ public class Controleur implements Initializable {
         this.env.getPersonnageListe().addListener(personnageListChangeListener);
 
         ListChangeListener<Arme> armeListChangeListener = new ListObsArmes(panneauJeu, itemToolBar);
-        this.env.getArmes().addListener(armeListChangeListener);
+        Environnement.getInstance().getArmes().addListener(armeListChangeListener);
 
-        ListChangeListener<Consommable> consommableListChangeListener = new ListObsConsommables(panneauJeu, consommable, link);
-        this.env.getConsommables().addListener(consommableListChangeListener);
+        ListChangeListener<Consommable> consommableListChangeListener = new ListObsConsommables(panneauJeu, consommable, Link.getInstance());
+        Environnement.getInstance().getConsommables().addListener(consommableListChangeListener);
 
 
     }

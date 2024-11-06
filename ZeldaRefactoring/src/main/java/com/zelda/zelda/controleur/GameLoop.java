@@ -42,7 +42,7 @@ public class GameLoop {
 
             temps.setValue(temps.getValue()+1);
 
-            if (this.link.linkMeurt()) {
+            if (Link.getInstance().linkMeurt()) {
                 gameLoop.stop();
             }
         });
@@ -54,25 +54,5 @@ public class GameLoop {
     public void start() {
         gameLoop.play();
     }
-
-    private void rafraichirLink() {
-
-        link.agit();
-
-//        env.attaqueMonstre(); //TODO mettre la fonction attaqueMonstre dans link.agit()
-
-//                if (link.getArmeEquipe() instanceof Arc){
-//                    link.flecheSeDeplace(this.link.getFleche(),m);
-//                } else if(link.getArmeEquipe() instanceof Boomerang){
-//                    link.boomerangSeDeplace(this.link.getBoomerang(),m);
-//                }
-//
-//
-            }
-
-
-
-
-
 
 }

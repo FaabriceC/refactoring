@@ -26,7 +26,6 @@ public class ListObsArmes implements ListChangeListener<Arme> {
 
             }
             for (Arme arme : a.getRemoved()){
-                System.out.println(a.getRemoved());
                 ArmeVue av2 = new ArmeVue(arme, arme.getNomPng(),"inutile");
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + arme.getId()));
                 this.toolBar.getItems().add(av2.getImageView());

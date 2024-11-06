@@ -43,6 +43,9 @@ public class Link extends Personnage {
     private boolean invisible;
 
     private boolean tp;
+    private static Link uniqueInstance = null;
+
+
 
     public Link(String nom, int x, int y, Terrain t) {
         super(x, y, nom, t);
@@ -488,6 +491,8 @@ public class Link extends Personnage {
         pause.play();
 
     }
+    */
+
     public int getPtsAttaque(){
         return this.pointAttaque;
     }
@@ -511,15 +516,19 @@ public class Link extends Personnage {
             }
         }
     }
-    public void attaqueMonstre() { //A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
-        for (int i = 0; i < Environnement.getInstance(this,terrain).getPersonnageListe().size(); i++) {
-            if (Environnement.getInstance(this,this.terrain).getPersonnageListe().get(i) instanceof Monstre) {
-                Monstre m = (Monstre) Environnement.getInstance(this,terrain).getPersonnageListe().get(i);
-
-                this.attaque(m);
+    public void  attaqueMonstre() {
+        for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
+            if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
+                Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
+                Link.getInstance().attaque(m);
+                if (!m.vivant()) {
+                    Environnement.getInstance().getPersonnageListe().remove(m);
+                }
             }
         }
     }
+
+
 
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
@@ -604,6 +613,7 @@ public class Link extends Personnage {
         this.seDeplace();
         this.equiperArme();
         this.attaqueMonstre();
+
     }
 
 }
