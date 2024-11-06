@@ -24,3 +24,4 @@ public class ArbreMonstre extends Monstre {
     }
 
 }
+
