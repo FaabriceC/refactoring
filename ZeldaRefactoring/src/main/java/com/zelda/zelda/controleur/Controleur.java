@@ -44,7 +44,6 @@ public class Controleur implements Initializable {
     private Pane backgroundPaneConso;
     private GameLoop gameLoop;
     private ControleurKey controleurKey;
-
     private Inventaire inv;
     private InventaireVue inventaireVue;
 
@@ -52,6 +51,7 @@ public class Controleur implements Initializable {
     private ToolBar consommable;
 
     private ProjectileVue proVue;
+    private ProjectileVue proVue2;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -79,7 +79,7 @@ public class Controleur implements Initializable {
 
     public void initTerrain() {
         try {
-            terrainVue = new TerrainVue(panneauJeu, Terrain.getInstance());
+            terrainVue = new TerrainVue(panneauJeu, terrain);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

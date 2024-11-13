@@ -88,18 +88,20 @@ public class Environnement {
         this.monstres.add(monstre3);
         this.monstres.add(boss);
     }
-
+/*
     public void initArmes(){
 
-        Epee epee = new Epee();
+        Epee epee = new Epee(link);
         this.ajouterListeArme(epee);
-        Boomerang boomerang = new Boomerang();
+        Boomerang boomerang = new Boomerang(link);
         this.ajouterListeArme(boomerang);
 
-        Arc arc = new Arc();
+        Arc arc = new Arc(link);
         this.ajouterListeArme(arc);
     }
 
+
+ */
     public void initConsommable(){
         Bracelet bracelet = new Bracelet();
         this.ajouterListeConsommable(bracelet);
