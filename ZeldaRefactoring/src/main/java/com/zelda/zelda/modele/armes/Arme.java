@@ -23,22 +23,17 @@ public abstract class Arme {
 
     }
 
-
-
-
     public void attaqueAvecArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime) && Link.getInstance().isLinkAttaque()){
-            System.out.println("LINK ATTAQUE");
+        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime)){
             this.faitDesDegatAuMonstre(monstre);
-            /*
-            if(monstre.peutReculerSelonDirection(link.getDerniereDirection())){
-                this.faitReculerMonstreSelonDirection(link.getDerniereDirection(),monstre);
+            if(monstre.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
+                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),monstre);
             }
+            System.out.println("Dégats de l'arme : " + Link.getInstance().getArmeEquipe().getDegats());
 
-             */
 
-            //actionTime = currentTime;
+            actionTime = currentTime;
 
         }
 
@@ -48,9 +43,9 @@ public abstract class Arme {
 
     public boolean attaquePossibleSelonDirection(int direction, Monstre monstre,long currentTime){
         if (direction == 1 ){
-            return /*currentTime - actionTime >= 500 &&*/ Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            return /*currentTime - actionTime >= 500 && */Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
         } else if (direction == 2) {
-            return/* currentTime - actionTime >= 500 &&*/  monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            return /* currentTime - actionTime >= 500 &&*/  monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
         } else if (direction == 3){
             return monstre.getY()-Link.getInstance().getY() < 32 && monstre.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
         } else {
@@ -61,13 +56,13 @@ public abstract class Arme {
 
     public void faitReculerMonstreSelonDirection(int direction,Monstre monstre){
         if(direction == 1){
-            monstre.setY(monstre.getY()-32);
-        } else if (direction == 2){
-            monstre.setX(monstre.getX()+32);
-        } else if (direction == 3){
             monstre.setY(monstre.getY()+32);
-        } else {
+        } else if (direction == 2){
             monstre.setX(monstre.getX()-32);
+        } else if (direction == 3){
+            monstre.setY(monstre.getY()-32);
+        } else {
+            monstre.setX(monstre.getX()+32);
         }
     }
 

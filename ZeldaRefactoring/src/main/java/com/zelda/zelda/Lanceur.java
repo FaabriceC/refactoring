@@ -15,9 +15,6 @@ public class Lanceur extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/zelda/zelda/InterfacePrincipale.fxml"));
         BorderPane panePrincipal = fxmlLoader.load();
 
-        Controleur controleur = fxmlLoader.getController();
-        System.out.println(controleur);
-        
         Scene scene = new Scene(panePrincipal, 1280, 960);
 
         stage.setTitle("Jeu 2D Zelda");

@@ -91,12 +91,12 @@ public class Environnement {
 
     public void initArmes(){
 
-        Epee epee = new Epee(link);
+        Epee epee = new Epee();
         this.ajouterListeArme(epee);
-        Boomerang boomerang = new Boomerang(link);
+        Boomerang boomerang = new Boomerang();
         this.ajouterListeArme(boomerang);
 
-        Arc arc = new Arc(link);
+        Arc arc = new Arc();
         this.ajouterListeArme(arc);
     }
 

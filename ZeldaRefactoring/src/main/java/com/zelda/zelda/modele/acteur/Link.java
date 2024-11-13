@@ -141,45 +141,48 @@ public class Link extends Personnage {
         } else {
             this.attaqueSansArme(monstre);
         }
+
     }
 
 
     public void attaqueSansArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        if( currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
+        if(currentTime - actionTime >= 500 && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
             monstreSubitDegat(monstre);
             if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32)){
                 monstre.setY(monstre.getY()-32);
             }
             actionTime = currentTime;
+            System.out.println("vie monstre : " + monstre.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
+        if(currentTime - actionTime >= 500 && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
             monstreSubitDegat(monstre);
             if(monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY())){
                 monstre.setX(monstre.getX()+32);
             }
             actionTime = currentTime;
+            System.out.println("vie monstre : " + monstre.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
+        if(currentTime - actionTime >= 500 && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
             monstreSubitDegat(monstre);
             if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32)){
                 monstre.setY(monstre.getY()+32);
             }
             actionTime = currentTime;
+            System.out.println("vie monstre : " + monstre.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
+        if(currentTime - actionTime >= 500 && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
             monstreSubitDegat(monstre);
             if(monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY())){
                 monstre.setX(monstre.getX()-32);
             }
             actionTime = currentTime;
+            System.out.println("vie monstre : " + monstre.getPv());
 
         }
-
-
 
     }
 
@@ -288,16 +291,16 @@ public class Link extends Personnage {
     }
 
 
-
     public void equiperArme() {
         for(int i = 0;i< inventaire.getInventaireArme().size();i++){
             if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
                 this.armeEquipe = inventaire.getInventaireArme().get(i);
-                System.out.println(this.armeEquipe.getNomPng());
             }
         }
+
     }
-    public void  attaqueMonstre() {
+
+    public void attaqueMonstre() {
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
@@ -308,7 +311,6 @@ public class Link extends Personnage {
             }
         }
     }
-
 
 
     public void setArmeChoisi(String armeChoisi) {
@@ -367,8 +369,8 @@ public class Link extends Personnage {
 
     public void agit() {
         this.seDeplace();
-        this.equiperArme();
-        this.attaqueMonstre();
+        //this.equiperArme();
+        //this.attaqueMonstre();
 
     }
     public boolean isLinkAttaque() {

@@ -15,7 +15,6 @@ public abstract class Personnage { // Crée un personnage
     public static int compteur = 0;
     private String id;
 
-
     public Personnage(int x, int y, String nom, Terrain terrain) {
         this.x.set(x);
         this.y.set(y);
@@ -27,8 +26,6 @@ public abstract class Personnage { // Crée un personnage
         compteur++;
 
     }
-
-
 
     public IntegerProperty xProperty() {
         return x;

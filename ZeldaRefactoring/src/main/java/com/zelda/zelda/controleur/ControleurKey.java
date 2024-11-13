@@ -93,6 +93,34 @@ public class ControleurKey  {
                         link.setDerniereDirection(4);
                     }
                     break;
+                case Z:
+                    if (!downPressed) {
+                        direction = 1;
+                        moving = true;
+                        link.setDerniereDirection(1);
+                    }
+                    break;
+                case D:
+                    if (!leftPressed) {
+                        direction = 2;
+                        moving = true;
+                        link.setDerniereDirection(2);
+                    }
+                    break;
+                case S:
+                    if (!upPressed) {
+                        direction = 3;
+                        moving = true;
+                        link.setDerniereDirection(3);
+                    }
+                    break;
+                case Q:
+                    if (!rightPressed) {
+                        direction = 4;
+                        moving = true;
+                        link.setDerniereDirection(4);
+                    }
+                    break;
                 case X:
                     xPressed = true;
                     break;
@@ -127,14 +155,17 @@ public class ControleurKey  {
         link.directionProperty().setValue(direction);
 
         if (xPressed) {
-            link.setLinkAttaqueTrue();
+            Link.getInstance().attaqueMonstre();
+        }
 
-        } else {
-            link.setLinkAttaqueFalse();
-        }
         if (fPressed){
-            Link.getInstance().ramasserArme(Environnement.getInstance().getArmes());   // (Lorsque Environnement sera en Singleton)
+            Link.getInstance().ramasserArme(Environnement.getInstance().getArmes());
         }
+
+        if (pPressed) {
+            Link.getInstance().equiperArme();
+        }
+
 
         if (iPressed){
             inventaireVue.setVisible();
