@@ -7,14 +7,11 @@ import com.zelda.zelda.modele.acteur.Link;
 
 public  class Epee extends com.zelda.zelda.modele.armes.Arme {
 
-    private int degat;
+    public Epee(){
 
-
-    public Epee(Link link){
-        super(link);
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(400);
-        this.degats=100;
+        this.degats=2;
         this.nomPng = "epee.png";
     }
 

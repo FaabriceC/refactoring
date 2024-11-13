@@ -26,25 +26,12 @@ public class Link extends Personnage {
     private int derniereDirection;
     private Inventaire inventaire;
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
-
     private Arme armeEquipe;
-
     private String armeChoisi;
-
     private int pointAttaque;
-
-    //private Projectile fleche;
-    private int tempAvantDisparitionDeLaFleche;
-
-    //private Projectile boomerang;
-
-    private int tempAvantRetourBoomerang;
-
     private boolean invisible;
-
     private boolean tp;
     private static Link uniqueInstance = null;
-
 
 
     private Link(String nom, int x, int y, Terrain t) {
@@ -56,19 +43,13 @@ public class Link extends Personnage {
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
-        //this.fleche = new Projectile("arrows.png");
-        this.tempAvantDisparitionDeLaFleche = 0;
-        //this.boomerang = new Projectile("boomerang.png");
-        this.tempAvantRetourBoomerang = 0;
 
     }
 
     public static Link getInstance() {
-
         if (uniqueInstance == null) {
             uniqueInstance = new Link("Link", 800, 400, Terrain.getInstance());
         }
-
         return uniqueInstance;
     }
 
@@ -78,7 +59,6 @@ public class Link extends Personnage {
         int margeY = margeErreur(margeX,0)[1];
 
         return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
-
     }
 
     public void seDeplace() {
@@ -203,191 +183,6 @@ public class Link extends Personnage {
 
     }
 
-/*
-    public void attaqueAvecEpee(Monstre monstre){
-        long currentTime = System.currentTimeMillis();
-        if( currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32)){
-                monstre.setY(monstre.getY()-32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY())){
-                monstre.setX(monstre.getX()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32)){
-                monstre.setY(monstre.getY()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY())){
-                monstre.setX(monstre.getX()-32);
-            }
-            actionTime = currentTime;
-
-        }
-    }
-
-
-
-    public void attaqueAvecArc() {
-        long currentTime = System.currentTimeMillis();
-
-
-        if (this.linkAttaque && derniereDirection == 1) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(1);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 2) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(2);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 3) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(3);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 4) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(4);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-    }
-
-
-    public void flecheSeDeplace(Projectile fleche ,Monstre monstre){
-        if (fleche.getDire() == 1){
-            if (Math.abs(fleche.getyProjectile() - monstre.getY()) < 2  && Math.abs(this.getX()-monstre.getX()) < 32 ){
-                monstreSubitDegat(monstre);
-            }
-            fleche.setyProjectile(fleche.getyProjectile()-1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 2) {
-            if (Math.abs(fleche.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getY() - monstre.getY()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setxProjectile(fleche.getxProjectile() + 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 3) {
-            if (Math.abs(fleche.getyProjectile() - monstre.getY()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setyProjectile(fleche.getyProjectile() + 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 4) {
-            if (Math.abs(fleche.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setxProjectile(fleche.getxProjectile() - 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        }
-    }
-
-
-    public void attaqueAvecBoomerang() {
-        long currentTime = System.currentTimeMillis();
-
-
-        if (this.linkAttaque && derniereDirection == 1) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(1);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 2) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(2);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 3) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(3);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 4) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(4);
-            tempAvantRetourBoomerang = 0;
-        }
-    }
-
-    public void boomerangSeDeplace(Projectile boomerang ,Monstre monstre){
-        if (boomerang.getDire() == 1){
-            if (Math.abs(boomerang.getyProjectile() - monstre.getY()) < 2  && Math.abs(this.getX()-monstre.getX()) < 32 ){
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setyProjectile(boomerang.getyProjectile()-1);
-            }else {
-                boomerang.setyProjectile(boomerang.getyProjectile() + 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 2) {
-            if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getY() - monstre.getY()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setxProjectile(boomerang.getxProjectile()+1);
-            }else {
-                boomerang.setxProjectile(boomerang.getxProjectile() - 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 3) {
-            if (Math.abs(boomerang.getyProjectile() - monstre.getY()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setyProjectile(boomerang.getyProjectile()+1);
-            }else {
-                boomerang.setyProjectile(boomerang.getyProjectile() - 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 4) {
-            if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setxProjectile(boomerang.getxProjectile()-1);
-            }else {
-                boomerang.setxProjectile(boomerang.getxProjectile() + 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        }
-    }
-
-
- */
     public boolean linkMeurt(){
         return this.getPv() == 0;
     }
@@ -402,6 +197,7 @@ public class Link extends Personnage {
             }
         }
     }
+
     //TODO FAIRE UNE SUPERCLASSE ITEM QUI POSSEDE EN ABSTRACTR UNE METHODE RAMASSE
     public void ramasserArme(ObservableList<Arme> getArmes) {
         Iterator<Arme> iterator = getArmes.iterator();
@@ -432,6 +228,7 @@ public class Link extends Personnage {
     public String toString() {
         return "Link" + super.toString();
     }
+
     public void setLinkAttaqueTrue(){
         this.linkAttaque=true;
     }
@@ -478,30 +275,6 @@ public class Link extends Personnage {
         return false;
     }
 
-/*
-    public void linkUtilisePotionSoin() {
-        if (this.pv.getValue() <= 3) {
-            this.setPv(this.getPv() + 2);
-        } else if (this.pv.getValue() == 4) {
-            this.setPv(this.getPv() + 1);
-        }
-    }
- */
-
-    /*
-
- // TODO UN LINK EN SINGLETON changer le nom et déplacer dans leurs classes respectives
-    public void linkUtilisePotionForce(){
-        this.setPointAttaque(this.pointAttaque = this.pointAttaque+2);
-        PauseTransition pause = new PauseTransition(Duration.seconds(60));
-        pause.setOnFinished(event -> {
-            this.setPointAttaque(this.pointAttaque = this.pointAttaque-2);
-        });
-        pause.play();
-
-    }
-    */
-
     public int getPtsAttaque(){
         return this.pointAttaque;
     }
@@ -509,7 +282,6 @@ public class Link extends Personnage {
     public void setPointAttaque(int pointAttaque){
         this.pointAttaque=pointAttaque;
     }
-
 
     public Inventaire getInventaire() {
         return inventaire;
@@ -542,13 +314,6 @@ public class Link extends Personnage {
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
     }
-/*
-    public Projectile getFleche() {
-        return fleche;
-    }
-
-
- */
 
     public Arme getArmeEquipe() {
         return armeEquipe;
@@ -599,37 +364,13 @@ public class Link extends Personnage {
             monstre.setMonsSubitDegat(true);
         }
     }
-/*
-    public void diparitionFleche(){
-        if (tempAvantDisparitionDeLaFleche == 128){
-            this.fleche.setxProjectileNull();
-            this.fleche.setyProjectileNull();
 
-        }
-    }
-
-    public void diparitionBoomerang(){
-        if (tempAvantRetourBoomerang == 192){
-            this.boomerang.setxProjectileNull();
-            this.boomerang.setyProjectileNull();
-
-        }
-    }
-
-    public Projectile getBoomerang() {
-        return boomerang;
-    }
-
-
- */
     public void agit() {
         this.seDeplace();
         this.equiperArme();
         this.attaqueMonstre();
 
     }
-
-
     public boolean isLinkAttaque() {
         return linkAttaque;
     }

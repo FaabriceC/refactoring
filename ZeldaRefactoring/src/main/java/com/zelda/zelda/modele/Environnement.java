@@ -72,7 +72,7 @@ public class Environnement {
         this.consommables.add(consommable);
     }
 
-        public void initMonstre() {
+    public void initMonstre() {
         Monstre monstre1 = new Slime(708, 472, Terrain.getInstance());
         Monstre monstre2 = new Slime(750, 472, Terrain.getInstance());
         Monstre monstre3 = new ArbreMonstre(760, 440);
@@ -88,7 +88,7 @@ public class Environnement {
         this.monstres.add(monstre3);
         this.monstres.add(boss);
     }
-/*
+
     public void initArmes(){
 
         Epee epee = new Epee(link);
@@ -101,7 +101,6 @@ public class Environnement {
     }
 
 
- */
     public void initConsommable(){
         Bracelet bracelet = new Bracelet();
         this.ajouterListeConsommable(bracelet);
@@ -113,21 +112,8 @@ public class Environnement {
         this.ajouterListeConsommable(popoDeForce);
 
     }
- /*   public void  attaqueMonstre() { //TODO A METTRE DANS LINK DE PREFERENCE + changer le nom en attaqueMonstre
-        for (int i = 0; i < this.getPersonnageListe().size(); i++) {
-            if (this.getPersonnageListe().get(i) instanceof Monstre) {
-                Monstre m = (Monstre) this.getPersonnageListe().get(i);
-                Link.getInstance().attaque(m);
-                if (!m.vivant()) {
-                    Environnement.getInstance().getPersonnageListe().remove(m);
-                }
-            }
-        }
-    }
 
-  */
-
-    public void actionMonstre() { // TODO Renommer en actionMonstre
+    public void actionMonstre() {
         for (Monstre monstre : this.monstres) {
             monstre.seDeplace();
         }

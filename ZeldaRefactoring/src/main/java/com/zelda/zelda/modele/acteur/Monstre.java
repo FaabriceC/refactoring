@@ -55,7 +55,13 @@ public abstract class Monstre extends Personnage {
         }
     }
 
-    public abstract void attaque(Link link);
+    public void attaque() {
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - actionTime >= 2500) && (peutAttaquer(Link.getInstance(), 1) || peutAttaquer(Link.getInstance(), 2) || peutAttaquer(Link.getInstance(), 3) || peutAttaquer(Link.getInstance(), 4))) {
+            Link.getInstance().setPv(Link.getInstance().getPv() - 1);
+            actionTime = currentTime;
+        }
+    }
 
     public boolean peutAttaquer(Link link, int direction) {
         return (this.direction.getValue() == direction && this.getY() - link.getY() < 16 && link.getY() - this.getY() >= 0 && Math.abs(this.getX() - link.getX()) < 8 ||
@@ -121,6 +127,8 @@ public abstract class Monstre extends Personnage {
         return new int[]{margeX, margeY};
     }
 
+    public abstract int valeur();
+
     public boolean peutReculerSelonDirection(int direction){
         if(direction == 1){
             return this.peutSeDeplacer(this.getX(),this.getY()-32);
@@ -132,6 +140,5 @@ public abstract class Monstre extends Personnage {
             return this.peutSeDeplacer(this.getX()-32,this.getY());
         }
     }
-
 
 }

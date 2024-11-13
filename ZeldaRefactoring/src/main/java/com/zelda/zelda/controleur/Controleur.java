@@ -79,7 +79,7 @@ public class Controleur implements Initializable {
 
     public void initTerrain() {
         try {
-            terrainVue = new TerrainVue(panneauJeu, terrain);
+            terrainVue = new TerrainVue(panneauJeu, Terrain.getInstance());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,12 +108,6 @@ public class Controleur implements Initializable {
         for (ImageView coeur : linkVue.getListImageViewsCoeur()) {
             this.panneauJeu.getChildren().add(coeur);
         }
-
-        this.proVue = new ProjectileVue(Link.getInstance().getFleche());
-        this.panneauJeu.getChildren().add(this.proVue.getImageView());
-
-//        ProjectileVue  proVueBoomerang = new ProjectileVue(link.getBoomerang());
-//        this.panneauJeu.getChildren().add(proVueBoomerang.getImageView());
     }
 
 

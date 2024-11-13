@@ -9,8 +9,7 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
     private Fleche fleche;
     //private int tempAvantDisparitionDeLaFleche;
 
-    public Arc (Link link){
-        super(link);
+    public Arc(){
         this.degats=2;
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(550);
@@ -23,8 +22,8 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
 
     public void attaqueAvecArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        if (link.isLinkAttaque()) {
-            fleche.apparitionFleche(link.getDerniereDirection());
+        if (Link.getInstance().isLinkAttaque()) {
+            fleche.apparitionFleche(Link.getInstance().getDerniereDirection());
         }
         fleche.flecheSeDeplace(monstre);
 

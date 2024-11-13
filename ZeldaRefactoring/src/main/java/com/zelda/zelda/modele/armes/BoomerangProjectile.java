@@ -15,8 +15,8 @@ public class BoomerangProjectile extends Projectile{
 
     public void apparitionBoomerang(int direction){
         if (tempsAventDisparitionDuBoomerang == 0){
-            this.setxProjectile(this.getArme().getLink().getX());
-            this.setyProjectile(this.getArme().getLink().getY());
+            this.setxProjectile(Link.getInstance().getX());
+            this.setyProjectile(Link.getInstance().getY());
             this.setDire(direction);
         }
     }

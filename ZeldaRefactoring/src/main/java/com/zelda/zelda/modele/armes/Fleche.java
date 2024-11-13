@@ -15,8 +15,8 @@ public class Fleche extends Projectile {
 
     public void apparitionFleche(int direction){
         if (tempAvantDisparitionDeLaFleche == 0){
-            this.setxProjectile(this.getArme().getLink().getX());
-            this.setyProjectile(this.getArme().getLink().getY());
+            this.setxProjectile(Link.getInstance().getX());
+            this.setyProjectile(Link.getInstance().getY());
             this.setDire(direction);
         }
     }

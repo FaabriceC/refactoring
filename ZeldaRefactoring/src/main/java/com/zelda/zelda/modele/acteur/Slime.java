@@ -7,7 +7,7 @@ import com.zelda.zelda.modele.acteur.Monstre;
 public class Slime extends Monstre {
 
     public Slime(int x, int y, Terrain t) {
-        super(1, x, y, "slime3.gif", t);
+        super(7, x, y, "slime3.gif", t);
     }
 
     public void seDeplace(Link link) { //TODO RENOMMER LA METHODE seDeplaceEtAttaque
