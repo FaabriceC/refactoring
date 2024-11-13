@@ -18,12 +18,10 @@ public class ControleurKey  {
 
     private final List<KeyCode> keyOrder = new ArrayList<>();
     private InventaireVue inventaireVue;
-    private Environnement env;
 
-    public ControleurKey(InventaireVue inventaireVue, Environnement env) {
+    public ControleurKey(InventaireVue inventaireVue) {
 
         this.inventaireVue=inventaireVue;
-        this.env=env;
     }
 
     public void initKeyHandler(Pane panneauJeu, Link link) {
@@ -112,7 +110,7 @@ public class ControleurKey  {
                     kPressed = true;
                     break;
                 case L:
-                     lPressed =true ;
+                    lPressed =true ;
                 case M:
                     mPressed = true;
                     break;
@@ -135,7 +133,7 @@ public class ControleurKey  {
             link.setLinkAttaqueFalse();
         }
         if (fPressed){
-            env.getLink().ramasserArme(env.getArmes());   // (Lorsque Environnement sera en Singleton)
+            Link.getInstance().ramasserArme(Environnement.getInstance().getArmes());   // (Lorsque Environnement sera en Singleton)
         }
 
         if (iPressed){
@@ -143,7 +141,7 @@ public class ControleurKey  {
 
         }
         if (ePressed){
-            this.env.getLink().ramasserConsommable(env.getConsommables());
+            Link.getInstance().ramasserConsommable(Environnement.getInstance().getConsommables());
 
         }
         if (uPressed){

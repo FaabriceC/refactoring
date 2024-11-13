@@ -10,8 +10,8 @@ public  class Epee extends com.zelda.zelda.modele.armes.Arme {
     private int degat;
 
 
-    public Epee(Link link){
-        super(link);
+    public Epee(){
+        super();
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(400);
         this.degats=100;

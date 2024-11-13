@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele.armes;
 
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 import javafx.beans.property.IntegerProperty;
@@ -17,10 +18,12 @@ public class Projectile {
     private int dire;
     private Arme arme;
 
-    public Projectile(String nom,Arme arme){
+
+    public Projectile(String nom){
         this.nom = nom;
         this.xProjectile = new SimpleIntegerProperty();
         this.yProjectile = new SimpleIntegerProperty();
+
 
         this.id = "P" + compteur;
         compteur++;

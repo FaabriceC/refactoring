@@ -7,16 +7,17 @@ public class Fleche extends Projectile {
 
     private int tempAvantDisparitionDeLaFleche;
 
-    public Fleche(String nom,Arc arc) {
-        super(nom,arc);
+    public Fleche(String nom) {
+        super(nom);
         tempAvantDisparitionDeLaFleche = 0;
     }
 
 
-    public void apparitionFleche(int direction){
+    public void apparitionFleche(int direction,Link link){
         if (tempAvantDisparitionDeLaFleche == 0){
-            this.setxProjectile(this.getArme().getLink().getX());
-            this.setyProjectile(this.getArme().getLink().getY());
+            //Fleche fleche = new Fleche("arrows.png");
+            this.setxProjectile(link.getX());
+            this.setyProjectile(link.getY());
             this.setDire(direction);
         }
     }

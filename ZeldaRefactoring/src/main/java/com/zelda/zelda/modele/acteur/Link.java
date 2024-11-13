@@ -2,6 +2,7 @@ package com.zelda.zelda.modele.acteur;
 
 
 import com.zelda.zelda.modele.Consommable.Consommable;
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
@@ -32,18 +33,15 @@ public class Link extends Personnage {
 
     private int pointAttaque;
 
-    //private Projectile fleche;
-    private int tempAvantDisparitionDeLaFleche;
-
-    //private Projectile boomerang;
-
-    private int tempAvantRetourBoomerang;
 
     private boolean invisible;
 
     private boolean tp;
+    private static Link uniqueInstance = null;
 
-    public Link(String nom, int x, int y, Terrain t) {
+
+
+    private Link(String nom, int x, int y, Terrain t) {
         super(x, y, nom, t);
         this.pv= new SimpleIntegerProperty(5);
         this.pv.setValue(5);
@@ -52,11 +50,16 @@ public class Link extends Personnage {
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
-        //this.fleche = new Projectile("arrows.png");
-        this.tempAvantDisparitionDeLaFleche = 0;
-        //this.boomerang = new Projectile("boomerang.png");
-        this.tempAvantRetourBoomerang = 0;
 
+    }
+
+    public static Link getInstance() {
+
+        if (uniqueInstance == null) {
+            uniqueInstance = new Link("Link", 800, 400, Terrain.getInstance());
+        }
+
+        return uniqueInstance;
     }
 
 
@@ -64,7 +67,7 @@ public class Link extends Personnage {
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(margeX,0)[1];
 
-        return !terrain.collision(tuileX+margeX,tuileY+margeY);
+        return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
 
     }
 
@@ -107,7 +110,7 @@ public class Link extends Personnage {
             tp=true;
         }
 
-        if ( peutSeDeplacer(newX, newY)&& terrain.dansTerrain(newX,newY)&&!tp) {
+        if ( peutSeDeplacer(newX, newY)&& Terrain.getInstance().dansTerrain(newX,newY)&&!tp) {
             this.setX(newX);
             this.setY(newY);
         }
@@ -116,7 +119,6 @@ public class Link extends Personnage {
     }
 
 
-    @Override
     public int[] margeErreur(int margeX, int margeY) {
         int[]marge=new int[2];
         switch (direction.getValue()) {
@@ -126,7 +128,7 @@ public class Link extends Personnage {
                 break;
             case 2:
                 margeX = 26;
-                margeY=26;
+                margeY= 26;
                 break;
             case 1:
                 margeX = 16;
@@ -143,12 +145,13 @@ public class Link extends Personnage {
     }
 
 
-    public void attaque(Monstre monstre) {
-        if (this.armeEquipe != null) {
+    public void attaque(Monstre monstre){
+        if(this.armeEquipe != null) {
             this.armeEquipe.attaqueAvecArme(monstre);
         } else {
             this.attaqueSansArme(monstre);
         }
+
     }
 
 
@@ -191,191 +194,7 @@ public class Link extends Personnage {
 
     }
 
-/*
-    public void attaqueAvecEpee(Monstre monstre){
-        long currentTime = System.currentTimeMillis();
-        if( currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32)){
-                monstre.setY(monstre.getY()-32);
-            }
-            actionTime = currentTime;
 
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY())){
-                monstre.setX(monstre.getX()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32)){
-                monstre.setY(monstre.getY()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && this.linkAttaque && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY())){
-                monstre.setX(monstre.getX()-32);
-            }
-            actionTime = currentTime;
-
-        }
-    }
-
-
-
-    public void attaqueAvecArc() {
-        long currentTime = System.currentTimeMillis();
-
-
-        if (this.linkAttaque && derniereDirection == 1) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(1);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 2) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(2);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 3) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(3);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 4) {
-            fleche.setxProjectile(this.getX());
-            fleche.setyProjectile(this.getY());
-            fleche.setDire(4);
-            tempAvantDisparitionDeLaFleche = 0;
-        }
-    }
-
-
-    public void flecheSeDeplace(Projectile fleche ,Monstre monstre){
-        if (fleche.getDire() == 1){
-            if (Math.abs(fleche.getyProjectile() - monstre.getY()) < 2  && Math.abs(this.getX()-monstre.getX()) < 32 ){
-                monstreSubitDegat(monstre);
-            }
-            fleche.setyProjectile(fleche.getyProjectile()-1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 2) {
-            if (Math.abs(fleche.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getY() - monstre.getY()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setxProjectile(fleche.getxProjectile() + 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 3) {
-            if (Math.abs(fleche.getyProjectile() - monstre.getY()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setyProjectile(fleche.getyProjectile() + 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        } else if(fleche.getDire() == 4) {
-            if (Math.abs(fleche.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            fleche.setxProjectile(fleche.getxProjectile() - 1);
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
-            diparitionFleche();
-        }
-    }
-
-
-    public void attaqueAvecBoomerang() {
-        long currentTime = System.currentTimeMillis();
-
-
-        if (this.linkAttaque && derniereDirection == 1) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(1);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 2) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(2);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 3) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(3);
-            tempAvantRetourBoomerang = 0;
-        }
-
-        if (this.linkAttaque && derniereDirection == 4) {
-            boomerang.setxProjectile(this.getX());
-            boomerang.setyProjectile(this.getY());
-            boomerang.setDire(4);
-            tempAvantRetourBoomerang = 0;
-        }
-    }
-
-    public void boomerangSeDeplace(Projectile boomerang ,Monstre monstre){
-        if (boomerang.getDire() == 1){
-            if (Math.abs(boomerang.getyProjectile() - monstre.getY()) < 2  && Math.abs(this.getX()-monstre.getX()) < 32 ){
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setyProjectile(boomerang.getyProjectile()-1);
-            }else {
-                boomerang.setyProjectile(boomerang.getyProjectile() + 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 2) {
-            if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getY() - monstre.getY()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setxProjectile(boomerang.getxProjectile()+1);
-            }else {
-                boomerang.setxProjectile(boomerang.getxProjectile() - 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 3) {
-            if (Math.abs(boomerang.getyProjectile() - monstre.getY()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setyProjectile(boomerang.getyProjectile()+1);
-            }else {
-                boomerang.setyProjectile(boomerang.getyProjectile() - 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        } else if(boomerang.getDire() == 4) {
-            if (Math.abs(boomerang.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getX() - monstre.getX()) < 32) {
-                monstreSubitDegat(monstre);
-            }
-            if(tempAvantRetourBoomerang <96){
-                boomerang.setxProjectile(boomerang.getxProjectile()-1);
-            }else {
-                boomerang.setxProjectile(boomerang.getxProjectile() + 1);
-            }
-            tempAvantRetourBoomerang = tempAvantRetourBoomerang+1;
-        }
-    }
-
-
- */
     public boolean linkMeurt(){
         return this.getPv() == 0;
     }
@@ -390,14 +209,13 @@ public class Link extends Personnage {
             }
         }
     }
-
+    //TODO FAIRE UNE SUPERCLASSE ITEM QUI POSSEDE EN ABSTRACTR UNE METHODE RAMASSE
     public void ramasserArme(ObservableList<Arme> getArmes) {
         Iterator<Arme> iterator = getArmes.iterator();
         while (iterator.hasNext()) {
             Arme arme = iterator.next();
             if (Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
                 inventaire.ajouterArme(arme);
-                System.out.println(inventaire.getInventaireArme().get(inventaire.getInventaireArme().size() - 1));
                 iterator.remove();
             }
         }
@@ -435,66 +253,38 @@ public class Link extends Personnage {
         return isStatutPas();
     }
 
-    public boolean pousseLeBloc (){
-        for (BlockDynamique blocDynamique : terrain.getBlocsDynamiques()) {
-            if (direction.getValue() == 1) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+31, blocDynamique.getY()-1, blocDynamique)&&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY()-1, blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 18
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 16
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue()
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 10) {
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
+    public boolean pousseLeBloc() {
+        int[][] valeurs = {
+                {},
+                {31, 1, 1, 18, 16, 0, 10},
+                {32, -31, -32, 30, 0, -28, 6},
+                {31, -32, -32, 18, 16, -30, 0},
+                {-1, -31, 1, 0, 32, -28, 6}
+        };
+        int dir = direction.getValue();
+        for (BlockDynamique blocDynamique : Terrain.getInstance().getBlocsDynamiques()) {
+            if (dir >= 1 && dir <= 4) {
+                if (raccourci(blocDynamique, valeurs[dir])) {
+                    return true;
+                }
             }
-            if (direction.getValue() == 2) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+32, blocDynamique.getY()+31, blocDynamique)&& !terrain.collisionPourBloc(blocDynamique.getX()+32, blocDynamique.getY(), blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 30
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue()
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 28
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 6) {
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
-            }
-
-            if (direction.getValue() == 3) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()+31, blocDynamique.getY()+32, blocDynamique)&&!terrain.collisionPourBloc(blocDynamique.getX(), blocDynamique.getY()+32, blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue() - 18
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 16
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 30
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue()) {
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
-            }
-
-            if (direction.getValue() == 4) {
-                if (!terrain.collisionPourBloc(blocDynamique.getX()-1, blocDynamique.getY()+31, blocDynamique) && !terrain.collisionPourBloc(blocDynamique.getX()-1, blocDynamique.getY(), blocDynamique))
-                    if (xProperty().getValue() > blocDynamique.xProperty().getValue()
-                            && xProperty().getValue() < blocDynamique.xProperty().getValue() + 32
-                            && yProperty().getValue() > blocDynamique.yProperty().getValue() - 28
-                            && yProperty().getValue() < blocDynamique.yProperty().getValue() + 6) {
-
-
-
-                        blocDynamique.bouge(direction.intValue());
-                        return true;
-                    }
-            }
-
-
         }
         return false;
     }
 
+    public boolean raccourci(BlockDynamique blocDynamique, int[] valeurs) {
+        int valeur1 = valeurs[0], valeur2 = valeurs[1], valeur3 = valeurs[2], valeur4 = valeurs[3];
+        int valeur5 = valeurs[4], valeur6 = valeurs[5], valeur7 = valeurs[6];
+        if (!Terrain.getInstance().collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!Terrain.getInstance().collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {
+            if (xProperty().getValue() > blocDynamique.xProperty().getValue() - valeur4 &&xProperty().getValue() < blocDynamique.xProperty().getValue() + valeur5 &&yProperty().getValue() > blocDynamique.yProperty().getValue() + valeur6 &&yProperty().getValue() < blocDynamique.yProperty().getValue() + valeur7) {
+                blocDynamique.bouge(direction.intValue());
+                return true;
+            }
+        }
+        return false;
+    }
 
+/*
     public void linkUtilisePotionSoin() {
         if (this.pv.getValue() <= 3) {
             this.setPv(this.getPv() + 2);
@@ -502,7 +292,11 @@ public class Link extends Personnage {
             this.setPv(this.getPv() + 1);
         }
     }
+ */
 
+    /*
+
+ // TODO UN LINK EN SINGLETON changer le nom et déplacer dans leurs classes respectives
     public void linkUtilisePotionForce(){
         this.setPointAttaque(this.pointAttaque = this.pointAttaque+2);
         PauseTransition pause = new PauseTransition(Duration.seconds(60));
@@ -512,6 +306,8 @@ public class Link extends Personnage {
         pause.play();
 
     }
+    */
+
     public int getPtsAttaque(){
         return this.pointAttaque;
     }
@@ -531,21 +327,29 @@ public class Link extends Personnage {
         for(int i = 0;i< inventaire.getInventaireArme().size();i++){
             if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
                 this.armeEquipe = inventaire.getInventaireArme().get(i);
-                System.out.println(this.armeEquipe.getNomPng());
+
+            }
+        }
+    }
+    public void  attaqueMonstre() {
+        for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
+            if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
+                Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
+                Link.getInstance().attaque(m);
+                if (!m.vivant()) {
+                    Environnement.getInstance().getPersonnageListe().remove(m);
+                }
             }
         }
     }
 
+
+
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
     }
-/*
-    public Projectile getFleche() {
-        return fleche;
-    }
 
 
- */
 
     public Arme getArmeEquipe() {
         return armeEquipe;
@@ -596,33 +400,9 @@ public class Link extends Personnage {
             monstre.setMonsSubitDegat(true);
         }
     }
-/*
-    public void diparitionFleche(){
-        if (tempAvantDisparitionDeLaFleche == 128){
-            this.fleche.setxProjectileNull();
-            this.fleche.setyProjectileNull();
-
-        }
-    }
-
-    public void diparitionBoomerang(){
-        if (tempAvantRetourBoomerang == 192){
-            this.boomerang.setxProjectileNull();
-            this.boomerang.setyProjectileNull();
-
-        }
-    }
-
-    public Projectile getBoomerang() {
-        return boomerang;
-    }
 
 
- */
-    public void agit() {
-        this.seDeplace();
-        this.equiperArme();
-    }
+
 
 
     public boolean isLinkAttaque() {
@@ -637,4 +417,13 @@ public class Link extends Personnage {
         return derniereDirection;
     }
 
+    public void agit() {
+        this.seDeplace();
+        this.equiperArme();
+        this.attaqueMonstre();
+
+    }
+
+
 }
+

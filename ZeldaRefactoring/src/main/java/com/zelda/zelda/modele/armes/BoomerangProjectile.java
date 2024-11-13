@@ -7,16 +7,16 @@ public class BoomerangProjectile extends Projectile{
 
     private int tempsAventDisparitionDuBoomerang;
 
-    public BoomerangProjectile(String nom, Boomerang boomerang) {
-        super(nom, boomerang);
+    public BoomerangProjectile(String nom) {
+        super(nom);
         this.tempsAventDisparitionDuBoomerang = 0;
     }
 
 
-    public void apparitionBoomerang(int direction){
+    public void apparitionBoomerang(int direction,Link link){
         if (tempsAventDisparitionDuBoomerang == 0){
-            this.setxProjectile(this.getArme().getLink().getX());
-            this.setyProjectile(this.getArme().getLink().getY());
+            this.setxProjectile(link.getX());
+            this.setyProjectile(link.getY());
             this.setDire(direction);
         }
     }

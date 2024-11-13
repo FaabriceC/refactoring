@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele;
 
+import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Personnage;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.util.JsonLoader;
@@ -13,11 +14,11 @@ import java.util.Map;
  */
 public class Terrain {
     public int[][] solLayer;
-
+    private static Terrain uniqueInstance=null;
     private ArrayList<BlockDynamique> blocsDynamiques = new ArrayList<>();
     private int[] tuileCollision = {9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,30,48,49,54,78,102};
 
-    public Terrain(String jsonFilePath) {
+    private Terrain(String jsonFilePath) {
         try (JsonLoader jsonLoader = new JsonLoader(jsonFilePath)) {
             Map<String, int[]> layers = jsonLoader.getLayers();
 
@@ -28,11 +29,16 @@ public class Terrain {
         }
     }
 
+    public static Terrain getInstance() {
+        if(uniqueInstance==null) {
+            uniqueInstance= new Terrain("/com/zelda/zelda/MapZelda.json");
+        }
+        return uniqueInstance;
+    }
+
     public int[][] getSolLayer() {
         return solLayer;
     }
-
-
 
 
     public int[][] convertTo2DArray(int[] array, int rows, int cols) {
@@ -86,26 +92,6 @@ public class Terrain {
         return estObstacle(tuileX, tuileY);
     }
 
-
-    public boolean collisionAvecTuileNonOpti(int x, int y, Personnage personnage) {
-        // margeX défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des x
-        int margeX=0;
-        // margeY défini la marge de detection des tile ou on ne peut pas marcher sur l'axe des y
-        int margeY=0;
-
-
-        margeX=personnage.margeErreur(margeX,margeY)[0];
-        margeY=personnage.margeErreur(margeX,margeY)[1];
-
-
-        int tuileX = (x+margeX) / 32;
-        int tuileY = (y+margeY) / 32;
-        if (estObstacle(tuileX,tuileY)){
-            return true;
-        }
-
-        return false;
-    }
 
 
     // Fonction qui permet de detecter les tile d'eau
