@@ -2,6 +2,7 @@ package com.zelda.zelda.modele.armes;
 
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
+import com.zelda.zelda.modele.acteur.Personnage;
 import javafx.beans.property.IntegerProperty;
 
 public abstract class Arme {
@@ -23,12 +24,12 @@ public abstract class Arme {
 
     }
 
-    public void attaqueAvecArme(Monstre monstre){
+    public void attaqueAvecArme(Personnage personnage){
         long currentTime = System.currentTimeMillis();
-        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime)){
-            this.faitDesDegatAuMonstre(monstre);
-            if(monstre.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
-                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),monstre);
+        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),personnage,currentTime)){
+            this.faitDesDegatAuMonstre(personnage);
+            if(personnage.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
+                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),personnage);
             }
             System.out.println("Dégats de l'arme : " + Link.getInstance().getArmeEquipe().getDegats());
 
@@ -41,35 +42,35 @@ public abstract class Arme {
 
 
 
-    public boolean attaquePossibleSelonDirection(int direction, Monstre monstre,long currentTime){
+    public boolean attaquePossibleSelonDirection(int direction, Personnage personnage,long currentTime){
         if (direction == 1 ){
-            return /*currentTime - actionTime >= 500 && */Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            return /*currentTime - actionTime >= 500 && */Link.getInstance().getY()-personnage.getY() < 32 && Link.getInstance().getY()-personnage.getY() >= -1  && Math.abs(Link.getInstance().getX()-personnage.getX()) < 16;
         } else if (direction == 2) {
-            return /* currentTime - actionTime >= 500 &&*/  monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            return /* currentTime - actionTime >= 500 &&*/  personnage.getX()-Link.getInstance().getX() < 32 && personnage.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-personnage.getY()) < 16;
         } else if (direction == 3){
-            return monstre.getY()-Link.getInstance().getY() < 32 && monstre.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            return personnage.getY()-Link.getInstance().getY() < 32 && personnage.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-personnage.getX()) < 16;
         } else {
-            return Link.getInstance().getX()-monstre.getX() < 32 && Link.getInstance().getX()-monstre.getX() >= -1 && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            return Link.getInstance().getX()-personnage.getX() < 32 && Link.getInstance().getX()-personnage.getX() >= -1 && Math.abs(Link.getInstance().getY()-personnage.getY()) < 16;
         }
     }
 
 
-    public void faitReculerMonstreSelonDirection(int direction,Monstre monstre){
+    public void faitReculerMonstreSelonDirection(int direction,Personnage personnage){
         if(direction == 1){
-            monstre.setY(monstre.getY()+32);
+            personnage.setY(personnage.getY()+32);
         } else if (direction == 2){
-            monstre.setX(monstre.getX()-32);
+            personnage.setX(personnage.getX()-32);
         } else if (direction == 3){
-            monstre.setY(monstre.getY()-32);
+            personnage.setY(personnage.getY()-32);
         } else {
-            monstre.setX(monstre.getX()+32);
+            personnage.setX(personnage.getX()+32);
         }
     }
 
 
-    public void faitDesDegatAuMonstre(Monstre monstre){
-        monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + Link.getInstance().getArmeEquipe().getDegats()));
-        System.out.println("Monstre pv : " + monstre.getPv());
+    public void faitDesDegatAuMonstre(Personnage personnage){
+        personnage.setPv(personnage.getPv() - (Link.getInstance().getPointAttaque() + Link.getInstance().getArmeEquipe().getDegats()));
+        System.out.println("Monstre pv : " + personnage.getPv());
     }
 
 /*

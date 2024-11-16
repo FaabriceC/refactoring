@@ -48,7 +48,7 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                     });
                 } else {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtiliseBracelet();
+                        link.UtiliseBracelet();
                         if(Math.random() < 0.10){
                             consommablesToolBar.getItems().remove(cV2.getImageView());
                         }

@@ -73,10 +73,10 @@ public class Environnement {
     }
 
     public void initMonstre() {
-        Monstre monstre1 = new Slime(708, 472, Terrain.getInstance());
-        Monstre monstre2 = new Slime(750, 472, Terrain.getInstance());
+        Monstre monstre1 = new Slime(708, 472);
+        Monstre monstre2 = new Slime(750, 472);
         Monstre monstre3 = new ArbreMonstre(760, 440);
-        Monstre boss = new Boss(4844,868,Terrain.getInstance());
+        Monstre boss = new Boss(4844,868);
 
         this.ajouter(monstre1);
         this.ajouter(monstre2);
@@ -115,7 +115,7 @@ public class Environnement {
 
     public void actionMonstre() {
         for (Monstre monstre : this.monstres) {
-            monstre.seDeplace();
+            monstre.seDeplaceEtAttaque();
         }
     }
 

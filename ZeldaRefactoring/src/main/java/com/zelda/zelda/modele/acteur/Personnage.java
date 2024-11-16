@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Personnage { // Crée un personnage
     private IntegerProperty x = new SimpleIntegerProperty();
+    protected IntegerProperty pv;
+
     private IntegerProperty y = new SimpleIntegerProperty();
     private final String nom;
     protected IntegerProperty direction;
@@ -14,14 +16,18 @@ public abstract class Personnage { // Crée un personnage
     private boolean statutPas;
     public static int compteur = 0;
     private String id;
+    private boolean persSubitDegat;
 
-    public Personnage(int x, int y, String nom, Terrain terrain) {
+
+    public Personnage(int pv,int x, int y, String nom) {
         this.x.set(x);
         this.y.set(y);
+        this.pv = new SimpleIntegerProperty(pv);
+        this.pv.setValue(pv);
         this.nom = nom;
         this.direction = new SimpleIntegerProperty(0);
         this.indicePas = new SimpleIntegerProperty(0);
-
+        this.persSubitDegat = false;
         this.id = "C" + compteur;
         compteur++;
 
@@ -54,10 +60,37 @@ public abstract class Personnage { // Crée un personnage
         return y.getValue();
     }
 
-    //TODO FAIRE UNE METHODE ABSTRACT ATTAQUE ICI ET LA CODER DANS LINK ET MONSTRE EN PRENANT EN PARAMETRE UN PERSONNAGE
+    public abstract void attaqueSiPossible(Personnage personnage);
+
+    //TODO FAIRE UNE METHODE ABSTRACT ATTAQUE ICI ET LA CODER DANS LINK ET MONSTRE EN PRENANT EN PARAMETRE UN PERSONNAGE MADE BY TONY
 
     public void setX(int x) {
         this.x.set(x);
+    }
+
+    public void setPv(int pv) {
+        this.pv.set(pv);
+    }
+
+    public int getPv() {
+        return pv.get();
+    }
+
+
+    public boolean peutReculerSelonDirection(int direction){
+        if(direction == 1){
+            return this.peutSeDeplacer(this.getX(),this.getY()-32);
+        } else if (direction == 2){
+            return this.peutSeDeplacer(this.getX()+32,this.getY());
+        } else if (direction == 3){
+            return this.peutSeDeplacer(this.getX(),this.getY()+32);
+        } else {
+            return this.peutSeDeplacer(this.getX()-32,this.getY());
+        }
+    }
+
+    public void setMonsSubitDegat(boolean monsSubitDegat) {
+        this.persSubitDegat = monsSubitDegat;
     }
 
     public void setY(int y) {

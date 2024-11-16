@@ -6,19 +6,11 @@ import com.zelda.zelda.modele.acteur.Monstre;
 
 public class Slime extends Monstre {
 
-    public Slime(int x, int y, Terrain t) {
-        super(7, x, y, "slime3.gif", t);
+    public Slime(int x, int y) {
+        super(7, x, y, "slime3.gif");
     }
 
-    public void seDeplace(Link link) { //TODO RENOMMER LA METHODE seDeplaceEtAttaque
-        if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
-            if (!link.isInvisible()) {
-                bfs.seDeplace(link);
-            }
-            attaque();
-        }
 
-    }
 
     @Override
     public boolean condition(Link link) {
@@ -30,4 +22,10 @@ public class Slime extends Monstre {
         return 32;
     }
 
+
+    @Override
+    public void attaqueSiPossible(Personnage personnage) {
+        super.attaqueSiPossible(personnage);
+
+    }
 }

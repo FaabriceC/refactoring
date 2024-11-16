@@ -2,43 +2,48 @@ package com.zelda.zelda.modele.acteur;
 
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.deplacement.BFS;
+import com.zelda.zelda.modele.deplacement.StrategieDeplacement;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 
 public abstract class Monstre extends Personnage {
-    private IntegerProperty pv;
-    private List<int[]> chemin;
-    private int cheminIndex = 0;
     long actionTime = 0L;
-    private int nbTours;
 
-    protected BFS bfs;
-
+    protected StrategieDeplacement strategieDeplacement;
     private boolean dircAlea;
 
     private boolean monsSubitDegat;
 
-    public Monstre(int pv, int x, int y, String nom, Terrain t) {
-        super(x, y, nom, t);
-        this.pv = new SimpleIntegerProperty(pv);
-        this.pv.setValue(pv);
-        this.nbTours = 0;
-        this.bfs = new BFS(this, Terrain.getInstance());
+    public Monstre(int pv,int x, int y, String nom) {
+        super( pv,x, y, nom);
+
         this.dircAlea = false;
+        this.strategieDeplacement = new BFS(this,Terrain.getInstance());
         this.monsSubitDegat = false;
     }
 
-    public void seDeplace(){
+    public void seDeplaceEtAttaque(){
         if (Math.abs(Link.getInstance().getX() - this.getX()) < 128 && Math.abs(Link.getInstance().getY() - this.getY()) < 128) {
-            if (condition(Link.getInstance())) {
-                bfs.seDeplace(Link.getInstance());
-            }
+            effectueDeplacement();
 
         }
-        attaque();
+        attaqueSiPossible(Link.getInstance());
     }
+    public void setStrategieDeplacement(StrategieDeplacement strategieDeplacement){
+        this.strategieDeplacement = strategieDeplacement;
+    }
+
+    public StrategieDeplacement getStrategieDeplacement(){
+        return this.strategieDeplacement;
+    }
+
+    public double distanceAvecLink() {
+        int dx = this.getX() - Link.getInstance().getX();
+        int dy = this.getY() - Link.getInstance().getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
 
     public abstract boolean condition(Link link);
 
@@ -49,17 +54,17 @@ public abstract class Monstre extends Personnage {
         return  !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
 
-    public void choisiDirectionAleatoire() {
-        if ((int) (Math.random() * 10) == 1) {
-            this.direction.setValue((int) ((Math.random() * 4) + 1));
-        }
-    }
-
-    public void attaque() {
+    public void attaqueSiPossible(Personnage personnage) {
         long currentTime = System.currentTimeMillis();
         if ((currentTime - actionTime >= 2500) && (peutAttaquer(Link.getInstance(), 1) || peutAttaquer(Link.getInstance(), 2) || peutAttaquer(Link.getInstance(), 3) || peutAttaquer(Link.getInstance(), 4))) {
             Link.getInstance().setPv(Link.getInstance().getPv() - 1);
             actionTime = currentTime;
+        }
+    }
+
+    public void effectueDeplacement(){
+        if (!Link.getInstance().isInvisible()) {
+            strategieDeplacement.seDeplace();
         }
     }
 
@@ -69,13 +74,7 @@ public abstract class Monstre extends Personnage {
 
     }
 
-    public void setPv(int pv) {
-        this.pv.set(pv);
-    }
 
-    public int getPv() {
-        return pv.get();
-    }
 
     public IntegerProperty pvProperty() {
         return pv;
@@ -98,9 +97,7 @@ public abstract class Monstre extends Personnage {
         return monsSubitDegat;
     }
 
-    public void setMonsSubitDegat(boolean monsSubitDegat) {
-        this.monsSubitDegat = monsSubitDegat;
-    }
+
 
     public int[] margeErreur(int margeX, int margeY) {
         int[] marge = new int[2];
@@ -129,16 +126,6 @@ public abstract class Monstre extends Personnage {
 
     public abstract int valeur();
 
-    public boolean peutReculerSelonDirection(int direction){
-        if(direction == 1){
-            return this.peutSeDeplacer(this.getX(),this.getY()-32);
-        } else if (direction == 2){
-            return this.peutSeDeplacer(this.getX()+32,this.getY());
-        } else if (direction == 3){
-            return this.peutSeDeplacer(this.getX(),this.getY()+32);
-        } else {
-            return this.peutSeDeplacer(this.getX()-32,this.getY());
-        }
-    }
+
 
 }

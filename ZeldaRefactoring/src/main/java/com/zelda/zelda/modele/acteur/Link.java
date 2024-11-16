@@ -20,7 +20,6 @@ import java.util.*;
 
 public class Link extends Personnage {
 
-    private IntegerProperty pv;
     long actionTime = 0L;
     private boolean linkAttaque;
     private int derniereDirection;
@@ -34,10 +33,8 @@ public class Link extends Personnage {
     private static Link uniqueInstance = null;
 
 
-    private Link(String nom, int x, int y, Terrain t) {
-        super(x, y, nom, t);
-        this.pv= new SimpleIntegerProperty(5);
-        this.pv.setValue(5);
+    private Link(String nom, int x, int y) {
+        super(5,x, y, nom);
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.armeEquipe = null;
@@ -48,7 +45,7 @@ public class Link extends Personnage {
 
     public static Link getInstance() {
         if (uniqueInstance == null) {
-            uniqueInstance = new Link("Link", 800, 400, Terrain.getInstance());
+            uniqueInstance = new Link("Link", 800, 400);
         }
         return uniqueInstance;
     }
@@ -135,58 +132,58 @@ public class Link extends Personnage {
     }
 
 
-    public void attaque(Monstre monstre) {
+    public void attaqueSiPossible(Personnage personnage) {
         if (this.armeEquipe != null) {
-            this.armeEquipe.attaqueAvecArme(monstre);
+            this.armeEquipe.attaqueAvecArme(personnage);
         } else {
-            this.attaqueSansArme(monstre);
+            this.attaqueSansArme(personnage);
         }
 
     }
 
 
-    public void attaqueSansArme(Monstre monstre){
+    public void attaqueSansArme(Personnage personnage){
         long currentTime = System.currentTimeMillis();
-        if(currentTime - actionTime >= 500 && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32)){
-                monstre.setY(monstre.getY()-32);
+        if(currentTime - actionTime >= 500 && derniereDirection == 1 && this.getY()-personnage.getY() < 32 && this.getY()-personnage.getY() >= -1  && Math.abs(this.getX()-personnage.getX()) < 16 ){
+            personnageSubitDegat(personnage);
+            if(personnage.peutSeDeplacer(personnage.getX(),personnage.getY()-32)){
+                personnage.setY(personnage.getY()-32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
+            System.out.println("vie monstre : " + personnage.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY())){
-                monstre.setX(monstre.getX()+32);
+        if(currentTime - actionTime >= 500 && derniereDirection == 2 && personnage.getX()-this.getX() < 32 && personnage.getX()-this.getX() >= -1  && Math.abs(this.getY()-personnage.getY()) < 16 ){
+            personnageSubitDegat(personnage);
+            if(personnage.peutSeDeplacer(personnage.getX()+32,personnage.getY())){
+                personnage.setX(personnage.getX()+32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
+            System.out.println("vie monstre : " + personnage.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32)){
-                monstre.setY(monstre.getY()+32);
+        if(currentTime - actionTime >= 500 && derniereDirection == 3 && personnage.getY()-this.getY() < 32 && personnage.getY()-this.getY() >= -1  && Math.abs(this.getX()-personnage.getX()) < 16 ){
+            personnageSubitDegat(personnage);
+            if(personnage.peutSeDeplacer(personnage.getX(),personnage.getY()+32)){
+                personnage.setY(personnage.getY()+32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
+            System.out.println("vie monstre : " + personnage.getPv());
 
         }
-        if(currentTime - actionTime >= 500 && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
-            if(monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY())){
-                monstre.setX(monstre.getX()-32);
+        if(currentTime - actionTime >= 500 && derniereDirection == 4 && this.getX()-personnage.getX() < 32 && this.getX()-personnage.getX() >= -1 && Math.abs(this.getY()-personnage.getY()) < 16 ){
+            personnageSubitDegat(personnage);
+            if(personnage.peutSeDeplacer(personnage.getX()-32,personnage.getY())){
+                personnage.setX(personnage.getX()-32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
+            System.out.println("vie monstre : " + personnage.getPv());
 
         }
 
     }
 
-    public boolean linkMeurt(){
+    public boolean estMort(){
         return this.getPv() == 0;
     }
 
@@ -304,7 +301,7 @@ public class Link extends Personnage {
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                Link.getInstance().attaque(m);
+                Link.getInstance().attaqueSiPossible(m);
                 if (!m.vivant()) {
                     Environnement.getInstance().getPersonnageListe().remove(m);
                 }
@@ -329,7 +326,7 @@ public class Link extends Personnage {
     public void resetBracelet() {
         braceletUtilise.set(false);
     }
-    public void linkUtiliseBracelet() {
+    public void UtiliseBracelet() {
         braceletUtilise.set(true);
         this.invisible=true;
     }
@@ -357,20 +354,18 @@ public class Link extends Personnage {
 
 
 
-    public void monstreSubitDegat(Monstre monstre){
+    public void personnageSubitDegat(Personnage personnage){
         if(this.armeEquipe == null){
-            monstre.setPv(monstre.getPv() - (this.pointAttaque));
-            monstre.setMonsSubitDegat(true);
+            personnage.setPv(personnage.getPv() - (this.pointAttaque));
+            personnage.setMonsSubitDegat(true);
         }else{
-            monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-            monstre.setMonsSubitDegat(true);
+            personnage.setPv(personnage.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
+            personnage.setMonsSubitDegat(true);
         }
     }
 
     public void agit() {
         this.seDeplace();
-        //this.equiperArme();
-        //this.attaqueMonstre();
 
     }
     public boolean isLinkAttaque() {

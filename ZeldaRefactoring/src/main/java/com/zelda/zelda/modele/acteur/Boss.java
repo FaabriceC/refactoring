@@ -1,21 +1,21 @@
 package com.zelda.zelda.modele.acteur;
 
 import com.zelda.zelda.modele.Terrain;
+import com.zelda.zelda.modele.deplacement.StrategieDeplacement;
 
 public class Boss extends Monstre {
 
     private boolean anim =false;
 
-    public Boss(int x, int y, Terrain t){
-        super(100,x,y,"slime3.gif",t);
+    public Boss(int x, int y){
+
+        super(100,x,y,"slime3.gif");
     }
 
-    public void seDeplace(Link link) {
-        anim=false;
-        if (Math.abs(link.getX() - this.getX()) < 128 && Math.abs(link.getY() - this.getY()) < 128) {
-            if(!link.isInvisible())
-                this.indicePasProperty().setValue(1);
-            bfs.seDeplace(link);
+    public void seDeplaceEtAttaque() {
+        if (distanceAvecLink() < 128) {
+            this.indicePasProperty().setValue(1);
+            strategieDeplacement.seDeplace();
             anim=true;
         }
 
@@ -36,4 +36,8 @@ public class Boss extends Monstre {
         return 24;
     }
 
+    @Override
+    public void attaqueSiPossible(Personnage personnage) {
+            super.attaqueSiPossible(personnage);
+    }
 }
