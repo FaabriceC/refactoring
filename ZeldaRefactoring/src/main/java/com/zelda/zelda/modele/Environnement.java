@@ -25,17 +25,17 @@ public class Environnement {
 
     private ObservableList<Personnage> personnages;
 
-    private ObservableList<Arme> armes;
+    private ObservableList<Item> armes;
 
-    private ObservableList<Consommable> consommables;
+    private ObservableList<Item> consommables;
+    private ObservableList<Item> items;
     private ArrayList<Monstre> monstres;
-
-    private Link link;
 
     private Environnement() {
         this.personnages = FXCollections.observableArrayList();
         this.armes = FXCollections.observableArrayList();
         this.consommables = FXCollections.observableArrayList();
+        this.items = FXCollections.observableArrayList();
         this.monstres = new ArrayList<>();
     }
 
@@ -51,7 +51,7 @@ public class Environnement {
         return personnages;
     }
 
-    public ObservableList<Consommable> getConsommables() {
+    public ObservableList<Item> getConsommables() {
         return consommables;
     }
 
@@ -60,7 +60,7 @@ public class Environnement {
     }
 
 
-    public ObservableList<Arme> getArmes() {
+    public ObservableList<Item> getArmes() {
         return armes;
     }
 
@@ -98,6 +98,10 @@ public class Environnement {
 
         Arc arc = new Arc();
         this.ajouterListeArme(arc);
+
+        this.items.add(epee);
+        this.items.add(boomerang);
+        this.items.add(arc);
     }
 
 
@@ -111,6 +115,10 @@ public class Environnement {
         this.ajouterListeConsommable(popoDeSoin);
         this.ajouterListeConsommable(popoDeForce);
 
+        this.items.add(bracelet);
+        this.items.add(popoDeForce);
+        this.items.add(popoDeSoin);
+
     }
 
     public void actionMonstre() {
@@ -119,4 +127,7 @@ public class Environnement {
         }
     }
 
+    public ObservableList<Item> getItems() {
+        return items;
+    }
 }

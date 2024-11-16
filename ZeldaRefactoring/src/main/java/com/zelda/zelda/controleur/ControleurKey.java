@@ -1,6 +1,7 @@
 package com.zelda.zelda.controleur;
 
 import com.zelda.zelda.modele.Environnement;
+import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
@@ -159,7 +160,7 @@ public class ControleurKey  {
         }
 
         if (fPressed){
-            Link.getInstance().ramasserArme(Environnement.getInstance().getArmes());
+            Link.getInstance().ramasser(Environnement.getInstance().getArmes());
         }
 
         if (pPressed) {
@@ -172,19 +173,19 @@ public class ControleurKey  {
 
         }
         if (ePressed){
-            Link.getInstance().ramasserConsommable(Environnement.getInstance().getConsommables());
+            Link.getInstance().ramasser(Environnement.getInstance().getConsommables());
 
         }
         if (uPressed){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(0).getNomPng());
-        } else if(pPressed && link.getInventaire().getInventaireArme().size()>1){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(1).getNomPng());
-        }else if(kPressed && link.getInventaire().getInventaireArme().size()>2){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(2).getNomPng());
-        }else if(lPressed && link.getInventaire().getInventaireArme().size()>3){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(3).getNomPng());
-        }else if(mPressed && link.getInventaire().getInventaireArme().size()>4){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(4).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(0).getNomPng());
+        } else if(pPressed && Link.getInstance().getInventaire().getInventaireArme().size()>1){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(1).getNomPng());
+        }else if(kPressed && Link.getInstance().getInventaire().getInventaireArme().size()>2){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(2).getNomPng());
+        }else if(lPressed && Link.getInstance().getInventaire().getInventaireArme().size()>3){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(3).getNomPng());
+        }else if(mPressed && Link.getInstance().getInventaire().getInventaireArme().size()>4){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(4).getNomPng());
         }
 
     }

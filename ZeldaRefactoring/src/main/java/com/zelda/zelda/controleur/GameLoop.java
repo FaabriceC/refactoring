@@ -28,14 +28,13 @@ public class GameLoop {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.033), (event) -> {
             Link.getInstance().seDeplace();
-            //Link.getInstance().agit();
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();
             }
 
             temps.setValue(temps.getValue()+1);
 
-            if (Link.getInstance().linkMeurt()) {
+            if (Link.getInstance().estMort()) {
                 gameLoop.stop();
             }
         });

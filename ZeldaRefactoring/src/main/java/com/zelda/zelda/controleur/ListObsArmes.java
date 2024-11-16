@@ -21,11 +21,13 @@ public class ListObsArmes implements ListChangeListener<Arme> {
     public void onChanged(Change<? extends Arme> a) {
         while (a.next()) {
             for (Arme arme : a.getAddedSubList()) {
+                System.out.println("observé");
                 ArmeVue av = new ArmeVue(arme,arme.getNomPng());
                 this.panneauJeu.getChildren().add(av.getImageView());
 
             }
             for (Arme arme : a.getRemoved()){
+                System.out.println("retiré");
                 ArmeVue av2 = new ArmeVue(arme, arme.getNomPng(),"inutile");
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + arme.getId()));
                 this.toolBar.getItems().add(av2.getImageView());

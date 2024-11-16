@@ -16,8 +16,6 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
         this.nomPng="arc.png";
         this.fleche = new Fleche("arrows.png",this);
 
-
-
     }
 
     public void attaqueAvecArme(Monstre monstre){

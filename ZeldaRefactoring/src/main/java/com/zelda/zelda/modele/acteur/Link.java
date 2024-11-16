@@ -4,6 +4,7 @@ package com.zelda.zelda.modele.acteur;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
+import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
 
@@ -24,7 +25,6 @@ public class Link extends Personnage {
     long actionTime = 0L;
     private boolean linkAttaque;
     private int derniereDirection;
-    private Inventaire inventaire;
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
     private Arme armeEquipe;
     private String armeChoisi;
@@ -32,6 +32,7 @@ public class Link extends Personnage {
     private boolean invisible;
     private boolean tp;
     private static Link uniqueInstance = null;
+    private Inventaire inventaire;
 
 
     private Link(String nom, int x, int y, Terrain t) {
@@ -39,10 +40,10 @@ public class Link extends Personnage {
         this.pv= new SimpleIntegerProperty(5);
         this.pv.setValue(5);
         this.linkAttaque = false;
-        this.inventaire= new Inventaire();
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
+        this.inventaire = new Inventaire();
 
     }
 
@@ -54,7 +55,7 @@ public class Link extends Personnage {
     }
 
 
-    public boolean peutSeDeplacer  (int tuileX, int tuileY){
+    public boolean peutSeDeplacer(int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(margeX,0)[1];
 
@@ -105,9 +106,7 @@ public class Link extends Personnage {
             this.setY(newY);
         }
 
-
     }
-
 
     public int[] margeErreur(int margeX, int margeY) {
         int[]marge=new int[2];
@@ -186,34 +185,20 @@ public class Link extends Personnage {
 
     }
 
-    public boolean linkMeurt(){
+    public boolean estMort(){
         return this.getPv() == 0;
     }
 
-    public void ramasserConsommable(ObservableList<Consommable> getConsommables) {
-        Iterator<Consommable> iterator = getConsommables.iterator();
+    public void ramasser(ObservableList<Item> getItems) {
+        Iterator<Item> iterator = getItems.iterator();
         while (iterator.hasNext()) {
-            Consommable consommable = iterator.next();
-            if (Math.abs(getX() - consommable.getX()) < 8 && Math.abs(getY() - consommable.getY()) < 8) {
-                inventaire.ajouterConsommable(consommable);
+            Item item = iterator.next();
+            if (Math.abs(getX() - item.getX()) < 8 && Math.abs(getY() - item.getY()) < 8) {
+                this.inventaire.ajouterItem(item);
                 iterator.remove();
             }
         }
     }
-
-    //TODO FAIRE UNE SUPERCLASSE ITEM QUI POSSEDE EN ABSTRACTR UNE METHODE RAMASSE
-    public void ramasserArme(ObservableList<Arme> getArmes) {
-        Iterator<Arme> iterator = getArmes.iterator();
-        while (iterator.hasNext()) {
-            Arme arme = iterator.next();
-            if (Math.abs(getX() - arme.getX()) < 8 && Math.abs(getY() - arme.getY()) < 8) {
-                inventaire.ajouterArme(arme);
-                System.out.println(inventaire.getInventaireArme().get(inventaire.getInventaireArme().size() - 1));
-                iterator.remove();
-            }
-        }
-    }
-
 
     public void setPv(int pv) {
         this.pv.set(pv);
@@ -230,13 +215,6 @@ public class Link extends Personnage {
     @Override
     public String toString() {
         return "Link" + super.toString();
-    }
-
-    public void setLinkAttaqueTrue(){
-        this.linkAttaque=true;
-    }
-    public void setLinkAttaqueFalse(){
-        this.linkAttaque=false;
     }
 
     public void setDerniereDirection(int i){
@@ -286,15 +264,11 @@ public class Link extends Personnage {
         this.pointAttaque=pointAttaque;
     }
 
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
-
 
     public void equiperArme() {
-        for(int i = 0;i< inventaire.getInventaireArme().size();i++){
-            if(inventaire.getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
-                this.armeEquipe = inventaire.getInventaireArme().get(i);
+        for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
+            if(this.getInventaire().getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
+                this.armeEquipe = this.getInventaire().getInventaireArme().get(i);
             }
         }
 
@@ -355,8 +329,6 @@ public class Link extends Personnage {
         return -1;
     }
 
-
-
     public void monstreSubitDegat(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
@@ -367,12 +339,6 @@ public class Link extends Personnage {
         }
     }
 
-    public void agit() {
-        this.seDeplace();
-        //this.equiperArme();
-        //this.attaqueMonstre();
-
-    }
     public boolean isLinkAttaque() {
         return linkAttaque;
     }
@@ -385,4 +351,7 @@ public class Link extends Personnage {
         return derniereDirection;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 }

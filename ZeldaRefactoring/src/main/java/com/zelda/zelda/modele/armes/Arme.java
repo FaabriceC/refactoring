@@ -1,14 +1,14 @@
 package com.zelda.zelda.modele.armes;
 
+import com.zelda.zelda.modele.Inventaire;
+import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 import javafx.beans.property.IntegerProperty;
 
-public abstract class Arme {
+public abstract class Arme extends Item {
 
     protected int degats;
-    protected IntegerProperty x;
-    protected IntegerProperty y;
 
     public static int compteur =1;
     private String id;
@@ -89,6 +89,9 @@ public abstract class Arme {
  */
 
 
+    public void ajouterInventaire(Inventaire inventaire) {
+        inventaire.getInventaireArme().add(this);
+    }
 
     public String getId() {return id;}
     public String getNomPng() {return nomPng;}

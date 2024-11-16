@@ -25,6 +25,10 @@ public class Inventaire {
 
     }
 
+    public void ajouterItem(Item item) {
+        item.ajouterInventaire(this);
+    }
+
     @Override
     public String toString() {
         return this.inventaireArme.toString();
