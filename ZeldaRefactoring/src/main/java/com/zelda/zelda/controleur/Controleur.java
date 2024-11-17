@@ -1,15 +1,12 @@
 package com.zelda.zelda.controleur;
 
 import com.zelda.zelda.modele.*;
-import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
-import com.zelda.zelda.modele.armes.Arme;
 import com.zelda.zelda.modele.armes.Epee;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.vue.InventaireVue;
-import com.zelda.zelda.vue.ProjectileVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
 import com.zelda.zelda.vue.TerrainVue;
 import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
@@ -22,7 +19,6 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -130,6 +126,5 @@ public class Controleur implements Initializable {
 
         this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, Link.getInstance());
     }
-
 
 }

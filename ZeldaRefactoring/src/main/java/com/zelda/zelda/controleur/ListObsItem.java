@@ -28,10 +28,10 @@ public class ListObsItem implements ListChangeListener<Item> {
             for (Item item : change.getAddedSubList()) {
                 if (item instanceof Consommable) {
                     Consommable consommable = (Consommable) item;
-                    ConsommableVue cV = new ConsommableVue(consommable, consommable.getNomPng());
+                    ConsommableVue cV = new ConsommableVue(consommable, consommable.getNom());
                     this.panneauJeu.getChildren().add(cV.getImageView());
                 } else {
-                    ItemVue itemVue = new ItemVue(item, item.getNomPng());
+                    ItemVue itemVue = new ItemVue(item, item.getNom());
                     this.panneauJeu.getChildren().add(itemVue.getImageView());
                 }
             }
@@ -41,11 +41,11 @@ public class ListObsItem implements ListChangeListener<Item> {
 
                 if (item instanceof Consommable) {
                     Consommable consommable = (Consommable) item;
-                    ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNomPng(), " ");
+                    ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNom(), " ");
                     cV2.getImageView().setOnMouseClicked(event -> handleConsommableClick(consommable, cV2));
                     this.consommableToolBar.getItems().add(cV2.getImageView());
                 } else {
-                    ItemVue itemVue = new ItemVue(item, item.getNomPng(), "inutile");
+                    ItemVue itemVue = new ItemVue(item, item.getNom(), "inutile");
                     this.toolBar.getItems().add(itemVue.getImageView());
                 }
             }

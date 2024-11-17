@@ -37,7 +37,7 @@ public class BFS {
             recalculerChemin(link);
         }
 
-        if (monstre.isMonsSubitDegat()) {
+        if (monstre.isSubitDegats()) {
             if (this.nbTours % 10 == 0) {
                 if (chemin != null && cheminIndex < chemin.size()) {
                     int[] prochaineEtape = chemin.get(cheminIndex);
@@ -53,7 +53,7 @@ public class BFS {
                     monstre.setX(prochaineEtape[0]);
                     monstre.setY(prochaineEtape[1]);
                     cheminIndex++;
-                    monstre.setMonsSubitDegat(false);
+                    monstre.setSubitDegats(false);
                 }
             }
             this.nbTours++;

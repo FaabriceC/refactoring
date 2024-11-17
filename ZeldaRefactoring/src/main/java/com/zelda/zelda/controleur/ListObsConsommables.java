@@ -26,12 +26,12 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
 
         while (a.next()) {
             for (int i = 0; i < a.getAddedSize(); i++) {
-                ConsommableVue cV = new ConsommableVue(a.getAddedSubList().get(i), (a.getAddedSubList().get(i)).getNomPng());
+                ConsommableVue cV = new ConsommableVue(a.getAddedSubList().get(i), (a.getAddedSubList().get(i)).getNom());
                 this.panneauJeu.getChildren().add(cV.getImageView());
 
             }
             for (Consommable consommable : a.getRemoved()) {
-                ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNomPng(), " ");
+                ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNom(), " ");
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + consommable.getId()));
                 if (consommable instanceof PotionForce) {
                     cV2.getImageView().setOnMouseClicked(event -> {

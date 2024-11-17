@@ -5,20 +5,14 @@ import com.zelda.zelda.modele.deplacement.BFS;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.util.List;
-
 public abstract class Monstre extends Personnage {
-    private IntegerProperty pv;
-    private List<int[]> chemin;
-    private int cheminIndex = 0;
+
+    private IntegerProperty pv;;
     long actionTime = 0L;
     private int nbTours;
-
     protected BFS bfs;
-
     private boolean dircAlea;
-
-    private boolean monsSubitDegat;
+    private boolean subitDegats;
 
     public Monstre(int pv, int x, int y, String nom, Terrain t) {
         super(x, y, nom, t);
@@ -27,7 +21,7 @@ public abstract class Monstre extends Personnage {
         this.nbTours = 0;
         this.bfs = new BFS(this, Terrain.getInstance());
         this.dircAlea = false;
-        this.monsSubitDegat = false;
+        this.subitDegats = false;
     }
 
     public void seDeplace(){
@@ -37,7 +31,7 @@ public abstract class Monstre extends Personnage {
             }
 
         }
-        attaque();
+        attaque(Link.getInstance());
     }
 
     public abstract boolean condition(Link link);
@@ -55,7 +49,7 @@ public abstract class Monstre extends Personnage {
         }
     }
 
-    public void attaque() {
+    public void attaque(Personnage link) {
         long currentTime = System.currentTimeMillis();
         if ((currentTime - actionTime >= 2500) && (peutAttaquer(Link.getInstance(), 1) || peutAttaquer(Link.getInstance(), 2) || peutAttaquer(Link.getInstance(), 3) || peutAttaquer(Link.getInstance(), 4))) {
             Link.getInstance().setPv(Link.getInstance().getPv() - 1);
@@ -94,12 +88,12 @@ public abstract class Monstre extends Personnage {
     }
 
 
-    public boolean isMonsSubitDegat() {
-        return monsSubitDegat;
+    public boolean isSubitDegats() {
+        return subitDegats;
     }
 
-    public void setMonsSubitDegat(boolean monsSubitDegat) {
-        this.monsSubitDegat = monsSubitDegat;
+    public void setSubitDegats(boolean monsSubitDegat) {
+        this.subitDegats = monsSubitDegat;
     }
 
     public int[] margeErreur(int margeX, int margeY) {

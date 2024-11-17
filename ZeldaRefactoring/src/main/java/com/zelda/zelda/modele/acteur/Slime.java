@@ -15,7 +15,7 @@ public class Slime extends Monstre {
             if (!link.isInvisible()) {
                 bfs.seDeplace(link);
             }
-            attaque();
+            attaque(Link.getInstance());
         }
 
     }

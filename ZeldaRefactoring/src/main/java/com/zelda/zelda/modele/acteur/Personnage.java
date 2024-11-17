@@ -21,10 +21,8 @@ public abstract class Personnage { // Crée un personnage
         this.nom = nom;
         this.direction = new SimpleIntegerProperty(0);
         this.indicePas = new SimpleIntegerProperty(0);
-
         this.id = "C" + compteur;
         compteur++;
-
     }
 
     public IntegerProperty xProperty() {
@@ -54,6 +52,8 @@ public abstract class Personnage { // Crée un personnage
         return y.getValue();
     }
 
+    public abstract void attaque(Personnage personnage);
+
     //TODO FAIRE UNE METHODE ABSTRACT ATTAQUE ICI ET LA CODER DANS LINK ET MONSTRE EN PRENANT EN PARAMETRE UN PERSONNAGE
 
     public void setX(int x) {
@@ -79,5 +79,7 @@ public abstract class Personnage { // Crée un personnage
     public String getId(){
         return id;
     }
+
+
 
 }

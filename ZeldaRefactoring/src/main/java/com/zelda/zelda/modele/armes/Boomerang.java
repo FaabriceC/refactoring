@@ -13,13 +13,11 @@ public  class Boomerang extends com.zelda.zelda.modele.armes.Arme {
         this.degats=2;
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(500);
-        this.nomPng="boomerang.png";
+        this.nom="boomerang.png";
         this.boomerang = new BoomerangProjectile("boomerang.png",this);
     }
 
-
-
-    public void attaqueAvecArme(Monstre monstre){
+    public void attaque(Monstre monstre){
         long currentTime = System.currentTimeMillis();
         if (Link.getInstance().isLinkAttaque()) {
             boomerang.apparitionBoomerang(Link.getInstance().getDerniereDirection());

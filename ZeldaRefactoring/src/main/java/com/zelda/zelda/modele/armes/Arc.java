@@ -13,17 +13,17 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
         this.degats=2;
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(550);
-        this.nomPng="arc.png";
+        this.nom="arc.png";
         this.fleche = new Fleche("arrows.png",this);
 
     }
 
-    public void attaqueAvecArme(Monstre monstre){
+    public void attaque(Monstre monstre){
         long currentTime = System.currentTimeMillis();
         if (Link.getInstance().isLinkAttaque()) {
             fleche.apparitionFleche(Link.getInstance().getDerniereDirection());
         }
-        fleche.flecheSeDeplace(monstre);
+//        fleche.flecheSeDeplace(monstre);
 
     }
 

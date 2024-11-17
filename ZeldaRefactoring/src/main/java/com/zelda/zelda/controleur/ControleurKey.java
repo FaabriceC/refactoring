@@ -177,15 +177,15 @@ public class ControleurKey  {
 
         }
         if (uPressed){
-            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(0).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(0).getNom());
         } else if(pPressed && Link.getInstance().getInventaire().getInventaireArme().size()>1){
-            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(1).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(1).getNom());
         }else if(kPressed && Link.getInstance().getInventaire().getInventaireArme().size()>2){
-            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(2).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(2).getNom());
         }else if(lPressed && Link.getInstance().getInventaire().getInventaireArme().size()>3){
-            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(3).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(3).getNom());
         }else if(mPressed && Link.getInstance().getInventaire().getInventaireArme().size()>4){
-            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(4).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(4).getNom());
         }
 
     }

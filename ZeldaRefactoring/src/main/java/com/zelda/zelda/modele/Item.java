@@ -8,8 +8,7 @@ public abstract class Item {
     protected IntegerProperty y;
     public static int compteur =1;
     private String id;
-
-    protected String nomPng;
+    protected String nom;
 
     public Item() {
         this.id = "W" + compteur;
@@ -31,8 +30,8 @@ public abstract class Item {
         return id;
     }
 
-    public String getNomPng() {
-        return nomPng;
+    public String getNom() {
+        return nom;
     }
 
     public IntegerProperty xProperty() {

@@ -1,7 +1,5 @@
 package com.zelda.zelda.modele.acteur;
 
-
-import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Item;
@@ -9,13 +7,11 @@ import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
 
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
-import javafx.util.Duration;
 
 import java.util.*;
 
@@ -34,17 +30,15 @@ public class Link extends Personnage {
     private static Link uniqueInstance = null;
     private Inventaire inventaire;
 
-
     private Link(String nom, int x, int y, Terrain t) {
         super(x, y, nom, t);
-        this.pv= new SimpleIntegerProperty(5);
+        this.pv = new SimpleIntegerProperty(5);
         this.pv.setValue(5);
         this.linkAttaque = false;
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
         this.inventaire = new Inventaire();
-
     }
 
     public static Link getInstance() {
@@ -53,7 +47,6 @@ public class Link extends Personnage {
         }
         return uniqueInstance;
     }
-
 
     public boolean peutSeDeplacer(int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
@@ -133,60 +126,54 @@ public class Link extends Personnage {
         return marge;
     }
 
-
-    public void attaque(Monstre monstre) {
+    public void attaque(Personnage monstre) {
         if (this.armeEquipe != null) {
-            this.armeEquipe.attaqueAvecArme(monstre);
+            this.armeEquipe.attaque((Monstre) monstre);
         } else {
-            this.attaqueSansArme(monstre);
+            this.attaqueSansArme((Monstre) monstre);
         }
 
     }
 
-
     public void attaqueSansArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
         if(currentTime - actionTime >= 500 && derniereDirection == 1 && this.getY()-monstre.getY() < 32 && this.getY()-monstre.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
+            infligerDegatsMonstre(monstre);
             if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32)){
                 monstre.setY(monstre.getY()-32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
 
         }
         if(currentTime - actionTime >= 500 && derniereDirection == 2 && monstre.getX()-this.getX() < 32 && monstre.getX()-this.getX() >= -1  && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
+            infligerDegatsMonstre(monstre);
             if(monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY())){
                 monstre.setX(monstre.getX()+32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
 
         }
         if(currentTime - actionTime >= 500 && derniereDirection == 3 && monstre.getY()-this.getY() < 32 && monstre.getY()-this.getY() >= -1  && Math.abs(this.getX()-monstre.getX()) < 16 ){
-            monstreSubitDegat(monstre);
+            infligerDegatsMonstre(monstre);
             if(monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32)){
                 monstre.setY(monstre.getY()+32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
 
         }
         if(currentTime - actionTime >= 500 && derniereDirection == 4 && this.getX()-monstre.getX() < 32 && this.getX()-monstre.getX() >= -1 && Math.abs(this.getY()-monstre.getY()) < 16 ){
-            monstreSubitDegat(monstre);
+            infligerDegatsMonstre(monstre);
             if(monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY())){
                 monstre.setX(monstre.getX()-32);
             }
             actionTime = currentTime;
-            System.out.println("vie monstre : " + monstre.getPv());
 
         }
 
     }
 
     public boolean estMort(){
-        return this.getPv() == 0;
+        return this.getPv() <= 0;
     }
 
     public void ramasser(ObservableList<Item> getItems) {
@@ -267,7 +254,7 @@ public class Link extends Personnage {
 
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
-            if(this.getInventaire().getInventaireArme().get(i).getNomPng().equals(armeChoisi)){
+            if(this.getInventaire().getInventaireArme().get(i).getNom().equals(armeChoisi)){
                 this.armeEquipe = this.getInventaire().getInventaireArme().get(i);
             }
         }
@@ -285,7 +272,6 @@ public class Link extends Personnage {
             }
         }
     }
-
 
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
@@ -317,11 +303,9 @@ public class Link extends Personnage {
     }
 
     public int getTp(int x, int y){
-
         if (xProperty().getValue()>3135 && xProperty().getValue()<3169 &&yProperty().intValue()>1697&&yProperty().intValue()<1729){
             return 102;
         }
-
         if (xProperty().getValue()>4159 && xProperty().getValue()<4193 &&yProperty().intValue()>1439&&yProperty().intValue()<1473){
             return 30;
         }
@@ -329,14 +313,13 @@ public class Link extends Personnage {
         return -1;
     }
 
-    public void monstreSubitDegat(Monstre monstre){
+    public void infligerDegatsMonstre(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
-            monstre.setMonsSubitDegat(true);
         }else{
             monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-            monstre.setMonsSubitDegat(true);
         }
+        monstre.setSubitDegats(true);
     }
 
     public boolean isLinkAttaque() {

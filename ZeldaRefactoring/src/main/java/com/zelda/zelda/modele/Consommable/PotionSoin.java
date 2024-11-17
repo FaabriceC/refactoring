@@ -8,7 +8,7 @@ public class PotionSoin extends Consommable {
     private int pvSoin;
 
     public PotionSoin(){
-        this.nomPng = "potionSoin.png";
+        this.nom = "potionSoin.png";
         this.pvSoin = 2;
 
         this.x = new SimpleIntegerProperty(520);

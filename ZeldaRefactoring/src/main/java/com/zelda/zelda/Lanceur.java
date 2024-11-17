@@ -1,11 +1,11 @@
 package com.zelda.zelda;
 
-import com.zelda.zelda.controleur.Controleur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -25,4 +25,5 @@ public class Lanceur extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }
