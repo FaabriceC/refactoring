@@ -24,7 +24,6 @@ public class LinkVue extends PersonnageVue {
     private Image imageCoeur = new Image(String.valueOf(Lanceur.class.getResource("coeur.png")));
     private ArrayList<ImageView> listImageViewsCoeur;
 
-    // New attributes for inventory components
     private Pane backgroundPaneConso;
     private ToolBar consommable;
     private Pane backgroundPane;
@@ -81,25 +80,19 @@ public class LinkVue extends PersonnageVue {
 
         link.pvProperty().addListener(pvListener);
 
-        link.braceletUtiliseProperty().addListener((obs, old, utilise) -> {
+        link.getBracelet().utiliseProperty().addListener((obs, old, utilise) -> {
             if (utilise) {
-                cacheLink(link);
-                link.resetBracelet();
+                cacheLink();
+                PauseTransition pause = new PauseTransition(Duration.seconds(10));
+                pause.setOnFinished(event -> Link.getInstance().resetBracelet());
+                pause.play();
             }
         });
     }
 
-    public void cacheLink(Link link) {
+    public void cacheLink() {
         ImageView linkImageView = getImageView();
         linkImageView.setOpacity(0.5);
-
-        PauseTransition pause = new PauseTransition(Duration.seconds(10));
-        pause.setOnFinished(event -> {
-            linkImageView.setOpacity(1);
-            link.setInvisible(false);
-        });
-
-        pause.play();
     }
 
     private void setupCameraFollow() {

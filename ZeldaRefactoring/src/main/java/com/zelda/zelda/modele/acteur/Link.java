@@ -1,6 +1,7 @@
 package com.zelda.zelda.modele.acteur;
 
 
+import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Item;
@@ -25,13 +26,14 @@ public class Link extends Personnage {
     private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
-    private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
     private Arme armeEquipe;
     private String armeChoisi;
     private int pointAttaque;
     private boolean invisible;
     private boolean tp;
     private static Link uniqueInstance = null;
+
+    private Bracelet bracelet;
 
     private StrategieDeplacement strategieDeplacement;
 
@@ -47,7 +49,14 @@ public class Link extends Personnage {
         this.inventaire = new Inventaire();
         this.strategieDeplacement = new DeplacementLink();
 
+
     }
+
+    public Bracelet getBracelet() {
+        return bracelet;
+    }
+
+
 
     public static Link getInstance() {
         if (uniqueInstance == null) {
@@ -159,7 +168,11 @@ public class Link extends Personnage {
             Item item = iterator.next();
             if (Math.abs(getX() - item.getX()) < 8 && Math.abs(getY() - item.getY()) < 8) {
                 this.inventaire.ajouterItem(item);
+                if (item  instanceof  Bracelet){
+                    this.bracelet = new Bracelet();
+                }
                 iterator.remove();
+
             }
         }
     }
@@ -175,7 +188,6 @@ public class Link extends Personnage {
         return pv;
     }
 
-    @Override
     public String toString() {
         return "Link" + super.toString();
     }
@@ -259,16 +271,14 @@ public class Link extends Personnage {
     }
 
 
-    public BooleanProperty braceletUtiliseProperty() {
-        return braceletUtilise;
+
+
+    public void utiliseBracelet() {
+        bracelet.activer();
     }
 
     public void resetBracelet() {
-        braceletUtilise.set(false);
-    }
-    public void utiliseBracelet() {
-        braceletUtilise.set(true);
-        this.invisible=true;
+        bracelet.desactiver();
     }
 
     public boolean isInvisible() {
