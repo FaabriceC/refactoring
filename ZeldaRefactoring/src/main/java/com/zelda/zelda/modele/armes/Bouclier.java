@@ -13,7 +13,7 @@ public  class Bouclier extends com.zelda.zelda.modele.armes.Arme {
     this.degats=2;
     this.x = new SimpleIntegerProperty(1500);
     this.y = new SimpleIntegerProperty(500);
-    this.nom = "Bouclier";
+    this.nom = "bouclier.png";
   }
 
 

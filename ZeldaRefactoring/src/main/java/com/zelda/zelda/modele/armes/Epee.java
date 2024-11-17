@@ -12,7 +12,7 @@ public class Epee extends com.zelda.zelda.modele.armes.Arme {
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(400);
         this.degats=2;
-        this.nom = "Epee";
+        this.nom = "epee.png";
     }
 
 }

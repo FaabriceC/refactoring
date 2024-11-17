@@ -13,8 +13,8 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
         this.degats=2;
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(550);
-        this.nom="Arc";
-        this.fleche = new Fleche("Arrows",this);
+        this.nom="arc.png";
+        this.fleche = new Fleche("arrows.png",this);
 
     }
 

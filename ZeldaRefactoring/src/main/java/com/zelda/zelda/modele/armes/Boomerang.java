@@ -13,8 +13,8 @@ public  class Boomerang extends com.zelda.zelda.modele.armes.Arme {
         this.degats=2;
         this.x = new SimpleIntegerProperty(1500);
         this.y = new SimpleIntegerProperty(500);
-        this.nom="Boomerang";
-        this.boomerang = new BoomerangProjectile("Boomerang",this);
+        this.nom="boomerang.png";
+        this.boomerang = new BoomerangProjectile("boomerang.png",this);
     }
 
 
