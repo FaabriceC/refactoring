@@ -18,30 +18,26 @@ import java.util.*;
 
 public class Link extends Personnage {
 
-    private IntegerProperty pv;
     long actionTime = 0L;
     private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
-    private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
     private Arme armeEquipe;
     private String armeChoisi;
-    private int pointAttaque;
-    private boolean invisible;
+    private BooleanProperty invisible;
     private boolean tp;
     private static Link uniqueInstance = null;
 
     private Link(String nom, int x, int y) {
         super(5, x, y, nom);
         this.pv= new SimpleIntegerProperty(5);
-        this.pv.setValue(5);
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
         this.inventaire = new Inventaire();
-
+        this.invisible = new SimpleBooleanProperty(false);
     }
 
     public static Link getInstance() {
@@ -51,61 +47,40 @@ public class Link extends Personnage {
         return uniqueInstance;
     }
 
-
     public boolean peutSeDeplacer(int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
         int margeY = margeErreur(margeX,0)[1];
-
         return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
 
     public void seDeplace() {
-        tp =false;
-        int deplacementX = 0;
-        int deplacementY = 0;
+        tp = false;
+        int vitesse = pousseLeBloc() ? 1 : 5;
 
-        int vitesse = 5;
-
-        if (pousseLeBloc())
-            vitesse = 1;
-
-        if (this.direction.getValue() == 2) {
-            deplacementX += vitesse;
-
-        }  if (this.direction.getValue() == 4) {
-            deplacementX -= vitesse;
-
-        } if (this.direction.getValue() == 3) {
-            deplacementY += vitesse;
-
-        } if (this.direction.getValue() == 1) {
-            deplacementY -= vitesse;
-
-        }
+        int deplacementX = (this.direction.getValue() == 2 ? vitesse : 0) -
+                (this.direction.getValue() == 4 ? vitesse : 0);
+        int deplacementY = (this.direction.getValue() == 3 ? vitesse : 0) -
+                (this.direction.getValue() == 1 ? vitesse : 0);
 
         int newX = this.getX() + deplacementX;
         int newY = this.getY() + deplacementY;
 
-        if (getTp(newX,newY)==102) {
-            this.setX(4158);
-            this.setY(1556);
-            tp=true;
+        switch (getTp()) {
+            case 102 -> teleporterVers(4158, 1556);
+            case 30 -> teleporterVers(3136, 1816);
         }
 
-        if (getTp(newX,newY)==30) {
-            this.setX(3136);
-            this.setY(1816);
-            tp=true;
-        }
-
-        if ( peutSeDeplacer(newX, newY)&& Terrain.getInstance().dansTerrain(newX,newY)&&!tp) {
+        if (!tp && peutSeDeplacer(newX, newY) && Terrain.getInstance().dansTerrain(newX, newY)) {
             this.setX(newX);
             this.setY(newY);
         }
-
-
     }
 
+    public void teleporterVers(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+        this.tp = true;
+    }
 
     public int[] margeErreur(int margeX, int margeY) {
         int[]marge=new int[2];
@@ -179,10 +154,6 @@ public class Link extends Personnage {
 
     }
 
-    public boolean estMort(){
-        return this.getPv() == 0;
-    }
-
     public void ramasser(ObservableList<Item> getItems) {
         Iterator<Item> iterator = getItems.iterator();
         while (iterator.hasNext()) {
@@ -192,17 +163,6 @@ public class Link extends Personnage {
                 iterator.remove();
             }
         }
-    }
-    public void setPv(int pv) {
-        this.pv.set(pv);
-    }
-
-    public int getPv() {
-        return pv.get();
-    }
-
-    public IntegerProperty pvProperty() {
-        return pv;
     }
 
     @Override
@@ -229,7 +189,7 @@ public class Link extends Personnage {
         int dir = direction.getValue();
         for (BlockDynamique blocDynamique : Terrain.getInstance().getBlocsDynamiques()) {
             if (dir >= 1 && dir <= 4) {
-                if (raccourci(blocDynamique, valeurs[dir])) {
+                if (verifierCollision(blocDynamique, valeurs[dir])) {
                     return true;
                 }
             }
@@ -237,7 +197,7 @@ public class Link extends Personnage {
         return false;
     }
 
-    public boolean raccourci(BlockDynamique blocDynamique, int[] valeurs) {
+    public boolean verifierCollision(BlockDynamique blocDynamique, int[] valeurs) {
         int valeur1 = valeurs[0], valeur2 = valeurs[1], valeur3 = valeurs[2], valeur4 = valeurs[3];
         int valeur5 = valeurs[4], valeur6 = valeurs[5], valeur7 = valeurs[6];
         if (!Terrain.getInstance().collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!Terrain.getInstance().collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {
@@ -248,15 +208,6 @@ public class Link extends Personnage {
         }
         return false;
     }
-
-    public int getPtsAttaque(){
-        return this.pointAttaque;
-    }
-
-    public void setPointAttaque(int pointAttaque){
-        this.pointAttaque=pointAttaque;
-    }
-
 
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
@@ -279,7 +230,6 @@ public class Link extends Personnage {
         }
     }
 
-
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
     }
@@ -288,56 +238,31 @@ public class Link extends Personnage {
         return armeEquipe;
     }
 
-
-    public BooleanProperty braceletUtiliseProperty() {
-        return braceletUtilise;
-    }
-
-    public void resetBracelet() {
-        braceletUtilise.set(false);
-    }
-    public void utiliseBracelet() {
-        braceletUtilise.set(true);
-        this.invisible=true;
-    }
-
-    public boolean isInvisible() {
+    public BooleanProperty isInvisible() {
         return invisible;
     }
 
     public void setInvisible(boolean invisible) {
-        this.invisible = invisible;
+        this.invisible.setValue(invisible);
     }
 
-    public int getTp(int x, int y){
-
-        if (xProperty().getValue()>3135 && xProperty().getValue()<3169 &&yProperty().intValue()>1697&&yProperty().intValue()<1729){
-            return 102;
-        }
-
-        if (xProperty().getValue()>4159 && xProperty().getValue()<4193 &&yProperty().intValue()>1439&&yProperty().intValue()<1473){
-            return 30;
-        }
-
+    public int getTp(){
+        if (xProperty().getValue()>3135 && xProperty().getValue()<3169 && yProperty().intValue()>1697 && yProperty().intValue()<1729) return 102;
+        if (xProperty().getValue()>4159 && xProperty().getValue()<4193 && yProperty().intValue()>1439 && yProperty().intValue()<1473) return 30;
         return -1;
     }
 
     public void monstreSubitDegat(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
-            monstre.setSubitDegat(true);
         }else{
             monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-            monstre.setSubitDegat(true);
         }
+        monstre.setSubitDegat(true);
     }
 
     public boolean isLinkAttaque() {
         return linkAttaque;
-    }
-
-    public int getPointAttaque() {
-        return pointAttaque;
     }
 
     public int getDerniereDirection() {

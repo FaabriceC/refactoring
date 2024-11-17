@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
 public class PotionForce extends Consommable {
+
     private int force;
 
     public PotionForce(){
@@ -16,12 +17,11 @@ public class PotionForce extends Consommable {
         this.y = new SimpleIntegerProperty(450);
     }
 
-
     public void utilise() {
-        Link.getInstance().setPointAttaque((Link.getInstance().getPtsAttaque()+2));
+        Link.getInstance().setPointAttaque((Link.getInstance().getPointAttaque() + force));
         PauseTransition pause = new PauseTransition(Duration.seconds(60));
         pause.setOnFinished(event -> {
-            Link.getInstance().setPointAttaque((Link.getInstance().getPtsAttaque()-2));
+            Link.getInstance().setPointAttaque((Link.getInstance().getPointAttaque() - force));
         });
         pause.play();
 

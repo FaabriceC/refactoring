@@ -14,7 +14,7 @@ public class Slime extends Monstre {
 
     @Override
     public boolean condition(Link link) {
-        return !link.isInvisible();
+        return !link.isInvisible().getValue();
     }
 
     @Override

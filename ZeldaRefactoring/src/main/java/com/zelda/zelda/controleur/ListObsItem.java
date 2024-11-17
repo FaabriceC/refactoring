@@ -1,5 +1,6 @@
 package com.zelda.zelda.controleur;
 
+import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
@@ -60,7 +61,7 @@ public class ListObsItem implements ListChangeListener<Item> {
             ((PotionSoin) consommable).utilise();
             consommableToolBar.getItems().remove(consommableVue.getImageView());
         } else {
-            Link.getInstance().utiliseBracelet();
+            ((Bracelet) consommable).utilise();
             if (Math.random() < 0.10) {
                 consommableToolBar.getItems().remove(consommableVue.getImageView());
             }

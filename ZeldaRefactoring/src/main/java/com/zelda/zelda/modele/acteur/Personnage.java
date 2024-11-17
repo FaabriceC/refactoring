@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Personnage { // Crée un personnage
     private IntegerProperty x = new SimpleIntegerProperty();
     protected IntegerProperty pv;
-
     private IntegerProperty y = new SimpleIntegerProperty();
     private final String nom;
     protected IntegerProperty direction;
@@ -16,13 +15,13 @@ public abstract class Personnage { // Crée un personnage
     private boolean statutPas;
     public static int compteur = 0;
     private String id;
+    protected int pointAttaque;
 
 
     public Personnage(int pv,int x, int y, String nom) {
         this.x.set(x);
         this.y.set(y);
         this.pv = new SimpleIntegerProperty(pv);
-        this.pv.setValue(pv);
         this.nom = nom;
         this.direction = new SimpleIntegerProperty(0);
         this.indicePas = new SimpleIntegerProperty(0);
@@ -85,6 +84,10 @@ public abstract class Personnage { // Crée un personnage
         }
     }
 
+    public int getPointAttaque() {
+        return pointAttaque;
+    }
+
     public void setY(int y) {
         this.y.set(y);
     }
@@ -103,6 +106,18 @@ public abstract class Personnage { // Crée un personnage
 
     public String getId(){
         return id;
+    }
+
+    public IntegerProperty pvProperty() {
+        return pv;
+    }
+
+    public void setPointAttaque(int pointAttaque) {
+        this.pointAttaque = pointAttaque;
+    }
+
+    public boolean estMort() {
+        return this.pv.getValue() <= 0;
     }
 
 }
