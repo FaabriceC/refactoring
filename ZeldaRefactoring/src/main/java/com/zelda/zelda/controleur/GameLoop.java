@@ -14,6 +14,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
 
+import static com.zelda.zelda.modele.armes.Fleche.flecheAgits;
+
+
 public class GameLoop {
 
     private Timeline gameLoop;
@@ -30,7 +33,7 @@ public class GameLoop {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.033), (event) -> {
             Link.getInstance().agit();
-            Fleche.getInstance().flecheAgit();
+            flecheAgits();
             BoomerangProjectile.getInstance().boomerangAgit();
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();

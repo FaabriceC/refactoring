@@ -8,7 +8,6 @@ public class Fleche extends Projectile {
 
     private int tempAvantDisparitionDeLaFleche;
 
-    private static Fleche uniqueInstance=null;
 
     public Fleche(String nom) {
         super(nom);
@@ -17,26 +16,33 @@ public class Fleche extends Projectile {
     }
 
 
+    public static void flecheAgits(){
+        for (int j = 0;j<Environnement.getInstance().getProjectiles().size();j++){
+            if(Environnement.getInstance().getProjectiles().get(j) instanceof Fleche){
+                Fleche f =(Fleche) Environnement.getInstance().getProjectiles().get(j);
+                f.flecheAgit();
+            }
+        }
+    }
 
 
     public void flecheAgit(){
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                Fleche.getInstance().flecheAttaque(this.getDire(),m);
+                this.flecheAttaque(this.getDire(),m);
             }
         }
-
-        Fleche.getInstance().ProjectileSeDeplaceSelonDirection(this.getDire());
-        Fleche.getInstance().diparitionFleche();
+        this.ProjectileSeDeplaceSelonDirection(this.getDire());
+        this.diparitionFleche();
     }
 
     public void apparitionFleche(int direction,Link link){
-            Fleche.getInstance().setxProjectile(link.getX());
-            Fleche.getInstance().setyProjectile(link.getY());
-            Fleche.getInstance().setDire(direction);
-            Fleche.getInstance().tempAvantDisparitionDeLaFleche = 0;
-            Environnement.getInstance().getProjectiles().add(Fleche.getInstance());
+        this.setxProjectile(link.getX());
+        this.setyProjectile(link.getY());
+        this.setDire(direction);
+        this.tempAvantDisparitionDeLaFleche = 0;
+        Environnement.getInstance().getProjectiles().add(this);
     }
 
 
@@ -53,8 +59,8 @@ public class Fleche extends Projectile {
 
 
     public void flecheAttaque(int direcrionFleche, Monstre monstre){
-        if (monstreTouchable(direcrionFleche,monstre,Fleche.getInstance())) {
-            Fleche.getInstance().faitDesDegatAuMonstre(monstre,Fleche.getInstance());
+        if (monstreTouchable(direcrionFleche,monstre,this)) {
+            this.faitDesDegatAuMonstre(monstre,this);
             if (!monstre.vivant()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
@@ -63,13 +69,13 @@ public class Fleche extends Projectile {
 
     public void ProjectileSeDeplaceSelonDirection(int directionProjectile){
         if (directionProjectile == 1) {
-            Fleche.getInstance().setyProjectile(Fleche.getInstance().getyProjectile()-2);
+            this.setyProjectile(this.getyProjectile()-2);
         } else if (directionProjectile == 2) {
-            Fleche.getInstance().setxProjectile(Fleche.getInstance().getxProjectile() + 2);
+            this.setxProjectile(this.getxProjectile() + 2);
         } else if (directionProjectile == 3) {
-            Fleche.getInstance().setyProjectile(Fleche.getInstance().getyProjectile() + 2);
+            this.setyProjectile(this.getyProjectile() + 2);
         } else if (directionProjectile == 4) {
-            Fleche.getInstance().setxProjectile(Fleche.getInstance().getxProjectile() - 2);
+            this.setxProjectile(this.getxProjectile() - 2);
         }
         if(directionProjectile != 0){
             tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+2;
@@ -90,24 +96,19 @@ public class Fleche extends Projectile {
 
     public void diparitionFleche(){
         if (tempAvantDisparitionDeLaFleche == 128){
-            Fleche.getInstance().setxProjectileNull();
-            Fleche.getInstance().setyProjectileNull();
-            Fleche.getInstance().setDire(0);
+            this.setxProjectileNull();
+            this.setyProjectileNull();
+            this.setDire(0);
             tempAvantDisparitionDeLaFleche = 0;
 
-            Environnement.getInstance().getProjectiles().remove(Fleche.getInstance());
+            Environnement.getInstance().getProjectiles().remove(this);
 
 
         }
     }
 
 
-    public static Fleche getInstance() {
-        if(uniqueInstance==null) {
-            uniqueInstance= new Fleche("arrows.png");
-        }
-        return uniqueInstance;
-    }
+
 
 
 
