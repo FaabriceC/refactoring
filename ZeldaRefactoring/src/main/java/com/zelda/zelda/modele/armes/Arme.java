@@ -1,46 +1,29 @@
 package com.zelda.zelda.modele.armes;
 
+import com.zelda.zelda.modele.Inventaire;
+import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 import com.zelda.zelda.modele.acteur.Personnage;
-import javafx.beans.property.IntegerProperty;
 
-public abstract class Arme {
+public abstract class Arme extends Item {
 
     protected int degats;
-    protected IntegerProperty x;
-    protected IntegerProperty y;
-
-    public static int compteur =1;
-    private String id;
-
-    protected String nomPng;
-
     long actionTime = 0L;
 
-    public Arme(){
-        this.id = "W" + compteur;
-        compteur++;
-
-    }
-
-    public void attaqueAvecArme(Personnage personnage){
+    public void attaque(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),personnage,currentTime)){
-            this.faitDesDegatAuMonstre(personnage);
-            if(personnage.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
-                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),personnage);
+        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime)){
+            this.faitDesDegatAuMonstre(monstre);
+            if(monstre.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
+                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),monstre);
             }
-            System.out.println("Dégats de l'arme : " + Link.getInstance().getArmeEquipe().getDegats());
-
 
             actionTime = currentTime;
 
         }
 
     }
-
-
 
     public boolean attaquePossibleSelonDirection(int direction, Personnage personnage,long currentTime){
         if (direction == 1 ){
@@ -55,49 +38,28 @@ public abstract class Arme {
     }
 
 
-    public void faitReculerMonstreSelonDirection(int direction,Personnage personnage){
-        if(direction == 1){
-            personnage.setY(personnage.getY()+32);
-        } else if (direction == 2){
-            personnage.setX(personnage.getX()-32);
-        } else if (direction == 3){
-            personnage.setY(personnage.getY()-32);
-        } else {
-            personnage.setX(personnage.getX()+32);
+    public void faitReculerMonstreSelonDirection(int direction, Personnage personnage) {
+        switch (direction) {
+            case 1 -> personnage.setY(personnage.getY() - 32);
+            case 2 -> personnage.setX(personnage.getX() + 32);
+            case 3 -> personnage.setY(personnage.getY() + 32);
+            case 4 -> personnage.setX(personnage.getX() - 32);
         }
     }
 
 
-    public void faitDesDegatAuMonstre(Personnage personnage){
-        personnage.setPv(personnage.getPv() - (Link.getInstance().getPointAttaque() + Link.getInstance().getArmeEquipe().getDegats()));
-        System.out.println("Monstre pv : " + personnage.getPv());
+    public void faitDesDegatAuMonstre(Monstre monstre){
+        monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + Link.getInstance().getArmeEquipe().getDegats()));
+        monstre.setSubitDegat(true);
     }
 
-/*
-    public boolean monstrePeutReculerSelonDirection(int direction,Monstre monstre){
-        if(direction == 1){
-            return monstre.peutSeDeplacer(monstre.getX(),monstre.getY()-32);
-        } else if (direction == 2){
-            return monstre.peutSeDeplacer(monstre.getX()+32,monstre.getY());
-        } else if (direction == 3){
-            return monstre.peutSeDeplacer(monstre.getX(),monstre.getY()+32);
-        } else {
-            return monstre.peutSeDeplacer(monstre.getX()-32,monstre.getY());
-        }
+    public void ajouterInventaire(Inventaire inventaire) {
+        inventaire.getInventaireArme().add(this);
     }
 
-
- */
-
-
-
-    public String getId() {return id;}
-    public String getNomPng() {return nomPng;}
-    public int getX(){return x.getValue();}
-    public int getY(){return y.getValue();}
-    public IntegerProperty xProperty(){return x;}
-    public IntegerProperty yProperty(){return y;}
-    public int getDegats() {return degats;}
+    public int getDegats() {
+        return degats;
+    }
 
 
 }

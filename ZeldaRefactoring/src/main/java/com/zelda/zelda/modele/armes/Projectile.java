@@ -10,21 +10,17 @@ public class Projectile {
     private String nom;
     private IntegerProperty xProjectile;
     private IntegerProperty yProjectile;
-
     public static int compteur =1;
     private String id;
-
     private int dire;
-    private Arme arme;
+    protected Arme arme;
 
     public Projectile(String nom,Arme arme){
         this.nom = nom;
         this.xProjectile = new SimpleIntegerProperty();
         this.yProjectile = new SimpleIntegerProperty();
-
         this.id = "P" + compteur;
         compteur++;
-
         this.arme = arme;
     }
 
@@ -78,14 +74,7 @@ public class Projectile {
         this.yProjectile.setValue(null);
     }
 
-
-
-    //TEMPORAIRE
-
-
     public Arme getArme() {
         return arme;
     }
-
-
 }

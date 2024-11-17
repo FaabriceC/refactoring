@@ -12,7 +12,6 @@ public class Fleche extends Projectile {
         tempAvantDisparitionDeLaFleche = 0;
     }
 
-
     public void apparitionFleche(int direction){
         if (tempAvantDisparitionDeLaFleche == 0){
             this.setxProjectile(Link.getInstance().getX());
@@ -21,15 +20,12 @@ public class Fleche extends Projectile {
         }
     }
 
-
-
     public void flecheSeDeplace(Monstre monstre){
         this.flecheDepl(this.getDire(),monstre);
         this.flecheSeDeplaceSelonDirection(this.getDire());
         this.diparitionFleche();
 
     }
-
 
 
     public void flecheDepl(int direcrionFleche, Monstre monstre){

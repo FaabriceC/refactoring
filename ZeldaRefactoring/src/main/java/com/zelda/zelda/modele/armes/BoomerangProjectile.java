@@ -39,7 +39,7 @@ public class BoomerangProjectile extends Projectile{
     }
 
     public void boomerangSeDeplaceSelonDirection(int directionBoomerang){
-        if (    (directionBoomerang == 1 && tempsAventDisparitionDuBoomerang <=128)     ||  (directionBoomerang == 3 && tempsAventDisparitionDuBoomerang >128) ) {
+        if ((directionBoomerang == 1 && tempsAventDisparitionDuBoomerang <=128)     ||  (directionBoomerang == 3 && tempsAventDisparitionDuBoomerang >128) ) {
             this.setyProjectile(this.getyProjectile()-1);
         } else if (     (directionBoomerang == 2 && tempsAventDisparitionDuBoomerang <=128 )   || (directionBoomerang == 4 && tempsAventDisparitionDuBoomerang >128 )) {
             this.setxProjectile(this.getxProjectile() + 1);

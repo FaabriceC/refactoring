@@ -8,7 +8,6 @@ public class Boss extends Monstre {
     private boolean anim =false;
 
     public Boss(int x, int y){
-
         super(100,x,y,"slime3.gif");
     }
 

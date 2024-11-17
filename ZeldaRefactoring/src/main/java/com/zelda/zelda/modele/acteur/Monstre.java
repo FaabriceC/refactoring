@@ -13,14 +13,13 @@ public abstract class Monstre extends Personnage {
     protected StrategieDeplacement strategieDeplacement;
     private boolean dircAlea;
 
-    private boolean monsSubitDegat;
+    private boolean subitDegat;
 
     public Monstre(int pv,int x, int y, String nom) {
         super( pv,x, y, nom);
-
         this.dircAlea = false;
         this.strategieDeplacement = new BFS(this,Terrain.getInstance());
-        this.monsSubitDegat = false;
+        this.subitDegat = false;
     }
 
     public void seDeplaceEtAttaque(){
@@ -93,8 +92,8 @@ public abstract class Monstre extends Personnage {
     }
 
 
-    public boolean isMonsSubitDegat() {
-        return monsSubitDegat;
+    public boolean isSubitDegat() {
+        return subitDegat;
     }
 
 
@@ -122,6 +121,10 @@ public abstract class Monstre extends Personnage {
         marge[0] = margeX;
         marge[1] = margeY;
         return new int[]{margeX, margeY};
+    }
+
+    public void setSubitDegat(boolean subitDegat) {
+        this.subitDegat = subitDegat;
     }
 
     public abstract int valeur();

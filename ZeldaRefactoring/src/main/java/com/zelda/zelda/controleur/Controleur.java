@@ -50,9 +50,6 @@ public class Controleur implements Initializable {
     @FXML
     private ToolBar consommable;
 
-    private ProjectileVue proVue;
-    private ProjectileVue proVue2;
-
     public void initialize(URL location, ResourceBundle resources) {
 
         initTerrain();
@@ -115,15 +112,11 @@ public class Controleur implements Initializable {
         ListChangeListener<Personnage> personnageListChangeListener = new ListObs(panneauJeu);
         Environnement.getInstance().getPersonnageListe().addListener(personnageListChangeListener);
 
-        ListChangeListener<Arme> armeListChangeListener = new ListObsArmes(panneauJeu, itemToolBar);
-        Environnement.getInstance().getArmes().addListener(armeListChangeListener);
-
-        ListChangeListener<Consommable> consommableListChangeListener = new ListObsConsommables(panneauJeu, consommable, Link.getInstance());
-        Environnement.getInstance().getConsommables().addListener(consommableListChangeListener);
-
+        ListChangeListener<Item> itemListChangeListener = new ListObsItem(panneauJeu, itemToolBar, consommable);
+        Environnement.getInstance().getArmes().addListener(itemListChangeListener);
+        Environnement.getInstance().getConsommables().addListener(itemListChangeListener);
 
     }
-
 
     public void initInventaire() {
         inv = Link.getInstance().getInventaire();

@@ -12,6 +12,4 @@ public class Bracelet extends Consommable {
 
     }
 
-
-
 }

@@ -29,7 +29,6 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                 ConsommableVue cV = new ConsommableVue(a.getAddedSubList().get(i), (a.getAddedSubList().get(i)).getNom());
                 this.panneauJeu.getChildren().add(cV.getImageView());
 
-
             }
             for (Consommable consommable : a.getRemoved()) {
                 ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNom(), " ");
@@ -48,7 +47,7 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                     });
                 } else {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.UtiliseBracelet();
+                        link.utiliseBracelet();
                         if(Math.random() < 0.10){
                             consommablesToolBar.getItems().remove(cV2.getImageView());
                         }

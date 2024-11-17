@@ -16,7 +16,6 @@ public abstract class Personnage { // Crée un personnage
     private boolean statutPas;
     public static int compteur = 0;
     private String id;
-    private boolean persSubitDegat;
 
 
     public Personnage(int pv,int x, int y, String nom) {
@@ -27,7 +26,6 @@ public abstract class Personnage { // Crée un personnage
         this.nom = nom;
         this.direction = new SimpleIntegerProperty(0);
         this.indicePas = new SimpleIntegerProperty(0);
-        this.persSubitDegat = false;
         this.id = "C" + compteur;
         compteur++;
 
@@ -62,8 +60,6 @@ public abstract class Personnage { // Crée un personnage
 
     public abstract void attaqueSiPossible(Personnage personnage);
 
-    //TODO FAIRE UNE METHODE ABSTRACT ATTAQUE ICI ET LA CODER DANS LINK ET MONSTRE EN PRENANT EN PARAMETRE UN PERSONNAGE MADE BY TONY
-
     public void setX(int x) {
         this.x.set(x);
     }
@@ -87,10 +83,6 @@ public abstract class Personnage { // Crée un personnage
         } else {
             return this.peutSeDeplacer(this.getX()-32,this.getY());
         }
-    }
-
-    public void setMonsSubitDegat(boolean monsSubitDegat) {
-        this.persSubitDegat = monsSubitDegat;
     }
 
     public void setY(int y) {
