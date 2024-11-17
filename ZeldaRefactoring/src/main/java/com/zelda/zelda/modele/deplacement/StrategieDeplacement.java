@@ -4,6 +4,6 @@ import com.zelda.zelda.modele.acteur.Monstre;
 
 public interface StrategieDeplacement {
 
-    public void seDeplace();
+    public void seDeplace( );
 
 }

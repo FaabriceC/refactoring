@@ -7,6 +7,8 @@ import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
 
+import com.zelda.zelda.modele.deplacement.DeplacementLink;
+import com.zelda.zelda.modele.deplacement.StrategieDeplacement;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
@@ -22,6 +24,9 @@ public class Link extends Personnage {
 
     long actionTime = 0L;
     private boolean linkAttaque;
+
+
+    private StrategieDeplacement strategieDeplacement;
     private int derniereDirection;
     private Inventaire inventaire;
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
@@ -40,6 +45,7 @@ public class Link extends Personnage {
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
+        this.strategieDeplacement = new DeplacementLink();
 
     }
 
@@ -58,51 +64,13 @@ public class Link extends Personnage {
         return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
 
+    public void setTp(boolean tp) {
+        this.tp = tp;
+    }
+
+
     public void seDeplace() {
-        tp =false;
-        int deplacementX = 0;
-        int deplacementY = 0;
-
-        int vitesse = 5;
-
-        if (pousseLeBloc())
-            vitesse = 1;
-
-        if (this.direction.getValue() == 2) {
-            deplacementX += vitesse;
-
-        }  if (this.direction.getValue() == 4) {
-            deplacementX -= vitesse;
-
-        } if (this.direction.getValue() == 3) {
-            deplacementY += vitesse;
-
-        } if (this.direction.getValue() == 1) {
-            deplacementY -= vitesse;
-
-        }
-
-        int newX = this.getX() + deplacementX;
-        int newY = this.getY() + deplacementY;
-
-        if (getTp(newX,newY)==102) {
-            this.setX(4158);
-            this.setY(1556);
-            tp=true;
-        }
-
-        if (getTp(newX,newY)==30) {
-            this.setX(3136);
-            this.setY(1816);
-            tp=true;
-        }
-
-        if ( peutSeDeplacer(newX, newY)&& Terrain.getInstance().dansTerrain(newX,newY)&&!tp) {
-            this.setX(newX);
-            this.setY(newY);
-        }
-
-
+      strategieDeplacement.seDeplace();
     }
 
 
@@ -368,6 +336,11 @@ public class Link extends Personnage {
         this.seDeplace();
 
     }
+
+    public boolean isTp() {
+        return tp;
+    }
+
     public boolean isLinkAttaque() {
         return linkAttaque;
     }
