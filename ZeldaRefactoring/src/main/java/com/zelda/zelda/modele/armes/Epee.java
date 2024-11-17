@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele.armes;
 
+import com.zelda.zelda.modele.acteur.Monstre;
 import com.zelda.zelda.modele.deplacement.Point2D;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,6 +20,24 @@ public  class Epee extends com.zelda.zelda.modele.armes.Arme {
     }
 
 
+
+    public void attaqueAvecArme(Monstre monstre){
+        long currentTime = System.currentTimeMillis();
+        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime) && Link.getInstance().isLinkAttaque()){
+            System.out.println("LINK ATTAQUE");
+            this.faitDesDegatAuMonstre(monstre);
+
+            if(monstre.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
+                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),monstre);
+            }
+
+
+
+            //actionTime = currentTime;
+
+        }
+
+    }
 
 
 

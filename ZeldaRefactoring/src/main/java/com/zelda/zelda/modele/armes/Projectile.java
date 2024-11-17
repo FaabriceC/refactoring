@@ -6,7 +6,7 @@ import com.zelda.zelda.modele.acteur.Monstre;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Projectile {
+public abstract class Projectile {
 
     private String nom;
     private IntegerProperty xProjectile;
@@ -16,7 +16,11 @@ public class Projectile {
     private String id;
 
     private int dire;
-    private Arme arme;
+    //private Arme arme;
+
+    protected int degat;
+
+
 
 
     public Projectile(String nom){
@@ -24,11 +28,12 @@ public class Projectile {
         this.xProjectile = new SimpleIntegerProperty();
         this.yProjectile = new SimpleIntegerProperty();
 
+        //this.arme = arme;
+
 
         this.id = "P" + compteur;
         compteur++;
 
-        this.arme = arme;
     }
 
 
@@ -83,12 +88,36 @@ public class Projectile {
 
 
 
+
+
     //TEMPORAIRE
 
-
+/*
     public Arme getArme() {
         return arme;
     }
 
+ */
 
+
+    public int getDegat() {
+        return degat;
+    }
+
+
+    public boolean monstreTouchable(int direcrionProjectile,Monstre monstre, Projectile projectile) {
+        if (direcrionProjectile == 1 || direcrionProjectile == 3){
+            return Math.abs(projectile.getyProjectile() - monstre.getY()) < 2  && Math.abs(projectile.getxProjectile()-monstre.getX()) < 32;
+        } else {
+            return Math.abs(projectile.getxProjectile() - monstre.getX()) < 2 && Math.abs(projectile.getyProjectile() - monstre.getY()) < 32;
+        }
+    }
+
+
+    public void faitDesDegatAuMonstre(Monstre monstre,Projectile projectile){
+        monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + projectile.getDegat()));
+        System.out.println(monstre.getPv());
+    }
+
+    public abstract void ProjectileSeDeplaceSelonDirection(int directionProjectile);
 }

@@ -31,23 +31,7 @@ public abstract class Arme {
 
 
 
-    public void attaqueAvecArme(Monstre monstre){
-        long currentTime = System.currentTimeMillis();
-        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime) && Link.getInstance().isLinkAttaque()){
-            System.out.println("LINK ATTAQUE");
-            this.faitDesDegatAuMonstre(monstre);
-
-            if(monstre.peutReculerSelonDirection(Link.getInstance().getDerniereDirection())){
-                this.faitReculerMonstreSelonDirection(Link.getInstance().getDerniereDirection(),monstre);
-            }
-
-
-
-            //actionTime = currentTime;
-
-        }
-
-    }
+    public abstract void attaqueAvecArme(Monstre monstre);
 
 
 

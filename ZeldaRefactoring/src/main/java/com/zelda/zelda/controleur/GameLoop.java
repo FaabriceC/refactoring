@@ -5,6 +5,8 @@ import com.zelda.zelda.modele.acteur.Boss;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 
+import com.zelda.zelda.modele.armes.BoomerangProjectile;
+import com.zelda.zelda.modele.armes.Fleche;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -28,6 +30,8 @@ public class GameLoop {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.033), (event) -> {
             Link.getInstance().agit();
+            Fleche.getInstance().flecheAgit();
+            BoomerangProjectile.getInstance().boomerangAgit();
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();
             }

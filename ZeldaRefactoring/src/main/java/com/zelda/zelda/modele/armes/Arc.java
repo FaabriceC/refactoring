@@ -22,12 +22,21 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
 
     public void attaqueAvecArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        Fleche fleche = new Fleche("arrows.png");
-        Environnement.getInstance().getProjectiles().add(fleche);
+        //Fleche fleche = new Fleche("arrows.png");
+        //Environnement.getInstance().getProjectiles().add(fleche);
+        /*
         if (Link.getInstance().isLinkAttaque()) {
             fleche.apparitionFleche(Link.getInstance().getDerniereDirection(),Link.getInstance());
         }
         fleche.flecheSeDeplace(monstre);
+        */
+
+        if (Link.getInstance().isLinkAttaque()) {
+            Fleche.getInstance().apparitionFleche(Link.getInstance().getDerniereDirection(),Link.getInstance());
+        }
+
+
+
 
     }
 
