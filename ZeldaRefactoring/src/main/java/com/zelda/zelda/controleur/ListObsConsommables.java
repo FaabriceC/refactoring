@@ -1,5 +1,6 @@
 package com.zelda.zelda.controleur;
 
+import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
@@ -47,7 +48,8 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                     });
                 } else {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.utiliseBracelet();
+                        ((Bracelet) consommable).utilise();
+//                        link.utiliseBracelet();
                         if(Math.random() < 0.10){
                             consommablesToolBar.getItems().remove(cV2.getImageView());
                         }

@@ -28,12 +28,9 @@ public class Link extends Personnage {
     private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
     private Arme armeEquipe;
     private String armeChoisi;
-    private int pointAttaque;
-    private boolean invisible;
+    private BooleanProperty invisible;
     private boolean tp;
     private static Link uniqueInstance = null;
-
-    private StrategieDeplacement strategieDeplacement;
 
     private Link(String nom, int x, int y) {
         super(5, x, y, nom);
@@ -45,6 +42,7 @@ public class Link extends Personnage {
         this.armeChoisi = null;
         this.pointAttaque = 1;
         this.inventaire = new Inventaire();
+        this.invisible = new SimpleBooleanProperty(false);
         this.strategieDeplacement = new DeplacementLink();
 
     }
@@ -150,7 +148,7 @@ public class Link extends Personnage {
     }
 
     public boolean estMort(){
-        return this.getPv() == 0;
+        return this.getPv() <= 0;
     }
 
     public void ramasser(ObservableList<Item> getItems) {
@@ -199,7 +197,7 @@ public class Link extends Personnage {
         int dir = direction.getValue();
         for (BlockDynamique blocDynamique : Terrain.getInstance().getBlocsDynamiques()) {
             if (dir >= 1 && dir <= 4) {
-                if (raccourci(blocDynamique, valeurs[dir])) {
+                if (verifierCollision(blocDynamique, valeurs[dir])) {
                     return true;
                 }
             }
@@ -207,7 +205,7 @@ public class Link extends Personnage {
         return false;
     }
 
-    public boolean raccourci(BlockDynamique blocDynamique, int[] valeurs) {
+    public boolean verifierCollision(BlockDynamique blocDynamique, int[] valeurs) {
         int valeur1 = valeurs[0], valeur2 = valeurs[1], valeur3 = valeurs[2], valeur4 = valeurs[3];
         int valeur5 = valeurs[4], valeur6 = valeurs[5], valeur7 = valeurs[6];
         if (!Terrain.getInstance().collisionPourBloc(blocDynamique.getX() + valeur1, blocDynamique.getY() - valeur2, blocDynamique) &&!Terrain.getInstance().collisionPourBloc(blocDynamique.getX(), blocDynamique.getY() - valeur3, blocDynamique)) {

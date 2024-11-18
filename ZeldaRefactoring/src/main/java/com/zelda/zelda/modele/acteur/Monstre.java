@@ -9,10 +9,8 @@ import java.util.List;
 
 public abstract class Monstre extends Personnage {
     long actionTime = 0L;
-
     protected StrategieDeplacement strategieDeplacement;
     private boolean dircAlea;
-
     private boolean subitDegat;
 
     public Monstre(int pv,int x, int y, String nom) {
@@ -62,7 +60,7 @@ public abstract class Monstre extends Personnage {
     }
 
     public void effectueDeplacement(){
-        if (!Link.getInstance().isInvisible()) {
+        if (!Link.getInstance().isInvisible().getValue()) {
             strategieDeplacement.seDeplace();
         }
     }
@@ -128,7 +126,5 @@ public abstract class Monstre extends Personnage {
     }
 
     public abstract int valeur();
-
-
 
 }
