@@ -9,6 +9,8 @@ import com.zelda.zelda.modele.acteur.Link;
 public  class Boomerang extends com.zelda.zelda.modele.armes.Arme {
 
 
+    private BoomerangProjectile boomerangProjectile;
+
     public Boomerang (){
         super();
         this.degats=2;
@@ -20,11 +22,12 @@ public  class Boomerang extends com.zelda.zelda.modele.armes.Arme {
 
 
     public void attaqueAvecArme(Monstre monstre){
-        //long currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
         //BoomerangProjectile boomerang = new BoomerangProjectile("boomerang.png");
         //Environnement.getInstance().getProjectiles().add(boomerang);
-        if (Link.getInstance().isLinkAttaque()) {
-            BoomerangProjectile.getInstance().apparitionBoomerang(Link.getInstance().getDerniereDirection(),Link.getInstance());
+        if (Link.getInstance().isLinkAttaque() && ( this.boomerangProjectile == null || this.boomerangProjectile.boomerangEnMain)  ) {
+            this.boomerangProjectile = new BoomerangProjectile("boomerang.png");
+            this.boomerangProjectile.apparitionBoomerang(Link.getInstance().getDerniereDirection(),Link.getInstance());
         }
 
     }

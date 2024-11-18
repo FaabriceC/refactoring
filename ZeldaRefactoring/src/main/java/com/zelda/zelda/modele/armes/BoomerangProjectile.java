@@ -11,7 +11,7 @@ public class BoomerangProjectile extends Projectile{
 
     public boolean boomerangEnMain;
 
-    private static BoomerangProjectile uniqueInstance=null;
+    //private static BoomerangProjectile uniqueInstance=null;
 
     public BoomerangProjectile(String nom) {
         super(nom);
@@ -24,16 +24,28 @@ public class BoomerangProjectile extends Projectile{
 
     public void apparitionBoomerang(int direction,Link link){
         if (boomerangEnMain){
-            BoomerangProjectile.getInstance().boomerangEnMain = false;
-            BoomerangProjectile.getInstance().setxProjectile(link.getX());
-            BoomerangProjectile.getInstance().setyProjectile(link.getY());
-            BoomerangProjectile.getInstance().setDire(direction);
+            this.boomerangEnMain = false;
+            this.setxProjectile(link.getX());
+            this.setyProjectile(link.getY());
+            this.setDire(direction);
             //BoomerangProjectile.getInstance().tempsAventDisparitionDuBoomerang = 0;
             //BoomerangProjectile.getInstance().boomerangEnMain = false;
-            BoomerangProjectile.getInstance().tempsAvantRetourDuBoomerang = 0;
-            Environnement.getInstance().getProjectiles().add(BoomerangProjectile.getInstance());
+            this.tempsAvantRetourDuBoomerang = 0;
+            Environnement.getInstance().getProjectiles().add(this);
         }
     }
+
+
+
+    public static void boomerangAgits(){
+        for (int j = 0;j<Environnement.getInstance().getProjectiles().size();j++){
+            if(Environnement.getInstance().getProjectiles().get(j) instanceof BoomerangProjectile){
+                BoomerangProjectile b =(BoomerangProjectile) Environnement.getInstance().getProjectiles().get(j);
+                b.boomerangAgit();
+            }
+        }
+    }
+
 
 
 
@@ -41,19 +53,20 @@ public class BoomerangProjectile extends Projectile{
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                BoomerangProjectile.getInstance().boomerangAttaque(BoomerangProjectile.getInstance().getDire(),m);
+                this.boomerangAttaque(this.getDire(),m);
             }
         }
-        BoomerangProjectile.getInstance().ProjectileSeDeplaceSelonDirection(BoomerangProjectile.getInstance().getDire());
-        BoomerangProjectile.getInstance().diparitionBoomerang();
+        this.ProjectileSeDeplaceSelonDirection(this.getDire());
+        this.diparitionBoomerang();
 
     }
 
 
 
     public void boomerangAttaque(int directionBoomerang, Monstre monstre){
-        if (monstreTouchable(directionBoomerang,monstre,BoomerangProjectile.getInstance())) {
-            BoomerangProjectile.getInstance().faitDesDegatAuMonstre(monstre,BoomerangProjectile.getInstance());
+        if (monstreTouchable(directionBoomerang,monstre,this)) {
+            this.faitDesDegatAuMonstre(monstre,this);
+            System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
             if (!monstre.vivant()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
@@ -63,28 +76,28 @@ public class BoomerangProjectile extends Projectile{
 
     public void ProjectileSeDeplaceSelonDirection(int directionProjectile){
         if (    (directionProjectile == 1 && tempsAvantRetourDuBoomerang <128)) {
-            BoomerangProjectile.getInstance().setyProjectile(BoomerangProjectile.getInstance().getyProjectile()-2);
+            this.setyProjectile(this.getyProjectile() - 6);
         } else if (     (directionProjectile == 2 && tempsAvantRetourDuBoomerang <128 )) {
-            BoomerangProjectile.getInstance().setxProjectile(BoomerangProjectile.getInstance().getxProjectile() + 2);
+            this.setxProjectile(this.getxProjectile() + 6);
         } else if ((directionProjectile == 3 && tempsAvantRetourDuBoomerang <128)) {
-            BoomerangProjectile.getInstance().setyProjectile(BoomerangProjectile.getInstance().getyProjectile() + 2);
+            this.setyProjectile(this.getyProjectile() + 6);
         } else if ((directionProjectile == 4 && tempsAvantRetourDuBoomerang <128)) {
-            BoomerangProjectile.getInstance().setxProjectile(BoomerangProjectile.getInstance().getxProjectile() - 2);
+            this.setxProjectile(this.getxProjectile() - 6);
         }
 
         if (tempsAvantRetourDuBoomerang >= 128){
-            if (Link.getInstance().getX() < BoomerangProjectile.getInstance().getxProjectile()){
-                BoomerangProjectile.getInstance().setxProjectile(BoomerangProjectile.getInstance().getxProjectile() - 2);
+            if (Link.getInstance().getX() < this.getxProjectile()){
+                this.setxProjectile(this.getxProjectile() - 6);
             }
-            if(Link.getInstance().getX() > BoomerangProjectile.getInstance().getxProjectile()){
-                BoomerangProjectile.getInstance().setxProjectile(BoomerangProjectile.getInstance().getxProjectile() + 2);
+            if(Link.getInstance().getX() > this.getxProjectile()){
+                this.setxProjectile(this.getxProjectile() + 6);
             }
-            if (Link.getInstance().getY() < BoomerangProjectile.getInstance().getyProjectile()){
-                BoomerangProjectile.getInstance().setyProjectile(BoomerangProjectile.getInstance().getyProjectile() - 2);
+            if (Link.getInstance().getY() < this.getyProjectile()){
+                this.setyProjectile(this.getyProjectile() - 6);
             }
 
-            if (Link.getInstance().getY() > BoomerangProjectile.getInstance().getyProjectile()){
-                BoomerangProjectile.getInstance().setyProjectile(BoomerangProjectile.getInstance().getyProjectile() + 2);
+            if (Link.getInstance().getY() > this.getyProjectile()){
+                this.setyProjectile(this.getyProjectile() + 6);
             }
 
 
@@ -98,7 +111,10 @@ public class BoomerangProjectile extends Projectile{
 
          */
 
-        tempsAvantRetourDuBoomerang = tempsAvantRetourDuBoomerang +2;
+        if(directionProjectile != 0){
+            tempsAvantRetourDuBoomerang = tempsAvantRetourDuBoomerang+4;
+        }
+
     }
 
 
@@ -133,17 +149,18 @@ public class BoomerangProjectile extends Projectile{
  */
 
     public void diparitionBoomerang(){
-        if (!boomerangEnMain && BoomerangProjectile.getInstance().getxProjectile() == Link.getInstance().getX() && BoomerangProjectile.getInstance().getyProjectile() == Link.getInstance().getY()){
-            BoomerangProjectile.getInstance().setxProjectileNull();
-            BoomerangProjectile.getInstance().setyProjectileNull();
-            BoomerangProjectile.getInstance().setDire(0);
+        if (!boomerangEnMain && Math.abs( this.getxProjectile() - Link.getInstance().getX()) <16 && Math.abs( this.getyProjectile() - Link.getInstance().getY()) <16 && tempsAvantRetourDuBoomerang>=128){
+            this.setxProjectileNull();
+            this.setyProjectileNull();
+            this.setDire(0);
             //tempsAventDisparitionDuBoomerang = 0;
-            BoomerangProjectile.getInstance().boomerangEnMain = true;
-            Environnement.getInstance().getProjectiles().add(BoomerangProjectile.getInstance());
+            this.boomerangEnMain = true;
+            Environnement.getInstance().getProjectiles().remove(this);
 
         }
     }
 
+    /*
     public static BoomerangProjectile getInstance() {
         if(uniqueInstance==null) {
             uniqueInstance= new BoomerangProjectile("boomerang.png");
@@ -151,4 +168,9 @@ public class BoomerangProjectile extends Projectile{
         return uniqueInstance;
     }
 
+     */
+
+    public boolean isBoomerangEnMain() {
+        return boomerangEnMain;
+    }
 }

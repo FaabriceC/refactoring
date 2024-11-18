@@ -31,7 +31,7 @@ public abstract class Projectile {
         //this.arme = arme;
 
 
-        this.id = "P" + compteur;
+        this.id = "F" + compteur;
         compteur++;
 
     }
