@@ -7,11 +7,10 @@ import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
 
-import com.zelda.zelda.modele.deplacement.DeplacementLink;
-import com.zelda.zelda.modele.deplacement.StrategieDeplacement;
+import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.DeplacementLink;
+import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
@@ -20,31 +19,27 @@ import java.util.*;
 
 public class Link extends Personnage {
 
-    private IntegerProperty pv;
     long actionTime = 0L;
     private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
-    private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
     private Arme armeEquipe;
     private String armeChoisi;
     private BooleanProperty invisible;
     private boolean tp;
     private static Link uniqueInstance = null;
+    private StrategieDeplacement strategieDeplacement;
 
     private Link(String nom, int x, int y) {
         super(5, x, y, nom);
         this.pv= new SimpleIntegerProperty(5);
-        this.pv.setValue(5);
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.armeEquipe = null;
         this.armeChoisi = null;
         this.pointAttaque = 1;
-        this.inventaire = new Inventaire();
         this.invisible = new SimpleBooleanProperty(false);
         this.strategieDeplacement = new DeplacementLink();
-
     }
 
     public static Link getInstance() {
@@ -53,7 +48,6 @@ public class Link extends Personnage {
         }
         return uniqueInstance;
     }
-
 
     public boolean peutSeDeplacer(int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
@@ -71,7 +65,7 @@ public class Link extends Personnage {
     }
 
     public void seDeplace() {
-    strategieDeplacement.seDeplace();
+        strategieDeplacement.seDeplace();
     }
 
 
@@ -147,10 +141,6 @@ public class Link extends Personnage {
 
     }
 
-    public boolean estMort(){
-        return this.getPv() <= 0;
-    }
-
     public void ramasser(ObservableList<Item> getItems) {
         Iterator<Item> iterator = getItems.iterator();
         while (iterator.hasNext()) {
@@ -160,17 +150,6 @@ public class Link extends Personnage {
                 iterator.remove();
             }
         }
-    }
-    public void setPv(int pv) {
-        this.pv.set(pv);
-    }
-
-    public int getPv() {
-        return pv.get();
-    }
-
-    public IntegerProperty pvProperty() {
-        return pv;
     }
 
     @Override
@@ -217,14 +196,6 @@ public class Link extends Personnage {
         return false;
     }
 
-    public int getPtsAttaque(){
-        return this.pointAttaque;
-    }
-
-    public void setPointAttaque(int pointAttaque){
-        this.pointAttaque=pointAttaque;
-    }
-
 
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
@@ -232,7 +203,6 @@ public class Link extends Personnage {
                 this.armeEquipe = this.getInventaire().getInventaireArme().get(i);
             }
         }
-
     }
 
     public void attaqueMonstre() {
@@ -247,7 +217,6 @@ public class Link extends Personnage {
         }
     }
 
-
     public void setArmeChoisi(String armeChoisi) {
         this.armeChoisi = armeChoisi;
     }
@@ -257,55 +226,32 @@ public class Link extends Personnage {
     }
 
 
-    public BooleanProperty braceletUtiliseProperty() {
-        return braceletUtilise;
-    }
-
-    public void resetBracelet() {
-        braceletUtilise.set(false);
-    }
-    public void utiliseBracelet() {
-        braceletUtilise.set(true);
-        this.invisible=true;
-    }
-
-    public boolean isInvisible() {
+    public BooleanProperty isInvisible() {
         return invisible;
     }
 
     public void setInvisible(boolean invisible) {
-        this.invisible = invisible;
+        this.invisible.set(invisible);
     }
 
-    public int getTp(int x, int y){
-
-        if (xProperty().getValue()>3135 && xProperty().getValue()<3169 &&yProperty().intValue()>1697&&yProperty().intValue()<1729){
-            return 102;
-        }
-
-        if (xProperty().getValue()>4159 && xProperty().getValue()<4193 &&yProperty().intValue()>1439&&yProperty().intValue()<1473){
-            return 30;
-        }
-
+    public int getTp(){
+        if (xProperty().getValue()>3135 && xProperty().getValue()<3169 &&yProperty().intValue()>1697&&yProperty().intValue()<1729)return 102;
+        if (xProperty().getValue()>4159 && xProperty().getValue()<4193 &&yProperty().intValue()>1439&&yProperty().intValue()<1473)return 30;
         return -1;
     }
 
     public void monstreSubitDegat(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
-            monstre.setSubitDegat(true);
-        }else{
+        } else {
             monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-            monstre.setSubitDegat(true);
+
         }
+        monstre.setSubitDegat(true);
     }
 
     public boolean isLinkAttaque() {
         return linkAttaque;
-    }
-
-    public int getPointAttaque() {
-        return pointAttaque;
     }
 
     public int getDerniereDirection() {

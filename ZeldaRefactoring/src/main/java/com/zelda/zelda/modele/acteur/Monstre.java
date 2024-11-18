@@ -2,10 +2,8 @@ package com.zelda.zelda.modele.acteur;
 
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.deplacement.BFS;
-import com.zelda.zelda.modele.deplacement.StrategieDeplacement;
+import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
 import javafx.beans.property.IntegerProperty;
-
-import java.util.List;
 
 public abstract class Monstre extends Personnage {
     long actionTime = 0L;

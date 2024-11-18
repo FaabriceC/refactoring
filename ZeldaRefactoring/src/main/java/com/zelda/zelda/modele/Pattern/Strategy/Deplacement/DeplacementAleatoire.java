@@ -1,4 +1,4 @@
-package com.zelda.zelda.modele.deplacement;
+package com.zelda.zelda.modele.Pattern.Strategy.Deplacement;
 
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.acteur.Monstre;

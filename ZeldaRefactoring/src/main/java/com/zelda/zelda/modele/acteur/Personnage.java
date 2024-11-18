@@ -120,4 +120,7 @@ public abstract class Personnage { // Crée un personnage
         return this.pv.getValue() <= 0;
     }
 
+    public int getDirection() {
+        return direction.getValue();
+    }
 }
