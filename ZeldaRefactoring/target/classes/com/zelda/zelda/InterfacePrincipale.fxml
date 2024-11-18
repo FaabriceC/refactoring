@@ -19,9 +19,22 @@
         <Pane fx:id="panneauJeu" prefWidth="640.0" prefHeight="480.0">
             <children>
                 <Pane fx:id="backgroundPaneConso" layoutX="1864.0" opacity="0.6" prefHeight="154.0" prefWidth="56.0" style="-fx-background-color: black;" visible="false"   />
-                <ToolBar fx:id="consommable" layoutX="1864.0" orientation="VERTICAL" prefHeight="154.0" prefWidth="56.0"  style="-fx-background-color: transparent;" visible="false" />
+                <ToolBar fx:id="consommable"
+                         layoutX="1224.0"
+                         layoutY="0.0"
+                         orientation="VERTICAL"
+                         prefHeight="154.0"
+                         prefWidth="56.0"
+                         style="-fx-background-color: transparent;"
+                         visible="false" />
                 <Pane fx:id="backgroundPane" layoutX="877.0" layoutY="970.0" opacity="0.6" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: black;" />
-                <ToolBar fx:id="itemToolBar" layoutX="877.0" layoutY="970.0" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: transparent;" />
+                <ToolBar fx:id="itemToolBar"
+                         prefHeight="40.0"
+                         prefWidth="190.0"
+                         style="-fx-background-color: transparent;"
+                         layoutX="540.0"
+                layoutY="920.0"
+                />
             </children>
         </Pane>
     </center>

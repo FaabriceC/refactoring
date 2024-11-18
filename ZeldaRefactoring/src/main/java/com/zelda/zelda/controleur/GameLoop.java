@@ -36,6 +36,7 @@ public class GameLoop {
 
             if (Link.getInstance().estMort()) {
                 gameLoop.stop();
+
             }
 
         });
