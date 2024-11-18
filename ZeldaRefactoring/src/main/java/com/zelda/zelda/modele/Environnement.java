@@ -5,10 +5,7 @@ import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
-import com.zelda.zelda.modele.armes.Arc;
-import com.zelda.zelda.modele.armes.Arme;
-import com.zelda.zelda.modele.armes.Boomerang;
-import com.zelda.zelda.modele.armes.Epee;
+import com.zelda.zelda.modele.armes.*;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.vue.TerrainVue;
 import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
@@ -25,12 +22,13 @@ public class Environnement {
 
     private ObservableList<Personnage> personnages;
 
-    private ObservableList<Arme> armes;
+    private ObservableList<Item> armes;
 
-    private ObservableList<Consommable> consommables;
+    private ObservableList<Item> consommables;
     private ArrayList<Monstre> monstres;
 
     private ObservableList<Projectile> projectiles;
+    private ObservableList<Item> items;
 
     private Link link;
 

@@ -7,7 +7,6 @@ import com.zelda.zelda.modele.acteur.Monstre;
 public class BoomerangProjectile extends Projectile{
 
     private int tempsAvantRetourDuBoomerang;
-
     public boolean boomerangEnMain;
 
     public BoomerangProjectile(String nom) {
@@ -24,8 +23,6 @@ public class BoomerangProjectile extends Projectile{
             this.setxProjectile(link.getX());
             this.setyProjectile(link.getY());
             this.setDire(direction);
-            //BoomerangProjectile.getInstance().tempsAventDisparitionDuBoomerang = 0;
-            //BoomerangProjectile.getInstance().boomerangEnMain = false;
             this.tempsAvantRetourDuBoomerang = 0;
             Environnement.getInstance().getProjectiles().add(this);
         }
@@ -62,7 +59,7 @@ public class BoomerangProjectile extends Projectile{
     public void faitDesDegatAuMonstre(int directionBoomerang, Monstre monstre){
         if (peutToucherMonstre(directionBoomerang,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
-            if (!monstre.vivant()) {
+            if (monstre.estMort()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
         }

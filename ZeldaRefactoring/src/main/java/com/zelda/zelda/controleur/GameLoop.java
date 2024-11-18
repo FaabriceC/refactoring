@@ -7,20 +7,18 @@ import com.zelda.zelda.modele.acteur.Monstre;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
+import static com.zelda.zelda.modele.armes.BoomerangProjectile.boomerangAgits;
+import static com.zelda.zelda.modele.armes.Fleche.flecheAgits;
+
 
 public class GameLoop {
 
-    private Link link;
-
-    private final long DELAI_MOUVEMENT = 5_000_000;
-    private final long DELAI_SLIME = 20_000_000;
-    private final long DELAI_BOSS = 10_000_000;
     private Timeline gameLoop;
-    private Environnement env;
     private IntegerProperty temps;
 
     public GameLoop() {
@@ -39,7 +37,6 @@ public class GameLoop {
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();
             }
-
             temps.setValue(temps.getValue()+1);
 
             if (Link.getInstance().estMort()) {

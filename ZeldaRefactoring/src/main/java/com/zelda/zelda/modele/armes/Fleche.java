@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele.armes;
 
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 
@@ -16,7 +17,7 @@ public class Fleche extends Projectile {
 
 
     public static void flecheAgits(){
-        for (int j = 0;j<Environnement.getInstance().getProjectiles().size();j++){
+        for (int j = 0; j< Environnement.getInstance().getProjectiles().size(); j++){
             if(Environnement.getInstance().getProjectiles().get(j) instanceof Fleche){
                 Fleche f =(Fleche) Environnement.getInstance().getProjectiles().get(j);
                 f.flecheAgit();
@@ -45,23 +46,11 @@ public class Fleche extends Projectile {
     }
 
 
-/*
-    public void flecheSeDeplace(Monstre monstre){
-        Fleche.getInstance().flecheAttaque(this.getDire(),monstre);
-        Fleche.getInstance().flecheSeDeplaceSelonDirection(this.getDire());
-        Fleche.getInstance().diparitionFleche();
-
-    }
-
- */
-
-
-
     public void faitDesDegatAuMonstre(int direcrionFleche, Monstre monstre){
         if (peutToucherMonstre(direcrionFleche,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
             System.out.println(monstre.getPv());
-            if (!monstre.vivant()) {
+            if (monstre.estMort()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
         }
@@ -82,27 +71,13 @@ public class Fleche extends Projectile {
         }
     }
 
-
-/*
-    public boolean monstreTouchable(int direcrionFleche,Monstre monstre) {
-        if (direcrionFleche == 1 || direcrionFleche == 3){
-            return Math.abs(Fleche.getInstance().getyProjectile() - monstre.getY()) < 2  && Math.abs(Fleche.getInstance().getxProjectile()-monstre.getX()) < 32;
-        } else {
-            return Math.abs(Fleche.getInstance().getxProjectile() - monstre.getX()) < 2 && Math.abs(Fleche.getInstance().getyProjectile() - monstre.getY()) < 32;
-        }
-    }
-    */
-
-
     public void disparait(){
         if (tempAvantDisparitionDeLaFleche == 128){
             this.setxProjectileNull();
             this.setyProjectileNull();
             this.setDire(0);
             tempAvantDisparitionDeLaFleche = 0;
-
             Environnement.getInstance().getProjectiles().remove(this);
-
 
         }
     }

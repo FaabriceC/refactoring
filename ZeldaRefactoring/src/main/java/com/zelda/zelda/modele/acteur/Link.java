@@ -1,36 +1,26 @@
 package com.zelda.zelda.modele.acteur;
 
-
-import com.zelda.zelda.modele.Consommable.Consommable;
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
-
 import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.DeplacementLink;
 import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
-import javafx.util.Duration;
 
 import java.util.*;
 
 public class Link extends Personnage {
 
-    private IntegerProperty pv;
     long actionTime = 0L;
-    private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
-    private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
-
     private Arme armeEquipe;
-
     private String armeChoisi;
     private BooleanProperty invisible;
     private boolean tp;
@@ -40,8 +30,6 @@ public class Link extends Personnage {
     private Link(String nom, int x, int y) {
         super(5, x, y, nom);
         this.pv= new SimpleIntegerProperty(5);
-        this.pv.setValue(5);
-        this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.armeEquipe = null;
         this.armeChoisi = null;
@@ -106,13 +94,13 @@ public class Link extends Personnage {
 
     public void attaqueSiPossible(Personnage personnage) {
         if (this.armeEquipe != null) {
-            this.armeEquipe.attaque((Monstre) personnage);
+            this.armeEquipe.executerAttaque((Monstre) personnage);
         } else {
             this.attaqueSansArme((Monstre) personnage);
         }
     }
 
-    }
+
 
     public void attaqueSansArme(Monstre personnage){
         long currentTime = System.currentTimeMillis();
@@ -211,7 +199,6 @@ public class Link extends Personnage {
     }
 
 
-
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
             if(this.getInventaire().getInventaireArme().get(i).getNom().equals(armeChoisi)){
@@ -225,7 +212,7 @@ public class Link extends Personnage {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
                 Link.getInstance().attaqueSiPossible(m);
-                if (!m.vivant()) {
+                if (m.estMort()) {
                     Environnement.getInstance().getPersonnageListe().remove(m);
                 }
             }
@@ -258,15 +245,10 @@ public class Link extends Personnage {
     public void monstreSubitDegat(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
-            monstre.setMonsSubitDegat(true);
-        }else{
+        } else {
             monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-            monstre.setMonsSubitDegat(true);
         }
-    }
-
-    public boolean isLinkAttaque() {
-        return linkAttaque;
+        monstre.setSubitDegat(true);
     }
 
     public int getDerniereDirection() {

@@ -9,9 +9,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 
 public abstract class Monstre extends Personnage {
-    private IntegerProperty pv;
-    private List<int[]> chemin;
-    private int cheminIndex = 0;
     long actionTime = 0L;
     protected StrategieDeplacement strategieDeplacement;
     private boolean dircAlea;
@@ -73,7 +70,7 @@ public abstract class Monstre extends Personnage {
         return (this.direction.getValue() == direction && this.getY() - link.getY() < 16 && link.getY() - this.getY() >= 0 && Math.abs(this.getX() - link.getX()) < 8 ||
                 this.direction.getValue() == direction && link.getX() - this.getX() < 16 && link.getX() - this.getX() >= 0 && Math.abs(this.getY() - link.getY()) < 8);
 
-
+    }
 
     public boolean isDircAlea() {
         return dircAlea;
@@ -87,7 +84,6 @@ public abstract class Monstre extends Personnage {
     public boolean isSubitDegat() {
         return subitDegat;
     }
-
 
 
     public int[] margeErreur(int margeX, int margeY) {

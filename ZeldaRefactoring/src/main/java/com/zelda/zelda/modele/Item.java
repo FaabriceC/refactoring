@@ -8,7 +8,6 @@ public abstract class Item {
     protected IntegerProperty y;
     public static int compteur =1;
     private String id;
-
     protected String nom;
 
     public Item() {

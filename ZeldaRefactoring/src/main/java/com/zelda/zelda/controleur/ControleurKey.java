@@ -159,8 +159,9 @@ public class ControleurKey  {
             Link.getInstance().attaqueMonstre();
         }
         if (fPressed){
-            env.getLink().ramasserArme(env.getArmes());   // (Lorsque Environnement sera en Singleton)
+            Link.getInstance().ramasser(Environnement.getInstance().getArmes());
         }
+
 
         if (pPressed) {
             Link.getInstance().equiperArme();

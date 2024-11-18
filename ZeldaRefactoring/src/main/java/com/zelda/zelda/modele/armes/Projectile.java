@@ -10,26 +10,16 @@ public abstract class Projectile {
     private String nom;
     private IntegerProperty xProjectile;
     private IntegerProperty yProjectile;
-
     public static int compteur =1;
     private String id;
-
     private int dire;
-    //private Arme arme;
-
     protected int degat;
-
-
 
 
     public Projectile(String nom){
         this.nom = nom;
         this.xProjectile = new SimpleIntegerProperty();
         this.yProjectile = new SimpleIntegerProperty();
-
-        //this.arme = arme;
-
-
         this.id = "F" + compteur;
         compteur++;
 
@@ -86,23 +76,9 @@ public abstract class Projectile {
     }
 
 
-
-
-
-    //TEMPORAIRE
-
-/*
-    public Arme getArme() {
-        return arme;
-    }
-
- */
-
-
     public int getDegat() {
         return degat;
     }
-
 
     public boolean peutToucherMonstre(int direcrionProjectile,Monstre monstre, Projectile projectile) {
         if (direcrionProjectile == 1 || direcrionProjectile == 3){
