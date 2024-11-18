@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public  class Arc extends com.zelda.zelda.modele.armes.Arme {
 
     //private int tempAvantDisparitionDeLaFleche;
-    private long actionTime = 0L;
+
 
     public Arc (){
         super();
@@ -33,12 +33,11 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
         */
 
 
-        if (Link.getInstance().isLinkAttaque() && currentTime - actionTime >= 1000) {
+        if (Link.getInstance().isLinkAttaque() && cooldown(currentTime,1000)) {
 
             Fleche fleche = new Fleche("arrows.png");
             fleche.apparitionFleche(Link.getInstance().getDerniereDirection(),Link.getInstance());
 
-            actionTime = currentTime;
         }
 
 

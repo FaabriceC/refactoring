@@ -20,7 +20,7 @@ public abstract class Arme {
 
     //JE REFACTOR
     
-    long actionTime = 0L;
+    private long actionTime = 0L;
 
     public Arme(){
         this.id = "W" + compteur;
@@ -37,13 +37,13 @@ public abstract class Arme {
 
     public boolean attaquePossibleSelonDirection(int direction, Monstre monstre,long currentTime){
         if (direction == 1 ){
-            return currentTime - actionTime >= 500 && Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            return  Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
         } else if (direction == 2) {
-            return currentTime - actionTime >= 500 &&  monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            return  monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
         } else if (direction == 3){
-            return currentTime - actionTime >= 500 &&  monstre.getY()-Link.getInstance().getY() < 32 && monstre.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            return   monstre.getY()-Link.getInstance().getY() < 32 && monstre.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
         } else {
-            return currentTime - actionTime >= 500 &&  Link.getInstance().getX()-monstre.getX() < 32 && Link.getInstance().getX()-monstre.getX() >= -1 && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            return Link.getInstance().getX()-monstre.getX() < 32 && Link.getInstance().getX()-monstre.getX() >= -1 && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
         }
     }
 
@@ -97,4 +97,18 @@ public abstract class Arme {
     }
 
  */
+
+    public long getActionTime() {
+        return actionTime;
+    }
+
+    public boolean cooldown(long currentTime,int cooldown){
+        if (currentTime - actionTime >= cooldown){
+            actionTime = currentTime;
+            return true;
+
+        } else{
+            return false;
+        }
+    }
 }

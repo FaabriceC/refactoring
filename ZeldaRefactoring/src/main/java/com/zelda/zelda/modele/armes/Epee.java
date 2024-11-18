@@ -23,7 +23,7 @@ public  class Epee extends com.zelda.zelda.modele.armes.Arme {
 
     public void attaqueAvecArme(Monstre monstre){
         long currentTime = System.currentTimeMillis();
-        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime) && Link.getInstance().isLinkAttaque()){
+        if(attaquePossibleSelonDirection(Link.getInstance().getDerniereDirection(),monstre,currentTime) && Link.getInstance().isLinkAttaque() && cooldown(currentTime,500)){
             System.out.println("LINK ATTAQUE");
             this.faitDesDegatAuMonstre(monstre);
 
@@ -33,7 +33,6 @@ public  class Epee extends com.zelda.zelda.modele.armes.Arme {
 
 
 
-            //actionTime = currentTime;
 
         }
 
