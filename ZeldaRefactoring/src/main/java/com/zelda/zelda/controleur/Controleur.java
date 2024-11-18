@@ -1,15 +1,12 @@
 package com.zelda.zelda.controleur;
 
 import com.zelda.zelda.modele.*;
-import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
-import com.zelda.zelda.modele.armes.Arme;
 import com.zelda.zelda.modele.armes.Epee;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import com.zelda.zelda.vue.InventaireVue;
-import com.zelda.zelda.vue.ProjectileVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
 import com.zelda.zelda.vue.TerrainVue;
 import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
@@ -19,16 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
     private TerrainVue terrainVue;
-
     @FXML
     private Pane backgroundPane;
     @FXML
@@ -39,25 +33,20 @@ public class Controleur implements Initializable {
     @FXML
     private Pane panneauJeu;
     private LinkVue linkVue;
-
     @FXML
     private Pane backgroundPaneConso;
     private GameLoop gameLoop;
     private ControleurKey controleurKey;
     private Inventaire inv;
     private InventaireVue inventaireVue;
-
     @FXML
     private ToolBar consommable;
 
     public void initialize(URL location, ResourceBundle resources) {
 
         initTerrain();
-
         initDecorations();
-
         initLink();
-
         initInventaire();
         initListObs();
         Environnement.getInstance().initArmes();
@@ -101,7 +90,6 @@ public class Controleur implements Initializable {
         this.linkVue = new LinkVue(Link.getInstance(), panneauJeu, "Link3.gif", backgroundPaneConso, consommable, backgroundPane, itemToolBar);
         this.panneauJeu.getChildren().add(this.linkVue.getImageView());
 
-
         for (ImageView coeur : linkVue.getListImageViewsCoeur()) {
             this.panneauJeu.getChildren().add(coeur);
         }
@@ -130,6 +118,5 @@ public class Controleur implements Initializable {
 
         this.inventaireVue = new InventaireVue(inv, itemToolBar, consommable, backgroundPaneConso, Link.getInstance());
     }
-
 
 }

@@ -1,19 +1,15 @@
 package com.zelda.zelda.modele.acteur;
 
-
 import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.armes.*;
-
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
-
 import java.util.*;
 
 public class Link extends Personnage {

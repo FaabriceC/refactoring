@@ -1,16 +1,13 @@
 package com.zelda.zelda.controleur;
 
 import com.zelda.zelda.modele.Environnement;
-import com.zelda.zelda.modele.acteur.Boss;
 import com.zelda.zelda.modele.acteur.Link;
-import com.zelda.zelda.modele.acteur.Monstre;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
-
 
 public class GameLoop {
 
@@ -31,11 +28,11 @@ public class GameLoop {
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();
             }
-
             temps.setValue(temps.getValue()+1);
 
             if (Link.getInstance().estMort()) {
                 gameLoop.stop();
+                Platform.exit();
 
             }
 
