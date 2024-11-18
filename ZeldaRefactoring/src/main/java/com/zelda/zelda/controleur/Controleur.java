@@ -6,7 +6,7 @@ import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
 import com.zelda.zelda.modele.armes.*;
-import com.zelda.zelda.modele.dynamique.BlockDynamique;
+import com.zelda.zelda.modele.dynamique.*;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.ProjectileVue;
 import com.zelda.zelda.vue.acteur.LinkVue;

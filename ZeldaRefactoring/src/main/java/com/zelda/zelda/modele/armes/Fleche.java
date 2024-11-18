@@ -61,7 +61,7 @@ public class Fleche extends Projectile {
     public void faitDesDegatAuMonstre(int direcrionFleche, Monstre monstre){
         if (peutToucherMonstre(direcrionFleche,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
-            System.out.println( "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            System.out.println(monstre.getPv());
             if (!monstre.vivant()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
