@@ -21,13 +21,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Environnement {
-
     private static Environnement uniqueInstance=null;
+
     private ObservableList<Personnage> personnages;
-    private ObservableList<Item> armes;
-    private ObservableList<Item> consommables;
-    private ObservableList<Item> items;
+
+    private ObservableList<Arme> armes;
+
+    private ObservableList<Consommable> consommables;
     private ArrayList<Monstre> monstres;
+
+    private ObservableList<Projectile> projectiles;
+
+    private Link link;
 
     private Environnement() {
         this.personnages = FXCollections.observableArrayList();
@@ -35,6 +40,8 @@ public class Environnement {
         this.consommables = FXCollections.observableArrayList();
         this.items = FXCollections.observableArrayList();
         this.monstres = new ArrayList<>();
+
+        this.projectiles = FXCollections.observableArrayList();
     }
 
     public static Environnement getInstance() {
@@ -68,6 +75,10 @@ public class Environnement {
 
     public void ajouterListeConsommable(Consommable consommable) {
         this.consommables.add(consommable);
+    }
+
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public void initMonstre() {

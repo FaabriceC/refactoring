@@ -1,5 +1,7 @@
 package com.zelda.zelda.modele.acteur;
 
+import com.zelda.zelda.modele.Terrain;
+
 public class Boss extends Monstre {
 
     private boolean anim =false;

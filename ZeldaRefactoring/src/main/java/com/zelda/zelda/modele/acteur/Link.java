@@ -1,7 +1,7 @@
 package com.zelda.zelda.modele.acteur;
 
 
-import com.zelda.zelda.modele.Environnement;
+import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.Item;
 import com.zelda.zelda.modele.Terrain;
@@ -10,20 +10,27 @@ import com.zelda.zelda.modele.armes.*;
 import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.DeplacementLink;
 import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
+import javafx.util.Duration;
 
 import java.util.*;
 
 public class Link extends Personnage {
 
+    private IntegerProperty pv;
     long actionTime = 0L;
     private boolean linkAttaque;
     private int derniereDirection;
     private Inventaire inventaire;
+    private BooleanProperty braceletUtilise = new SimpleBooleanProperty(false);
+
     private Arme armeEquipe;
+
     private String armeChoisi;
     private BooleanProperty invisible;
     private boolean tp;
@@ -33,6 +40,7 @@ public class Link extends Personnage {
     private Link(String nom, int x, int y) {
         super(5, x, y, nom);
         this.pv= new SimpleIntegerProperty(5);
+        this.pv.setValue(5);
         this.linkAttaque = false;
         this.inventaire= new Inventaire();
         this.armeEquipe = null;
@@ -48,6 +56,7 @@ public class Link extends Personnage {
         }
         return uniqueInstance;
     }
+
 
     public boolean peutSeDeplacer(int tuileX, int tuileY){
         int margeX = margeErreur(0,0)[0];
@@ -78,7 +87,7 @@ public class Link extends Personnage {
                 break;
             case 2:
                 margeX = 26;
-                margeY= 26;
+                margeY=26;
                 break;
             case 1:
                 margeX = 16;
@@ -101,6 +110,7 @@ public class Link extends Personnage {
         } else {
             this.attaqueSansArme((Monstre) personnage);
         }
+    }
 
     }
 
@@ -196,6 +206,11 @@ public class Link extends Personnage {
         return false;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
+
 
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
@@ -221,10 +236,10 @@ public class Link extends Personnage {
         this.armeChoisi = armeChoisi;
     }
 
+
     public Arme getArmeEquipe() {
         return armeEquipe;
     }
-
 
     public BooleanProperty isInvisible() {
         return invisible;
@@ -243,11 +258,11 @@ public class Link extends Personnage {
     public void monstreSubitDegat(Monstre monstre){
         if(this.armeEquipe == null){
             monstre.setPv(monstre.getPv() - (this.pointAttaque));
-        } else {
+            monstre.setMonsSubitDegat(true);
+        }else{
             monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-
+            monstre.setMonsSubitDegat(true);
         }
-        monstre.setSubitDegat(true);
     }
 
     public boolean isLinkAttaque() {
@@ -258,7 +273,4 @@ public class Link extends Personnage {
         return derniereDirection;
     }
 
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
 }

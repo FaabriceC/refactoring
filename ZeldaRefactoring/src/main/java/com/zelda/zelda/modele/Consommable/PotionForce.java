@@ -1,13 +1,9 @@
 package com.zelda.zelda.modele.Consommable;
 
 import com.zelda.zelda.modele.Consommable.Consommable;
-import com.zelda.zelda.modele.acteur.Link;
-import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
 
 public class PotionForce extends Consommable {
-
     private int force;
 
     public PotionForce(){

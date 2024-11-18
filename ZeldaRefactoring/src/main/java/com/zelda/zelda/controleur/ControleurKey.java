@@ -1,7 +1,6 @@
 package com.zelda.zelda.controleur;
 
 import com.zelda.zelda.modele.Environnement;
-import com.zelda.zelda.modele.Inventaire;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
@@ -19,6 +18,7 @@ public class ControleurKey  {
 
     private final List<KeyCode> keyOrder = new ArrayList<>();
     private InventaireVue inventaireVue;
+    private Environnement env;
 
     public ControleurKey(InventaireVue inventaireVue) {
 
@@ -139,7 +139,7 @@ public class ControleurKey  {
                     kPressed = true;
                     break;
                 case L:
-                     lPressed =true ;
+                    lPressed =true ;
                 case M:
                     mPressed = true;
                     break;
@@ -158,9 +158,8 @@ public class ControleurKey  {
         if (xPressed) {
             Link.getInstance().attaqueMonstre();
         }
-
         if (fPressed){
-            Link.getInstance().ramasser(Environnement.getInstance().getArmes());
+            env.getLink().ramasserArme(env.getArmes());   // (Lorsque Environnement sera en Singleton)
         }
 
         if (pPressed) {

@@ -7,64 +7,102 @@ public class Fleche extends Projectile {
 
     private int tempAvantDisparitionDeLaFleche;
 
-    public Fleche(String nom,Arc arc) {
-        super(nom,arc);
+
+    public Fleche(String nom) {
+        super(nom);
+        this.degat = 1;
         tempAvantDisparitionDeLaFleche = 0;
     }
 
-    public void apparitionFleche(int direction){
-        if (tempAvantDisparitionDeLaFleche == 0){
-            this.setxProjectile(Link.getInstance().getX());
-            this.setyProjectile(Link.getInstance().getY());
-            this.setDire(direction);
+
+    public static void flecheAgits(){
+        for (int j = 0;j<Environnement.getInstance().getProjectiles().size();j++){
+            if(Environnement.getInstance().getProjectiles().get(j) instanceof Fleche){
+                Fleche f =(Fleche) Environnement.getInstance().getProjectiles().get(j);
+                f.flecheAgit();
+            }
         }
     }
 
+
+    public void flecheAgit(){
+        for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
+            if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
+                Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
+                this.faitDesDegatAuMonstre(this.getDire(),m);
+            }
+        }
+        this.SeDeplaceSelonDirection(this.getDire());
+        this.disparait();
+    }
+
+    public void apparait(int direction,Link link){
+        this.setxProjectile(link.getX());
+        this.setyProjectile(link.getY());
+        this.setDire(direction);
+        this.tempAvantDisparitionDeLaFleche = 0;
+        Environnement.getInstance().getProjectiles().add(this);
+    }
+
+
+/*
     public void flecheSeDeplace(Monstre monstre){
-        this.flecheDepl(this.getDire(),monstre);
-        this.flecheSeDeplaceSelonDirection(this.getDire());
-        this.diparitionFleche();
+        Fleche.getInstance().flecheAttaque(this.getDire(),monstre);
+        Fleche.getInstance().flecheSeDeplaceSelonDirection(this.getDire());
+        Fleche.getInstance().diparitionFleche();
 
     }
 
+ */
 
-    public void flecheDepl(int direcrionFleche, Monstre monstre){
-        if (monstreTouchable(direcrionFleche,monstre)) {
-            this.getArme().faitDesDegatAuMonstre(monstre);
+
+
+    public void faitDesDegatAuMonstre(int direcrionFleche, Monstre monstre){
+        if (peutToucherMonstre(direcrionFleche,monstre,this)) {
+            this.faitDesDegatAuMonstre(monstre,this);
+            System.out.println(monstre.getPv());
+            if (!monstre.vivant()) {
+                Environnement.getInstance().getPersonnageListe().remove(monstre);
+            }
         }
     }
 
-    public void flecheSeDeplaceSelonDirection(int direcrionFleche){
-        if (direcrionFleche == 1) {
-            this.setyProjectile(this.getyProjectile()-1);
-        } else if (direcrionFleche == 2) {
-            this.setxProjectile(this.getxProjectile() + 1);
-        } else if (direcrionFleche == 3) {
-            this.setyProjectile(this.getyProjectile() + 1);
-        } else if (direcrionFleche == 4) {
-            this.setxProjectile(this.getxProjectile() - 1);
+    public void SeDeplaceSelonDirection(int directionProjectile){
+        if (directionProjectile == 1) {
+            this.setyProjectile(this.getyProjectile()-2);
+        } else if (directionProjectile == 2) {
+            this.setxProjectile(this.getxProjectile() + 2);
+        } else if (directionProjectile == 3) {
+            this.setyProjectile(this.getyProjectile() + 2);
+        } else if (directionProjectile == 4) {
+            this.setxProjectile(this.getxProjectile() - 2);
         }
-        if(direcrionFleche != 0){
-            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+1;
+        if(directionProjectile != 0){
+            tempAvantDisparitionDeLaFleche = tempAvantDisparitionDeLaFleche+2;
         }
     }
 
 
-
+/*
     public boolean monstreTouchable(int direcrionFleche,Monstre monstre) {
         if (direcrionFleche == 1 || direcrionFleche == 3){
-            return Math.abs(this.getyProjectile() - monstre.getY()) < 2  && Math.abs(this.getxProjectile()-monstre.getX()) < 32;
+            return Math.abs(Fleche.getInstance().getyProjectile() - monstre.getY()) < 2  && Math.abs(Fleche.getInstance().getxProjectile()-monstre.getX()) < 32;
         } else {
-            return Math.abs(this.getxProjectile() - monstre.getX()) < 2 && Math.abs(this.getyProjectile() - monstre.getY()) < 32;
+            return Math.abs(Fleche.getInstance().getxProjectile() - monstre.getX()) < 2 && Math.abs(Fleche.getInstance().getyProjectile() - monstre.getY()) < 32;
         }
     }
+    */
 
-    public void diparitionFleche(){
+
+    public void disparait(){
         if (tempAvantDisparitionDeLaFleche == 128){
             this.setxProjectileNull();
             this.setyProjectileNull();
             this.setDire(0);
             tempAvantDisparitionDeLaFleche = 0;
+
+            Environnement.getInstance().getProjectiles().remove(this);
+
 
         }
     }

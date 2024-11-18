@@ -5,23 +5,34 @@ import com.zelda.zelda.modele.acteur.Monstre;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Projectile {
+public abstract class Projectile {
 
     private String nom;
     private IntegerProperty xProjectile;
     private IntegerProperty yProjectile;
+
     public static int compteur =1;
     private String id;
-    private int dire;
-    protected Arme arme;
 
-    public Projectile(String nom,Arme arme){
+    private int dire;
+    //private Arme arme;
+
+    protected int degat;
+
+
+
+
+    public Projectile(String nom){
         this.nom = nom;
         this.xProjectile = new SimpleIntegerProperty();
         this.yProjectile = new SimpleIntegerProperty();
-        this.id = "P" + compteur;
+
+        //this.arme = arme;
+
+
+        this.id = "F" + compteur;
         compteur++;
-        this.arme = arme;
+
     }
 
 
@@ -74,7 +85,38 @@ public class Projectile {
         this.yProjectile.setValue(null);
     }
 
+
+
+
+
+    //TEMPORAIRE
+
+/*
     public Arme getArme() {
         return arme;
     }
+
+ */
+
+
+    public int getDegat() {
+        return degat;
+    }
+
+
+    public boolean peutToucherMonstre(int direcrionProjectile,Monstre monstre, Projectile projectile) {
+        if (direcrionProjectile == 1 || direcrionProjectile == 3){
+            return Math.abs(projectile.getyProjectile() - monstre.getY()) < 2  && Math.abs(projectile.getxProjectile()-monstre.getX()) < 32;
+        } else {
+            return Math.abs(projectile.getxProjectile() - monstre.getX()) < 2 && Math.abs(projectile.getyProjectile() - monstre.getY()) < 32;
+        }
+    }
+
+
+    public void faitDesDegatAuMonstre(Monstre monstre,Projectile projectile){
+        monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + projectile.getDegat()));
+        System.out.println(monstre.getPv());
+    }
+
+    public abstract void SeDeplaceSelonDirection(int directionProjectile);
 }
