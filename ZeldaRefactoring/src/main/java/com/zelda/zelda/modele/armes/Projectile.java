@@ -105,7 +105,7 @@ public abstract class Projectile {
     }
 
 
-    public boolean monstreTouchable(int direcrionProjectile,Monstre monstre, Projectile projectile) {
+    public boolean peutToucherMonstre(int direcrionProjectile,Monstre monstre, Projectile projectile) {
         if (direcrionProjectile == 1 || direcrionProjectile == 3){
             return Math.abs(projectile.getyProjectile() - monstre.getY()) < 2  && Math.abs(projectile.getxProjectile()-monstre.getX()) < 32;
         } else {
@@ -119,5 +119,5 @@ public abstract class Projectile {
         System.out.println(monstre.getPv());
     }
 
-    public abstract void ProjectileSeDeplaceSelonDirection(int directionProjectile);
+    public abstract void SeDeplaceSelonDirection(int directionProjectile);
 }

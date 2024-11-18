@@ -53,18 +53,18 @@ public class BoomerangProjectile extends Projectile{
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                this.boomerangAttaque(this.getDire(),m);
+                this.faitDesDegatAuMonstre(this.getDire(),m);
             }
         }
-        this.ProjectileSeDeplaceSelonDirection(this.getDire());
-        this.diparitionBoomerang();
+        this.SeDeplaceSelonDirection(this.getDire());
+        this.disparait();
 
     }
 
 
 
-    public void boomerangAttaque(int directionBoomerang, Monstre monstre){
-        if (monstreTouchable(directionBoomerang,monstre,this)) {
+    public void faitDesDegatAuMonstre(int directionBoomerang, Monstre monstre){
+        if (peutToucherMonstre(directionBoomerang,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
             System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
             if (!monstre.vivant()) {
@@ -74,7 +74,7 @@ public class BoomerangProjectile extends Projectile{
     }
 
 
-    public void ProjectileSeDeplaceSelonDirection(int directionProjectile){
+    public void SeDeplaceSelonDirection(int directionProjectile){
         if (    (directionProjectile == 1 && tempsAvantRetourDuBoomerang <128)) {
             this.setyProjectile(this.getyProjectile() - 6);
         } else if (     (directionProjectile == 2 && tempsAvantRetourDuBoomerang <128 )) {
@@ -148,7 +148,7 @@ public class BoomerangProjectile extends Projectile{
 
  */
 
-    public void diparitionBoomerang(){
+    public void disparait(){
         if (!boomerangEnMain && Math.abs( this.getxProjectile() - Link.getInstance().getX()) <16 && Math.abs( this.getyProjectile() - Link.getInstance().getY()) <16 && tempsAvantRetourDuBoomerang>=128){
             this.setxProjectileNull();
             this.setyProjectileNull();

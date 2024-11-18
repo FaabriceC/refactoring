@@ -30,14 +30,14 @@ public class Fleche extends Projectile {
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                this.flecheAttaque(this.getDire(),m);
+                this.faitDesDegatAuMonstre(this.getDire(),m);
             }
         }
-        this.ProjectileSeDeplaceSelonDirection(this.getDire());
-        this.diparitionFleche();
+        this.SeDeplaceSelonDirection(this.getDire());
+        this.disparait();
     }
 
-    public void apparitionFleche(int direction,Link link){
+    public void apparait(int direction,Link link){
         this.setxProjectile(link.getX());
         this.setyProjectile(link.getY());
         this.setDire(direction);
@@ -58,8 +58,8 @@ public class Fleche extends Projectile {
 
 
 
-    public void flecheAttaque(int direcrionFleche, Monstre monstre){
-        if (monstreTouchable(direcrionFleche,monstre,this)) {
+    public void faitDesDegatAuMonstre(int direcrionFleche, Monstre monstre){
+        if (peutToucherMonstre(direcrionFleche,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
             System.out.println( "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             if (!monstre.vivant()) {
@@ -68,7 +68,7 @@ public class Fleche extends Projectile {
         }
     }
 
-    public void ProjectileSeDeplaceSelonDirection(int directionProjectile){
+    public void SeDeplaceSelonDirection(int directionProjectile){
         if (directionProjectile == 1) {
             this.setyProjectile(this.getyProjectile()-2);
         } else if (directionProjectile == 2) {
@@ -95,7 +95,7 @@ public class Fleche extends Projectile {
     */
 
 
-    public void diparitionFleche(){
+    public void disparait(){
         if (tempAvantDisparitionDeLaFleche == 128){
             this.setxProjectileNull();
             this.setyProjectileNull();

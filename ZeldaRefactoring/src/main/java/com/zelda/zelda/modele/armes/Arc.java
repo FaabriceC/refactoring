@@ -36,7 +36,7 @@ public  class Arc extends com.zelda.zelda.modele.armes.Arme {
         if (Link.getInstance().isLinkAttaque() && cooldown(currentTime,1000)) {
 
             Fleche fleche = new Fleche("arrows.png");
-            fleche.apparitionFleche(Link.getInstance().getDerniereDirection(),Link.getInstance());
+            fleche.apparait(Link.getInstance().getDerniereDirection(),Link.getInstance());
 
         }
 
