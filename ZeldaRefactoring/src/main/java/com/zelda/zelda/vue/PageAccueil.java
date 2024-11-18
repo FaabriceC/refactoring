@@ -26,7 +26,7 @@ public class PageAccueil extends StackPane {
     private Button boutonCommencer, boutonCredits, boutonAideTouches, boutonQuitter;
 
     public PageAccueil() {
-        Image backgroundImage = new Image(getClass().getResource("/com/zelda/zelda/bg/bg2.jpeg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/com/zelda/zelda/bg/bg.jpeg").toExternalForm());
         ImageView background = new ImageView(backgroundImage);
 
         GaussianBlur blur = new GaussianBlur(15);
