@@ -7,7 +7,6 @@
     <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit changement range attaque du monstre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731980169242</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="commit changement range attaque du monstre">
+      <option name="closed" value="true" />
+      <created>1731980840285</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731980840285</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

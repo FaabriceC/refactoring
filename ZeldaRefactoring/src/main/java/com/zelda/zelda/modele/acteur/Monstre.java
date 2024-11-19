@@ -69,7 +69,7 @@ public abstract class Monstre extends Personnage {
 
     public boolean peutAttaquer(int direction) {
         return (direction == 1 && this.getY() - Link.getInstance().getY() < 32 && Link.getInstance().getY() - this.getY() >= -1 && Math.abs(this.getX() - Link.getInstance().getX()) < 16 ||
-                direction == 3 && Link.getInstance().getY() - this.getY() < 32 && this.getY() - Link.getInstance().getY() >= -1 && Math.abs(this.getX() - Link.getInstance().getX()) < 16 ||
+                direction == 3 && Link.getInstance().getY() - this.getY() < 48 && this.getY() - Link.getInstance().getY() >= -1 && Math.abs(this.getX() - Link.getInstance().getX()) < 16 ||
                 direction == 2 && Link.getInstance().getX() - this.getX() < 32 && Link.getInstance().getX() - this.getX() >= -1 && Math.abs(this.getY() - Link.getInstance().getY()) < 16 ||
                 direction == 4 && this.getX() - Link.getInstance().getX() < 32 && this.getX() - Link.getInstance().getX() >= -1 && Math.abs(this.getY() - Link.getInstance().getY()) < 16);
 
