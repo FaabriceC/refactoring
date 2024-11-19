@@ -91,7 +91,6 @@ public abstract class Projectile {
 
     public void faitDesDegatAuMonstre(Monstre monstre,Projectile projectile){
         monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + projectile.getDegat()));
-        System.out.println(monstre.getPv());
     }
 
     public abstract void seDeplaceSelonDirection(int directionProjectile);

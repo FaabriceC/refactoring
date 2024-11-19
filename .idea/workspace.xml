@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit changement delai apparitioon monstre">
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" afterDir="false" />
+    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit bg toolbar">
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/controleur/ListObsArmes.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/controleur/ListObsArmes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/InterfacePrincipale.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/InterfacePrincipale.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/ArbreMonstre.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/ArbreMonstre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +126,7 @@
     <MESSAGE value="COMMIT MERGE AVEC ARMES" />
     <MESSAGE value="commit merge" />
     <MESSAGE value="commit changement delai apparitioon monstre" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit changement delai apparitioon monstre" />
+    <MESSAGE value="commit bg toolbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit bg toolbar" />
   </component>
 </project>

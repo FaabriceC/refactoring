@@ -11,7 +11,7 @@ public class Fleche extends Projectile {
 
     public Fleche(String nom) {
         super(nom);
-        this.degat = 100;
+        this.degat = 1;
         tempAvantDisparitionDeLaFleche = 0;
     }
 
@@ -48,7 +48,6 @@ public class Fleche extends Projectile {
     public void infligerDegatsAuMonstre(int direcrionFleche, Monstre monstre){
         if (peutToucherMonstre(direcrionFleche,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
-            System.out.println(monstre.getPv());
             if (monstre.estMort()) {
                 Environnement.getInstance().getPersonnageListe().remove(monstre);
             }
