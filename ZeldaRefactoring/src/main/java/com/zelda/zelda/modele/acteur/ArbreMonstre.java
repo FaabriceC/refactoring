@@ -4,7 +4,7 @@ public class ArbreMonstre extends Monstre {
 
     public ArbreMonstre(int x, int y) {
 
-        super(200, x, y, "arbreMonstre.png");
+        super(20, x, y, "arbreMonstre.png");
     }
 
     public void seDeplaceEtAttaque(){

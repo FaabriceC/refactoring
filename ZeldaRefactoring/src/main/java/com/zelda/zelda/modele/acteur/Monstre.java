@@ -40,7 +40,7 @@ public abstract class Monstre extends Personnage {
 
     public void attaqueSiPossible(Personnage personnage) {
         long currentTime = System.currentTimeMillis();
-        if ((currentTime - actionTime >= 2500) && (peutAttaquer( 1) || peutAttaquer(2) || peutAttaquer(3) || peutAttaquer(4))) {
+        if ((currentTime - actionTime >= 2500) && (peutAttaquer(this.direction.getValue()))) {
             Link.getInstance().setPv(Link.getInstance().getPv() - 1);
             actionTime = currentTime;
         }
@@ -53,8 +53,10 @@ public abstract class Monstre extends Personnage {
     }
 
     public boolean peutAttaquer(int direction) {
-        return (this.direction.getValue() == direction && this.getY() - Link.getInstance().getY() < 16 && Link.getInstance().getY() - this.getY() >= 0 && Math.abs(this.getX() - Link.getInstance().getX()) < 8 ||
-                this.direction.getValue() == direction && Link.getInstance().getX() - this.getX() < 16 && Link.getInstance().getX() - this.getX() >= 0 && Math.abs(this.getY() - Link.getInstance().getY()) < 8);
+        return (direction == 1 && this.getY() - Link.getInstance().getY() < 32 && Link.getInstance().getY() - this.getY() >= -1 && Math.abs(this.getX() - Link.getInstance().getX()) < 16 ||
+                direction == 3 && Link.getInstance().getY() - this.getY() < 48 && this.getY() - Link.getInstance().getY() >= -1 && Math.abs(this.getX() - Link.getInstance().getX()) < 16 ||
+                direction == 2 && Link.getInstance().getX() - this.getX() < 32 && Link.getInstance().getX() - this.getX() >= -1 && Math.abs(this.getY() - Link.getInstance().getY()) < 16 ||
+                direction == 4 && this.getX() - Link.getInstance().getX() < 32 && this.getX() - Link.getInstance().getX() >= -1 && Math.abs(this.getY() - Link.getInstance().getY()) < 16);
 
     }
 
