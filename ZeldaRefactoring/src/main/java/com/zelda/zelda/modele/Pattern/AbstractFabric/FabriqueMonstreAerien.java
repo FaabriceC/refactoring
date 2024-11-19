@@ -1,4 +1,4 @@
-package com.zelda.zelda.modele.DPAbstractFabric;
+package com.zelda.zelda.modele.Pattern.AbstractFabric;
 
 import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.acteur.ArbreMonstre;

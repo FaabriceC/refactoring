@@ -4,20 +4,14 @@ import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
-import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstre;
-import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstreAerien;
-import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstreTerrestre;
+import com.zelda.zelda.modele.Pattern.AbstractFabric.FabriqueMonstre;
+import com.zelda.zelda.modele.Pattern.AbstractFabric.FabriqueMonstreAerien;
+import com.zelda.zelda.modele.Pattern.AbstractFabric.FabriqueMonstreTerrestre;
 import com.zelda.zelda.modele.acteur.*;
 import com.zelda.zelda.modele.armes.*;
-import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import com.zelda.zelda.vue.TerrainVue;
-import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Environnement {
@@ -37,8 +31,6 @@ public class Environnement {
 
     private FabriqueMonstre fabriqueMonstreTerrestre;
     private FabriqueMonstre fabriqueMonstreAerien;
-
-    private Link link;
 
     private Environnement() {
         this.personnages = FXCollections.observableArrayList();
