@@ -40,7 +40,7 @@ public abstract class Monstre extends Personnage {
 
     public void attaqueSiPossible(Personnage personnage) {
         long currentTime = System.currentTimeMillis();
-        if ((currentTime - actionTime >= 2500) && (peutAttaquer(Link.getInstance(), 1) || peutAttaquer(Link.getInstance(), 2) || peutAttaquer(Link.getInstance(), 3) || peutAttaquer(Link.getInstance(), 4))) {
+        if ((currentTime - actionTime >= 2500) && (peutAttaquer( 1) || peutAttaquer(2) || peutAttaquer(3) || peutAttaquer(4))) {
             Link.getInstance().setPv(Link.getInstance().getPv() - 1);
             actionTime = currentTime;
         }
@@ -52,9 +52,9 @@ public abstract class Monstre extends Personnage {
         }
     }
 
-    public boolean peutAttaquer(Link link, int direction) {
-        return (this.direction.getValue() == direction && this.getY() - link.getY() < 16 && link.getY() - this.getY() >= 0 && Math.abs(this.getX() - link.getX()) < 8 ||
-                this.direction.getValue() == direction && link.getX() - this.getX() < 16 && link.getX() - this.getX() >= 0 && Math.abs(this.getY() - link.getY()) < 8);
+    public boolean peutAttaquer(int direction) {
+        return (this.direction.getValue() == direction && this.getY() - Link.getInstance().getY() < 16 && Link.getInstance().getY() - this.getY() >= 0 && Math.abs(this.getX() - Link.getInstance().getX()) < 8 ||
+                this.direction.getValue() == direction && Link.getInstance().getX() - this.getX() < 16 && Link.getInstance().getX() - this.getX() >= 0 && Math.abs(this.getY() - Link.getInstance().getY()) < 8);
 
     }
 
