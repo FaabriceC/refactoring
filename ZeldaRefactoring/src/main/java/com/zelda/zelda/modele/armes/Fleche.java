@@ -11,7 +11,7 @@ public class Fleche extends Projectile {
 
     public Fleche(String nom) {
         super(nom);
-        this.degat = 1;
+        this.degat = 100;
         tempAvantDisparitionDeLaFleche = 0;
     }
 

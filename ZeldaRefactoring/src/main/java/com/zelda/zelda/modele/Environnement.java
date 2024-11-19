@@ -4,6 +4,9 @@ import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
+import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstre;
+import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstreAerien;
+import com.zelda.zelda.modele.DPAbstractFabric.FabriqueMonstreTerrestre;
 import com.zelda.zelda.modele.acteur.*;
 import com.zelda.zelda.modele.armes.*;
 import com.zelda.zelda.modele.dynamique.BlockDynamique;
@@ -20,6 +23,8 @@ import java.util.ArrayList;
 public class Environnement {
     private static Environnement uniqueInstance=null;
 
+    private static int nbTours = 1;
+
     private ObservableList<Personnage> personnages;
 
     private ObservableList<Item> armes;
@@ -29,6 +34,9 @@ public class Environnement {
 
     private ObservableList<Projectile> projectiles;
     private ObservableList<Item> items;
+
+    private FabriqueMonstre fabriqueMonstreTerrestre;
+    private FabriqueMonstre fabriqueMonstreAerien;
 
     private Link link;
 
@@ -40,6 +48,9 @@ public class Environnement {
         this.monstres = new ArrayList<>();
 
         this.projectiles = FXCollections.observableArrayList();
+
+        this.fabriqueMonstreTerrestre = new FabriqueMonstreTerrestre();
+        this.fabriqueMonstreAerien = new FabriqueMonstreAerien();
     }
 
     public static Environnement getInstance() {
@@ -132,6 +143,22 @@ public class Environnement {
         for (Monstre monstre : this.monstres) {
             monstre.seDeplaceEtAttaque();
         }
+    }
+
+
+    public void FabriqueMonstre(){
+        if(nbTours%100 == 0){
+            fabriqueMonstreTerrestre.creeMonstre();
+        }
+        if(nbTours%100 == 0){
+            fabriqueMonstreTerrestre.creeBoss();
+        }
+        nbTours++;
+    }
+
+
+    public void ajouterListeMonstre(Monstre monstre) {
+        this.monstres.add(monstre);
     }
 
 }

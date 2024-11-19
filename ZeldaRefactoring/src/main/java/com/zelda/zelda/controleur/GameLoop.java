@@ -34,6 +34,7 @@ public class GameLoop {
             flecheAgits();
             boomerangAgits();
             Link.getInstance().seDeplace();
+            Environnement.getInstance().FabriqueMonstre();
             if (temps.getValue() % 2 == 0) {
                 Environnement.getInstance().actionMonstre();
             }
