@@ -40,7 +40,7 @@ public class PersonnageVue {
         personnage.indicePasProperty().addListener((observablePas, oldValuePas, newValuePas) -> {
                 res = observablePas.getValue().intValue();
 
-                System.out.println(res);
+//                System.out.println(res);
                 // Mettre à jour l'image en fonction de la direction et du nouvel indice de pas
                 updateImageBasedOnDirection(personnage.directionProperty().getValue(), res);
         });

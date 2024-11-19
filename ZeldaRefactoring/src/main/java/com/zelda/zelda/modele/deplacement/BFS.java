@@ -1,12 +1,13 @@
 package com.zelda.zelda.modele.deplacement;
 
+import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.modele.acteur.Monstre;
 import com.zelda.zelda.modele.Terrain;
 
 import java.util.*;
 
-public class BFS {
+public class BFS implements StrategieDeplacement {
     private Monstre monstre;
     private Terrain terrain;
 
@@ -27,17 +28,17 @@ public class BFS {
 
 
 
-    public void seDeplace(Link link) {
-        boolean laB = link.getLinkABouger();
+    public void seDeplace() {
+        boolean laB = Link.getInstance().getLinkABouger();
         boolean dircAl = monstre.isDircAlea();
 
 
         // Si le chemin n'est pas défini ou si le monstre a atteint la fin du chemin, recalculer le chemin
         if (chemin == null || cheminIndex >= chemin.size() || nbTours % 10 == 0 || dircAl ) {
-            recalculerChemin(link);
+            recalculerChemin(Link.getInstance());
         }
 
-        if (monstre.isMonsSubitDegat()) {
+        if (monstre.isSubitDegat()) {
             if (this.nbTours % 10 == 0) {
                 if (chemin != null && cheminIndex < chemin.size()) {
                     int[] prochaineEtape = chemin.get(cheminIndex);
@@ -53,7 +54,7 @@ public class BFS {
                     monstre.setX(prochaineEtape[0]);
                     monstre.setY(prochaineEtape[1]);
                     cheminIndex++;
-                    monstre.setMonsSubitDegat(false);
+                    monstre.setSubitDegat(false);
                 }
             }
             this.nbTours++;

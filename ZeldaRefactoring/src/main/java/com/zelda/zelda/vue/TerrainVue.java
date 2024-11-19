@@ -25,7 +25,6 @@ public class TerrainVue {
 
 
     public TerrainVue(Pane panneauJeu, Terrain terrain) throws IOException {
-
         this.panneauJeu = panneauJeu;
 
         this.terrain = terrain;

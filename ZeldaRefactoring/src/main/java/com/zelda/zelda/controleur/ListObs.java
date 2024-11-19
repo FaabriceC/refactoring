@@ -41,6 +41,7 @@ public class ListObs implements ListChangeListener<Personnage> {
             }
 
             for (Personnage m : c.getRemoved()) {
+                System.out.println(c.getRemoved().size());
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + m.getId()));
             }
         }

@@ -1,5 +1,6 @@
 package com.zelda.zelda.controleur;
 
+import com.zelda.zelda.modele.Consommable.Bracelet;
 import com.zelda.zelda.modele.Consommable.Consommable;
 import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
@@ -29,26 +30,26 @@ public class ListObsConsommables implements ListChangeListener<Consommable> {
                 ConsommableVue cV = new ConsommableVue(a.getAddedSubList().get(i), (a.getAddedSubList().get(i)).getNom());
                 this.panneauJeu.getChildren().add(cV.getImageView());
 
-
             }
             for (Consommable consommable : a.getRemoved()) {
                 ConsommableVue cV2 = new ConsommableVue(consommable, consommable.getNom(), " ");
                 panneauJeu.getChildren().remove(panneauJeu.lookup("#" + consommable.getId()));
                 if (consommable instanceof PotionForce) {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtilisePotionForce();
+                        ((PotionForce) consommable).utilise();
                         consommablesToolBar.getItems().remove(cV2.getImageView());
 
                     });
                 } else if (consommable instanceof PotionSoin) {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtilisePotionSoin();
+                        ((PotionSoin) consommable).utilise();
                         consommablesToolBar.getItems().remove(cV2.getImageView());
 
                     });
                 } else {
                     cV2.getImageView().setOnMouseClicked(event -> {
-                        link.linkUtiliseBracelet();
+                        ((Bracelet) consommable).utilise();
+//                        link.utiliseBracelet();
                         if(Math.random() < 0.10){
                             consommablesToolBar.getItems().remove(cV2.getImageView());
                         }

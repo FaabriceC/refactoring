@@ -81,10 +81,9 @@ public class LinkVue extends PersonnageVue {
 
         link.pvProperty().addListener(pvListener);
 
-        link.braceletUtiliseProperty().addListener((obs, old, utilise) -> {
+        Link.getInstance().isInvisible().addListener((obs, old, utilise) -> {
             if (utilise) {
                 cacheLink(link);
-                link.resetBracelet();
             }
         });
     }

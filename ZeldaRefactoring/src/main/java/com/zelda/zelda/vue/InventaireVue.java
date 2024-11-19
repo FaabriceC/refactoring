@@ -46,10 +46,11 @@ public class InventaireVue {
 
         for (int i = 0; i < inventaire.getInventaireConsommable().size(); i++) {
             if (inventaire.getInventaireConsommable().get(i) instanceof PotionSoin) {
+                PotionSoin potionSoin = (PotionSoin)inventaire.getInventaireConsommable().get(i);
                 Image i2 = new Image(String.valueOf(Lanceur.class.getResource("potionSoin.png")));
                 ImageView imageViewPotionSoin = new ImageView(i2);
                 imageViewPotionSoin.setOnMouseClicked(event -> {
-                       link.linkUtilisePotionSoin();
+                       potionSoin.utilise();
                             System.out.println(link.getPv());
                         consommable.getItems().remove(imageViewPotionSoin);
                 }
@@ -58,11 +59,12 @@ public class InventaireVue {
 
                 consommable.getItems().add(imageViewPotionSoin);
             } else if (inventaire.getInventaireConsommable().get(i) instanceof PotionForce) {
+                PotionForce potionForce = (PotionForce) inventaire.getInventaireConsommable().get(i);
                 Image i3 = new Image(String.valueOf(Lanceur.class.getResource("potionForce.png")));
                 ImageView imageViewPotionForce = new ImageView(i3);
                 imageViewPotionForce.setOnMouseClicked(event -> {
-                            link.linkUtilisePotionForce();
-                    System.out.println(link.getPtsAttaque());
+                    potionForce.utilise();
+                    System.out.println(link.getPointAttaque());
                             consommable.getItems().remove(imageViewPotionForce);
                         });
                 consommable.getItems().add(imageViewPotionForce);

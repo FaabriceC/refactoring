@@ -1,5 +1,6 @@
 package com.zelda.zelda.modele.armes;
-
+import com.zelda.zelda.modele.acteur.Link;
+import com.zelda.zelda.modele.acteur.Monstre;
 import com.zelda.zelda.modele.deplacement.Point2D;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,12 +12,12 @@ public  class Bouclier extends Arme {
 
 
   public Bouclier (){
+    super();
     this.degats=2;
     this.x = new SimpleIntegerProperty(1500);
     this.y = new SimpleIntegerProperty(500);
-    this.nomPng = "bouclier.png";
+    this.nom = "bouclier.png";
   }
-
 
 
   public void seDéfendre(){
@@ -24,7 +25,7 @@ public  class Bouclier extends Arme {
   }
 
 
-  public void attaquer(){
+  public void executerAttaque(Monstre monstre){
   }
 
 

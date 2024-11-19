@@ -1,43 +1,32 @@
 package com.zelda.zelda.modele.acteur;
 
-
-
-import com.zelda.zelda.modele.Environnement;
-import com.zelda.zelda.modele.Terrain;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
-
-
-public abstract class Personnage { //Crée un personnage
+public abstract class Personnage {
     private IntegerProperty x = new SimpleIntegerProperty();
+    protected IntegerProperty pv;
     private IntegerProperty y = new SimpleIntegerProperty();
-    protected Terrain terrain;
     private final String nom;
     protected IntegerProperty direction;
     protected IntegerProperty indicePas;
     private boolean statutPas;
-    public static int compteur =0;
+    public static int compteur = 0;
     private String id;
+    protected int pointAttaque;
 
-    protected Environnement env;//jsp
-
-
-    public Personnage(int x, int y, String nom, Terrain terrain) {
+    public Personnage(int pv,int x, int y, String nom) {
         this.x.set(x);
         this.y.set(y);
+        this.pv = new SimpleIntegerProperty(pv);
         this.nom = nom;
-        this.terrain = terrain;
         this.direction = new SimpleIntegerProperty(0);
-        this.indicePas= new SimpleIntegerProperty(0);
-
-        this.id="C"+ compteur;
+        this.indicePas = new SimpleIntegerProperty(0);
+        this.id = "C" + compteur;
         compteur++;
 
     }
-
-
 
     public IntegerProperty xProperty() {
         return x;
@@ -55,9 +44,6 @@ public abstract class Personnage { //Crée un personnage
         return indicePas;
     }
 
-    public abstract int[] margeErreur(int margeX, int margeY);
-
-
     public abstract boolean peutSeDeplacer  (int tuileX, int tuileY);
 
     public int getX() {
@@ -65,15 +51,39 @@ public abstract class Personnage { //Crée un personnage
     }
 
 
-
     public int getY() {
         return y.getValue();
     }
 
-
+    public abstract void attaqueSiPossible(Personnage personnage);
 
     public void setX(int x) {
         this.x.set(x);
+    }
+
+    public void setPv(int pv) {
+        this.pv.set(pv);
+    }
+
+    public int getPv() {
+        return pv.get();
+    }
+
+
+    public boolean peutReculerSelonDirection(int direction){
+        if(direction == 1){
+            return this.peutSeDeplacer(this.getX(),this.getY()-32);
+        } else if (direction == 2){
+            return this.peutSeDeplacer(this.getX()+32,this.getY());
+        } else if (direction == 3){
+            return this.peutSeDeplacer(this.getX(),this.getY()+32);
+        } else {
+            return this.peutSeDeplacer(this.getX()-32,this.getY());
+        }
+    }
+
+    public int getPointAttaque() {
+        return pointAttaque;
     }
 
     public void setY(int y) {
@@ -96,6 +106,39 @@ public abstract class Personnage { //Crée un personnage
         return id;
     }
 
+    public IntegerProperty pvProperty() {
+        return pv;
+    }
+
+    public void setPointAttaque(int pointAttaque) {
+        this.pointAttaque = pointAttaque;
+    }
+
+    public boolean estMort() {
+        return this.pv.getValue() <= 0;
+    }
+
+    public int getDirection() {
+        return direction.getValue();
+    }
+
+
+    public int[] margeErreur() {
+
+        int[] margesBase = getMarges();
+        int margeX = margesBase[0];
+        int margeY = margesBase[1];
+
+        switch (direction.getValue()) {
+            case 1 -> margeY -= 2;
+            case 2 -> margeX += 2;
+            case 3 -> margeY += 2;
+            case 4 -> margeX -= 2;
+        }
+
+        return new int[]{margeX, margeY};
+    }
+
+    public abstract int[] getMarges();
+
 }
-
-

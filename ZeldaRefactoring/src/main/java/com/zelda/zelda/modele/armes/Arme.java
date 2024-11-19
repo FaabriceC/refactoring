@@ -1,65 +1,58 @@
 package com.zelda.zelda.modele.armes;
 
-import javafx.beans.property.IntegerProperty;
+import com.zelda.zelda.modele.Inventaire;
+import com.zelda.zelda.modele.Item;
+import com.zelda.zelda.modele.acteur.Link;
+import com.zelda.zelda.modele.acteur.Monstre;
+import com.zelda.zelda.modele.acteur.Personnage;
 
-public class Arme {
+public abstract class Arme extends Item {
 
     protected int degats;
-    protected IntegerProperty x;
-    protected IntegerProperty y;
+    long actionTime = 0L;
 
-    public static int compteur =1;
-    private String id;
+    public abstract void executerAttaque(Monstre monstre);
 
-
-
-
-    protected String nomPng;
-
-    public Arme(){
-
-        this.id = "W" + compteur;
-        compteur++;
-
-
-
-    }
-
-    public void attaquer(){
-
+    public boolean peutAttaquerDansDirection(int direction, Monstre monstre){
+        switch(direction){
+            case 1: return Link.getInstance().getY()-monstre.getY() < 32 && Link.getInstance().getY()-monstre.getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            case 2: return monstre.getX()-Link.getInstance().getX() < 32 && monstre.getX()-Link.getInstance().getX() >= -1  && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+            case 3: return monstre.getY()-Link.getInstance().getY() < 32 && monstre.getY()-Link.getInstance().getY() >= -1  && Math.abs(Link.getInstance().getX()-monstre.getX()) < 16;
+            default: return Link.getInstance().getX()-monstre.getX() < 32 && Link.getInstance().getX()-monstre.getX() >= -1 && Math.abs(Link.getInstance().getY()-monstre.getY()) < 16;
+        }
     }
 
 
-
-
-    public String getId() {
-        return id;
+    public void reculerMonstreDansDirection(int direction, Personnage personnage) {
+        switch (direction) {
+            case 1 -> personnage.setY(personnage.getY() - 32);
+            case 2 -> personnage.setX(personnage.getX() + 32);
+            case 3 -> personnage.setY(personnage.getY() + 32);
+            case 4 -> personnage.setX(personnage.getX() - 32);
+        }
     }
 
-
-    public String getNomPng() {
-        return nomPng;
+    public void infligerDegatsAuMonstre(Monstre monstre){
+        monstre.setPv(monstre.getPv() - (Link.getInstance().getPointAttaque() + Link.getInstance().getArmeEquipe().getDegats()));
+        monstre.setSubitDegat(true);
     }
 
-
-    public int getX(){
-        return x.getValue();
-    }
-
-    public int getY(){
-        return y.getValue();
-    }
+    public void ajouterInventaire(Inventaire inventaire) {
+        inventaire.getInventaireArme().add(this);}
 
 
-    public IntegerProperty xProperty(){
-        return x;
-    }
-
-    public IntegerProperty yProperty(){
-        return y;
-    }
-
-    public int getDegats() {
+    public int getDegats(){
         return degats;
     }
+
+    public boolean cooldown(long currentTime,int cooldown){
+        if (currentTime - actionTime >= cooldown){
+            actionTime = currentTime;
+            return true;
+
+        } else{
+            return false;
+        }
+    }
+
 }

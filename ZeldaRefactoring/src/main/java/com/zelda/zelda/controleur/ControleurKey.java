@@ -1,5 +1,6 @@
 package com.zelda.zelda.controleur;
 
+import com.zelda.zelda.modele.Environnement;
 import com.zelda.zelda.modele.acteur.Link;
 import com.zelda.zelda.vue.InventaireVue;
 import com.zelda.zelda.vue.acteur.LinkVue;
@@ -16,10 +17,8 @@ import java.util.ResourceBundle;
 public class ControleurKey  {
 
     private final List<KeyCode> keyOrder = new ArrayList<>();
-
-
-
     private InventaireVue inventaireVue;
+    private Environnement env;
 
     public ControleurKey(InventaireVue inventaireVue) {
 
@@ -95,6 +94,34 @@ public class ControleurKey  {
                         link.setDerniereDirection(4);
                     }
                     break;
+                case Z:
+                    if (!downPressed) {
+                        direction = 1;
+                        moving = true;
+                        link.setDerniereDirection(1);
+                    }
+                    break;
+                case D:
+                    if (!leftPressed) {
+                        direction = 2;
+                        moving = true;
+                        link.setDerniereDirection(2);
+                    }
+                    break;
+                case S:
+                    if (!upPressed) {
+                        direction = 3;
+                        moving = true;
+                        link.setDerniereDirection(3);
+                    }
+                    break;
+                case Q:
+                    if (!rightPressed) {
+                        direction = 4;
+                        moving = true;
+                        link.setDerniereDirection(4);
+                    }
+                    break;
                 case X:
                     xPressed = true;
                     break;
@@ -112,7 +139,7 @@ public class ControleurKey  {
                     kPressed = true;
                     break;
                 case L:
-                     lPressed =true ;
+                    lPressed =true ;
                 case M:
                     mPressed = true;
                     break;
@@ -129,44 +156,37 @@ public class ControleurKey  {
         link.directionProperty().setValue(direction);
 
         if (xPressed) {
-            link.setLinkAttaqueTrue();
-
-        } else {
-            link.setLinkAttaqueFalse();
+            Link.getInstance().attaqueMonstre();
         }
         if (fPressed){
-            link.setRamasserArmeTrue();
+            Link.getInstance().ramasser(Environnement.getInstance().getArmes());
+        }
 
+
+        if (pPressed) {
+            Link.getInstance().equiperArme();
         }
-        else {
-            link.setRamasserArmeFalse();
-        }
+
+
         if (iPressed){
             inventaireVue.setVisible();
 
         }
         if (ePressed){
-            link.setLinkRamassePotion(true);
+            Link.getInstance().ramasser(Environnement.getInstance().getConsommables());
 
-        }else{
-            link.setLinkRamassePotion(false);
         }
-
         if (uPressed){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(0).getNomPng());
-        } else if(pPressed && link.getInventaire().getInventaireArme().size()>1){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(1).getNomPng());
-        }else if(kPressed && link.getInventaire().getInventaireArme().size()>2){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(2).getNomPng());
-        }else if(lPressed && link.getInventaire().getInventaireArme().size()>3){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(3).getNomPng());
-        }else if(mPressed && link.getInventaire().getInventaireArme().size()>4){
-            link.setArmeChoisi(link.getInventaire().getInventaireArme().get(4).getNomPng());
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(0).getNom());
+        } else if(pPressed && Link.getInstance().getInventaire().getInventaireArme().size()>1){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(1).getNom());
+        }else if(kPressed && Link.getInstance().getInventaire().getInventaireArme().size()>2){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(2).getNom());
+        }else if(lPressed && Link.getInstance().getInventaire().getInventaireArme().size()>3){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(3).getNom());
+        }else if(mPressed && Link.getInstance().getInventaire().getInventaireArme().size()>4){
+            link.setArmeChoisi(Link.getInstance().getInventaire().getInventaireArme().get(4).getNom());
         }
-        
-        
-
-
 
     }
 }
