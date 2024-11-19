@@ -17,7 +17,6 @@ import java.util.*;
 
 public class Link extends Personnage {
 
-    long actionTime = 0L;
     private int derniereDirection;
     private Inventaire inventaire;
     private Arme armeEquipe;
@@ -31,7 +30,7 @@ public class Link extends Personnage {
         super(5, x, y, nom);
         this.pv= new SimpleIntegerProperty(5);
         this.inventaire= new Inventaire();
-        this.armeEquipe = null;
+        this.armeEquipe = new Epee();
         this.armeChoisi = null;
         this.pointAttaque = 1;
         this.invisible = new SimpleBooleanProperty(false);
@@ -65,53 +64,12 @@ public class Link extends Personnage {
     }
 
     public void attaqueSiPossible(Personnage personnage) {
-        if (this.armeEquipe != null) {
-            this.armeEquipe.executerAttaque((Monstre) personnage);
-        } else {
-            this.attaqueSansArme((Monstre) personnage);
-        }
+        this.armeEquipe.executerAttaque((Monstre) personnage);
     }
 
     @Override
     public int[] getMarges() {
         return new int[]{10, 26};
-    }
-
-    public void attaqueSansArme(Monstre personnage){
-        long currentTime = System.currentTimeMillis();
-        if(currentTime - actionTime >= 500 && derniereDirection == 1 && this.getY()-personnage.getY() < 32 && this.getY()-personnage.getY() >= -1  && Math.abs(this.getX()-personnage.getX()) < 16 ){
-            monstreSubitDegat(personnage);
-            if(personnage.peutSeDeplacer(personnage.getX(),personnage.getY()-32)){
-                personnage.setY(personnage.getY()-32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && derniereDirection == 2 && personnage.getX()-this.getX() < 32 && personnage.getX()-this.getX() >= -1  && Math.abs(this.getY()-personnage.getY()) < 16 ){
-            monstreSubitDegat(personnage);
-            if(personnage.peutSeDeplacer(personnage.getX()+32,personnage.getY())){
-                personnage.setX(personnage.getX()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && derniereDirection == 3 && personnage.getY()-this.getY() < 32 && personnage.getY()-this.getY() >= -1  && Math.abs(this.getX()-personnage.getX()) < 16 ){
-            monstreSubitDegat(personnage);
-            if(personnage.peutSeDeplacer(personnage.getX(),personnage.getY()+32)){
-                personnage.setY(personnage.getY()+32);
-            }
-            actionTime = currentTime;
-
-        }
-        if(currentTime - actionTime >= 500 && derniereDirection == 4 && this.getX()-personnage.getX() < 32 && this.getX()-personnage.getX() >= -1 && Math.abs(this.getY()-personnage.getY()) < 16 ){
-            monstreSubitDegat(personnage);
-            if(personnage.peutSeDeplacer(personnage.getX()-32,personnage.getY())){
-                personnage.setX(personnage.getX()-32);
-            }
-            actionTime = currentTime;
-
-        }
-
     }
 
     public void ramasser(ObservableList<Item> getItems) {
@@ -173,7 +131,6 @@ public class Link extends Personnage {
         return inventaire;
     }
 
-
     public void equiperArme() {
         for(int i = 0;i< this.inventaire.getInventaireArme().size();i++){
             if(this.getInventaire().getInventaireArme().get(i).getNom().equals(armeChoisi)){
@@ -215,15 +172,6 @@ public class Link extends Personnage {
         if (xProperty().getValue()>3135 && xProperty().getValue()<3169 &&yProperty().intValue()>1697&&yProperty().intValue()<1729)return 102;
         if (xProperty().getValue()>4159 && xProperty().getValue()<4193 &&yProperty().intValue()>1439&&yProperty().intValue()<1473)return 30;
         return -1;
-    }
-
-    public void monstreSubitDegat(Monstre monstre){
-        if(this.armeEquipe == null){
-            monstre.setPv(monstre.getPv() - (this.pointAttaque));
-        } else {
-            monstre.setPv(monstre.getPv() - (this.pointAttaque + this.armeEquipe.getDegats()));
-        }
-        monstre.setSubitDegat(true);
     }
 
     public int getDerniereDirection() {

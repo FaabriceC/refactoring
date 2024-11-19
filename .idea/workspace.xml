@@ -4,35 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit bg img" />
-    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="COMMIT MERGE AVEC ARMES">
+    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Environnement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Pattern/Strategy/Deplacement/DeplacementAleatoire.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Pattern/Strategy/Deplacement/DeplacementAleatoire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/ArbreMonstre.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/ArbreMonstre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Boss.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Boss.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Link.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Personnage.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Personnage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Slime.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Slime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Boomerang.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Boomerang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/BoomerangProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/BoomerangProjectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Bouclier.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Bouclier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Environnement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Pattern/Strategy/Deplacement/DeplacementAleatoire.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Pattern/Strategy/Deplacement/DeplacementAleatoire.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/ArbreMonstre.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/ArbreMonstre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Boss.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Boss.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Epee.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Epee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Link.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Link.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Monstre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Personnage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Personnage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Slime.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Slime.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Boomerang.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Boomerang.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/BoomerangProjectile.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/BoomerangProjectile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Bouclier.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Bouclier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Projectile.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Projectile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Epee.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Epee.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +44,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Lanceur.executor": "Run",
-    "git-widget-placeholder": "dp",
+    "git-widget-placeholder": "link-with-sword",
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
@@ -123,13 +100,22 @@
       <option name="project" value="LOCAL" />
       <updated>1731972198123</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit merge">
+      <option name="closed" value="true" />
+      <created>1731979071702</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731979071702</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit correction quelque bugs" />
     <MESSAGE value="commit bg img" />
     <MESSAGE value="COMMIT MERGE AVEC ARMES" />
-    <option name="LAST_COMMIT_MESSAGE" value="COMMIT MERGE AVEC ARMES" />
+    <MESSAGE value="commit merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit merge" />
   </component>
 </project>
