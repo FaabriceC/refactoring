@@ -24,18 +24,12 @@ public class Boss extends Monstre {
     }
 
     @Override
-    public boolean condition(Link link) {
-        return true;
-    }
-
-    // Valeur pour la fonction margeErreur()
-    @Override
-    public int valeur() {
-        return 24;
-    }
-
-    @Override
     public void attaqueSiPossible(Personnage personnage) {
             super.attaqueSiPossible(personnage);
+    }
+
+    @Override
+    public int[] getMarges() {
+        return new int[]{24, 24};
     }
 }

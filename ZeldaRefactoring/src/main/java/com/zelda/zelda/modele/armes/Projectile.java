@@ -94,5 +94,5 @@ public abstract class Projectile {
         System.out.println(monstre.getPv());
     }
 
-    public abstract void SeDeplaceSelonDirection(int directionProjectile);
+    public abstract void seDeplaceSelonDirection(int directionProjectile);
 }

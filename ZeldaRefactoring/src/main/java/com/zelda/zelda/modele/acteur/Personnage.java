@@ -1,11 +1,10 @@
 package com.zelda.zelda.modele.acteur;
 
-import com.zelda.zelda.modele.Terrain;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
-public abstract class Personnage { // Crée un personnage
+public abstract class Personnage {
     private IntegerProperty x = new SimpleIntegerProperty();
     protected IntegerProperty pv;
     private IntegerProperty y = new SimpleIntegerProperty();
@@ -16,7 +15,6 @@ public abstract class Personnage { // Crée un personnage
     public static int compteur = 0;
     private String id;
     protected int pointAttaque;
-
 
     public Personnage(int pv,int x, int y, String nom) {
         this.x.set(x);
@@ -123,4 +121,24 @@ public abstract class Personnage { // Crée un personnage
     public int getDirection() {
         return direction.getValue();
     }
+
+
+    public int[] margeErreur() {
+
+        int[] margesBase = getMarges();
+        int margeX = margesBase[0];
+        int margeY = margesBase[1];
+
+        switch (direction.getValue()) {
+            case 1 -> margeY -= 2;
+            case 2 -> margeX += 2;
+            case 3 -> margeY += 2;
+            case 4 -> margeX -= 2;
+        }
+
+        return new int[]{margeX, margeY};
+    }
+
+    public abstract int[] getMarges();
+
 }
