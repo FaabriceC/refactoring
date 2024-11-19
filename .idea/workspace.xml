@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit bg img">
-      <change afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/DPAbstractFabric/FabriqueMonstre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/DPAbstractFabric/FabriqueMonstreAerien.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/DPAbstractFabric/FabriqueMonstreTerrestre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="161a1587-ba97-4df9-9404-a35f666829ad" name="Changes" comment="commit ajout DP abstractFabric by yassine">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/controleur/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/controleur/GameLoop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/Environnement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Epee.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Epee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/armes/Fleche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/controleur/GameLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/controleur/GameLoop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/src/main/java/com/zelda/zelda/modele/acteur/Monstre.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/Environnement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Link.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/acteur/Link.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Epee.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Epee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" beforeDir="false" afterPath="$PROJECT_DIR$/ZeldaRefactoring/target/classes/com/zelda/zelda/modele/armes/Fleche.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,12 +90,21 @@
       <option name="project" value="LOCAL" />
       <updated>1731965005131</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit ajout DP abstractFabric by yassine">
+      <option name="closed" value="true" />
+      <created>1731977015398</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731977015398</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit correction quelque bugs" />
     <MESSAGE value="commit bg img" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit bg img" />
+    <MESSAGE value="commit ajout DP abstractFabric by yassine" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit ajout DP abstractFabric by yassine" />
   </component>
 </project>

@@ -147,12 +147,13 @@ public class Environnement {
 
 
     public void FabriqueMonstre(){
-        if(nbTours%100 == 0){
+        if(nbTours%5000 == 0){
             fabriqueMonstreTerrestre.creeMonstre();
-        }
-        if(nbTours%100 == 0){
+        }/*
+        if(nbTours%2500 == 0){
             fabriqueMonstreTerrestre.creeBoss();
         }
+        */
         nbTours++;
     }
 
