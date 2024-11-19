@@ -1,7 +1,6 @@
 package com.zelda.zelda.modele.armes;
 
 import com.zelda.zelda.modele.acteur.Monstre;
-import com.zelda.zelda.modele.deplacement.Point2D;
 import javafx.beans.property.SimpleIntegerProperty;
 import com.zelda.zelda.modele.acteur.Link;
 
@@ -21,7 +20,7 @@ public  class Boomerang extends com.zelda.zelda.modele.armes.Arme {
     public void executerAttaque(Monstre monstre){
         if ((this.boomerangProjectile == null || this.boomerangProjectile.boomerangEnMain) ) {
             this.boomerangProjectile = new BoomerangProjectile("boomerang.png");
-            this.boomerangProjectile.apparitionBoomerang(Link.getInstance().getDerniereDirection(),Link.getInstance());
+            this.boomerangProjectile.apparait(Link.getInstance().getDerniereDirection(),Link.getInstance());
         }
     }
 

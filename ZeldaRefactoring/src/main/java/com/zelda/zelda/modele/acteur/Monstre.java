@@ -3,10 +3,6 @@ package com.zelda.zelda.modele.acteur;
 import com.zelda.zelda.modele.Terrain;
 import com.zelda.zelda.modele.deplacement.BFS;
 import com.zelda.zelda.modele.Pattern.Strategy.Deplacement.StrategieDeplacement;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
-import java.util.List;
 
 public abstract class Monstre extends Personnage {
     long actionTime = 0L;
@@ -28,13 +24,6 @@ public abstract class Monstre extends Personnage {
         }
         attaqueSiPossible(Link.getInstance());
     }
-    public void setStrategieDeplacement(StrategieDeplacement strategieDeplacement){
-        this.strategieDeplacement = strategieDeplacement;
-    }
-
-    public StrategieDeplacement getStrategieDeplacement(){
-        return this.strategieDeplacement;
-    }
 
     public double distanceAvecLink() {
         int dx = this.getX() - Link.getInstance().getX();
@@ -42,12 +31,9 @@ public abstract class Monstre extends Personnage {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-
-    public abstract boolean condition(Link link);
-
     public boolean peutSeDeplacer  (int tuileX, int tuileY){
-        int margeX = margeErreur(0,0)[0];
-        int margeY = margeErreur(0,0)[1];
+        int margeX = margeErreur()[0];
+        int margeY = margeErreur()[1];
 
         return  !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
@@ -85,48 +71,20 @@ public abstract class Monstre extends Personnage {
         return subitDegat;
     }
 
-
-    public int[] margeErreur(int margeX, int margeY) {
-        int[] marge = new int[2];
-        switch (direction.getValue()) {
-            case 4:
-                margeX = valeur();
-                margeY = valeur();
-                break;
-            case 2:
-                margeX = valeur();
-                margeY = valeur();
-                break;
-            case 1:
-                margeX = valeur();
-                margeY = valeur();
-                break;
-            case 3:
-                margeX = valeur();
-                margeY = valeur();
-                break;
-        }
-        marge[0] = margeX;
-        marge[1] = margeY;
-        return new int[]{margeX, margeY};
-    }
-
     public void setSubitDegat(boolean subitDegat) {
         this.subitDegat = subitDegat;
     }
 
-    public abstract int valeur();
-
-        public boolean peutReculerSelonDirection(int direction){
-            if(direction == 1){
-                return this.peutSeDeplacer(this.getX(),this.getY()-32);
-            } else if (direction == 2){
-                return this.peutSeDeplacer(this.getX()+32,this.getY());
-            } else if (direction == 3){
-                return this.peutSeDeplacer(this.getX(),this.getY()+32);
-            } else {
-                return this.peutSeDeplacer(this.getX()-32,this.getY());
-            }
+    public boolean peutReculerSelonDirection(int direction){
+        if(direction == 1){
+            return this.peutSeDeplacer(this.getX(),this.getY()-32);
+        } else if (direction == 2){
+            return this.peutSeDeplacer(this.getX()+32,this.getY());
+        } else if (direction == 3){
+            return this.peutSeDeplacer(this.getX(),this.getY()+32);
+        } else {
+            return this.peutSeDeplacer(this.getX()-32,this.getY());
         }
+    }
 
 }

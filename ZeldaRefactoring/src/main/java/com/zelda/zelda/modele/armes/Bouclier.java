@@ -20,7 +20,6 @@ public  class Bouclier extends Arme {
   }
 
 
-
   public void seDéfendre(){
 
   }

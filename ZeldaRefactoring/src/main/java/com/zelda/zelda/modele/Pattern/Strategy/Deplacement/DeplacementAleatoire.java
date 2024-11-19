@@ -14,30 +14,18 @@ public class DeplacementAleatoire implements StrategieDeplacement {
     }
 
     public void seDeplace() {
+
         Random random = new Random();
-        long currentTime = System.currentTimeMillis();
-
-        int directionAleatoire = random.nextInt(4) + 1;
-        monstre.setDirectionValue(directionAleatoire);
-
+        int vitesse = 4;
+        int directionAleatoire = random.nextInt(4);
         int deplacementX = 0;
         int deplacementY = 0;
-        int vitesse = 4;
-
 
         switch (directionAleatoire) {
-            case 1:
-                deplacementY -= vitesse;
-                break;
-            case 2:
-                deplacementX += vitesse;
-                break;
-            case 3:
-                deplacementY += vitesse;
-                break;
-            case 4:
-                deplacementX -= vitesse;
-                break;
+            case 0 -> deplacementY -= vitesse;
+            case 1 -> deplacementX += vitesse;
+            case 2 -> deplacementY += vitesse;
+            case 3-> deplacementX -= vitesse;
         }
 
         int newX = monstre.getX() + deplacementX;
@@ -47,7 +35,7 @@ public class DeplacementAleatoire implements StrategieDeplacement {
             monstre.setX(newX);
             monstre.setY(newY);
         }
-        actionTime = currentTime;
 
+        actionTime = System.currentTimeMillis();
     }
 }

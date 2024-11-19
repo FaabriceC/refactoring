@@ -45,10 +45,9 @@ public class Link extends Personnage {
         return uniqueInstance;
     }
 
-
     public boolean peutSeDeplacer(int tuileX, int tuileY){
-        int margeX = margeErreur(0,0)[0];
-        int margeY = margeErreur(margeX,0)[1];
+        int margeX = margeErreur()[0];
+        int margeY = margeErreur()[1];
 
         return !Terrain.getInstance().collision(tuileX+margeX,tuileY+margeY);
     }
@@ -65,33 +64,6 @@ public class Link extends Personnage {
         strategieDeplacement.seDeplace();
     }
 
-
-    public int[] margeErreur(int margeX, int margeY) {
-        int[]marge=new int[2];
-        switch (direction.getValue()) {
-            case 4:
-                margeX = 10;
-                margeY= 26;
-                break;
-            case 2:
-                margeX = 26;
-                margeY=26;
-                break;
-            case 1:
-                margeX = 16;
-                margeY = 26;
-                break;
-            case 3:
-                margeX = 16;
-                margeY = 26;
-                break;
-        }
-        marge[0]=margeX;
-        marge[1]=margeY;
-        return marge;
-    }
-
-
     public void attaqueSiPossible(Personnage personnage) {
         if (this.armeEquipe != null) {
             this.armeEquipe.executerAttaque((Monstre) personnage);
@@ -100,7 +72,10 @@ public class Link extends Personnage {
         }
     }
 
-
+    @Override
+    public int[] getMarges() {
+        return new int[]{10, 26};
+    }
 
     public void attaqueSansArme(Monstre personnage){
         long currentTime = System.currentTimeMillis();

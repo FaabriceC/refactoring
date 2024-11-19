@@ -20,20 +20,19 @@ public class Fleche extends Projectile {
         for (int j = 0; j< Environnement.getInstance().getProjectiles().size(); j++){
             if(Environnement.getInstance().getProjectiles().get(j) instanceof Fleche){
                 Fleche f =(Fleche) Environnement.getInstance().getProjectiles().get(j);
-                f.flecheAgit();
+                f.agit();
             }
         }
     }
 
-
-    public void flecheAgit(){
+    public void agit(){
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                this.faitDesDegatAuMonstre(this.getDire(),m);
+                this.infligerDegatsAuMonstre(this.getDire(),m);
             }
         }
-        this.SeDeplaceSelonDirection(this.getDire());
+        this.seDeplaceSelonDirection(this.getDire());
         this.disparait();
     }
 
@@ -46,7 +45,7 @@ public class Fleche extends Projectile {
     }
 
 
-    public void faitDesDegatAuMonstre(int direcrionFleche, Monstre monstre){
+    public void infligerDegatsAuMonstre(int direcrionFleche, Monstre monstre){
         if (peutToucherMonstre(direcrionFleche,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
             System.out.println(monstre.getPv());
@@ -56,7 +55,7 @@ public class Fleche extends Projectile {
         }
     }
 
-    public void SeDeplaceSelonDirection(int directionProjectile){
+    public void seDeplaceSelonDirection(int directionProjectile){
         if (directionProjectile == 1) {
             this.setyProjectile(this.getyProjectile()-2);
         } else if (directionProjectile == 2) {

@@ -1,20 +1,10 @@
 package com.zelda.zelda.modele.acteur;
 
-import com.zelda.zelda.modele.Terrain;
-
 public class ArbreMonstre extends Monstre {
 
     public ArbreMonstre(int x, int y) {
 
         super(200, x, y, "arbreMonstre.png");
-    }
-
-    public boolean condition(Link link) {
-        return true;
-    }
-
-    public int valeur() {
-        return 32;
     }
 
     public void seDeplaceEtAttaque(){
@@ -28,5 +18,10 @@ public class ArbreMonstre extends Monstre {
     public void attaqueSiPossible(Personnage personnage) {
         super.attaqueSiPossible(personnage);
 
+    }
+
+    @Override
+    public int[] getMarges() {
+        return new int[]{32, 32};
     }
 }

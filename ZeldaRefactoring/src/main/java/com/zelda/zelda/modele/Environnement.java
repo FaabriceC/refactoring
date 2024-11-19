@@ -6,31 +6,19 @@ import com.zelda.zelda.modele.Consommable.PotionForce;
 import com.zelda.zelda.modele.Consommable.PotionSoin;
 import com.zelda.zelda.modele.acteur.*;
 import com.zelda.zelda.modele.armes.*;
-import com.zelda.zelda.modele.dynamique.BlockDynamique;
-import com.zelda.zelda.vue.TerrainVue;
-import com.zelda.zelda.vue.dynamique.BlockDynamiqueVue;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Environnement {
     private static Environnement uniqueInstance=null;
-
     private ObservableList<Personnage> personnages;
-
     private ObservableList<Item> armes;
-
     private ObservableList<Item> consommables;
     private ArrayList<Monstre> monstres;
-
     private ObservableList<Projectile> projectiles;
     private ObservableList<Item> items;
-
-    private Link link;
 
     private Environnement() {
         this.personnages = FXCollections.observableArrayList();
@@ -38,7 +26,6 @@ public class Environnement {
         this.consommables = FXCollections.observableArrayList();
         this.items = FXCollections.observableArrayList();
         this.monstres = new ArrayList<>();
-
         this.projectiles = FXCollections.observableArrayList();
     }
 

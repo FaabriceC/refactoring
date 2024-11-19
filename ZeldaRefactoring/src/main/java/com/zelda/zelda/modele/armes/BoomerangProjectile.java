@@ -17,7 +17,7 @@ public class BoomerangProjectile extends Projectile{
     }
 
 
-    public void apparitionBoomerang(int direction,Link link){
+    public void apparait(int direction, Link link){
         if (boomerangEnMain){
             this.boomerangEnMain = false;
             this.setxProjectile(link.getX());
@@ -28,13 +28,11 @@ public class BoomerangProjectile extends Projectile{
         }
     }
 
-
-
     public static void boomerangAgits(){
         for (int j = 0;j<Environnement.getInstance().getProjectiles().size();j++){
             if(Environnement.getInstance().getProjectiles().get(j) instanceof BoomerangProjectile){
                 BoomerangProjectile b =(BoomerangProjectile) Environnement.getInstance().getProjectiles().get(j);
-                b.boomerangAgit();
+                b.agit();
             }
         }
     }
@@ -42,21 +40,21 @@ public class BoomerangProjectile extends Projectile{
 
 
 
-    public void boomerangAgit(){
+    public void agit(){
         for (int i = 0; i < Environnement.getInstance().getPersonnageListe().size(); i++) {
             if (Environnement.getInstance().getPersonnageListe().get(i) instanceof Monstre) {
                 Monstre m = (Monstre) Environnement.getInstance().getPersonnageListe().get(i);
-                this.faitDesDegatAuMonstre(this.getDire(),m);
+                this.infligerDegatsAuMonstre(this.getDire(),m);
             }
         }
-        this.SeDeplaceSelonDirection(this.getDire());
+        this.seDeplaceSelonDirection(this.getDire());
         this.disparait();
 
     }
 
 
 
-    public void faitDesDegatAuMonstre(int directionBoomerang, Monstre monstre){
+    public void infligerDegatsAuMonstre(int directionBoomerang, Monstre monstre){
         if (peutToucherMonstre(directionBoomerang,monstre,this)) {
             this.faitDesDegatAuMonstre(monstre,this);
             if (monstre.estMort()) {
@@ -66,7 +64,7 @@ public class BoomerangProjectile extends Projectile{
     }
 
 
-    public void SeDeplaceSelonDirection(int directionProjectile){
+    public void seDeplaceSelonDirection(int directionProjectile){
         if (    (directionProjectile == 1 && tempsAvantRetourDuBoomerang <128)) {
             this.setyProjectile(this.getyProjectile() - 6);
         } else if (     (directionProjectile == 2 && tempsAvantRetourDuBoomerang <128 )) {
